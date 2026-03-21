@@ -16,8 +16,8 @@ export default function Footer() {
           {/* Footer nav */}
           <div className="flex items-center gap-6 text-sm text-white/70">
             <Link href="/briefings" className="hover:text-white transition-colors">Briefings</Link>
+            <Link href="/huddles" className="hover:text-white transition-colors">Huddles</Link>
             <Link href="/podcast" className="hover:text-white transition-colors">Podcast</Link>
-            <Link href="/insights" className="hover:text-white transition-colors">Insights</Link>
             <Link href="/members" className="hover:text-white transition-colors">Members</Link>
           </div>
         </div>

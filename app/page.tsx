@@ -24,7 +24,7 @@ const PILLARS = [
     ),
     title: "Vendor/Member Huddles",
     description: "We invite tech CEOs to share their vision and get feedback with our members in an informal / confidential setting.",
-    actions: [{ label: "View Format", href: "/briefings", gold: false }],
+    actions: [{ label: "View Format", href: "/huddles", gold: false }],
   },
   {
     icon: (

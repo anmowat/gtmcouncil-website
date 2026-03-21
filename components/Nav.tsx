@@ -18,8 +18,8 @@ export default function Nav() {
           {/* Nav links (desktop) */}
           <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
             <Link href="/briefings" className={`hover:text-navy transition-colors ${pathname === "/briefings" ? "text-navy font-semibold" : ""}`} style={{ color: pathname === "/briefings" ? "#011224" : undefined }}>Briefings</Link>
+            <Link href="/huddles" className={`hover:text-navy transition-colors ${pathname === "/huddles" ? "font-semibold" : ""}`} style={{ color: pathname === "/huddles" ? "#011224" : undefined }}>Huddles</Link>
             <Link href="/podcast" className={`hover:text-navy transition-colors ${pathname === "/podcast" ? "font-semibold" : ""}`} style={{ color: pathname === "/podcast" ? "#011224" : undefined }}>Podcast</Link>
-            <Link href="/insights" className={`hover:text-navy transition-colors ${pathname === "/insights" ? "font-semibold" : undefined}`} style={{ color: pathname === "/insights" ? "#011224" : undefined }}>Insights</Link>
           </div>
 
           {/* CTA buttons */}
