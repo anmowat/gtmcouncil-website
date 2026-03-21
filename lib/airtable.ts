@@ -38,13 +38,14 @@ function recordToMember(record: AirtableRecord): Member {
   };
 }
 
-async function fetchAllRecords(table: string, filterFormula?: string): Promise<AirtableRecord[]> {
+async function fetchAllRecords(table: string, filterFormula?: string, view?: string): Promise<AirtableRecord[]> {
   const records: AirtableRecord[] = [];
   let offset: string | undefined;
 
   do {
     const params = new URLSearchParams({ pageSize: "100" });
     if (filterFormula) params.set("filterByFormula", filterFormula);
+    if (view) params.set("view", view);
     if (offset) params.set("offset", offset);
 
     const res = await fetch(`${BASE_URL}/${encodeURIComponent(table)}?${params}`, {
@@ -67,7 +68,7 @@ async function fetchAllRecords(table: string, filterFormula?: string): Promise<A
 
 export async function getMembers(): Promise<Member[]> {
   const tableName = process.env.AIRTABLE_MEMBERS_TABLE ?? "Members";
-  const records = await fetchAllRecords(tableName);
+  const records = await fetchAllRecords(tableName, undefined, "viwjhmKTzpPrPMx8C");
   return records.map(recordToMember);
 }
 
