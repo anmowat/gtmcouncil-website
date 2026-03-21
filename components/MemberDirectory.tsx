@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import MemberCard, { Member } from "./MemberCard";
 
 function sortMembers(members: Member[]): Member[] {
@@ -26,20 +26,49 @@ function sortMembers(members: Member[]): Member[] {
 }
 
 export default function MemberDirectory({ members, showHeader = true }: { members: Member[]; showHeader?: boolean }) {
-  const [regionFilter, setRegionFilter] = useState("All");
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const regions = useMemo(() => {
     const set = new Set<string>();
     members.forEach((m) => { if (m.region) set.add(m.region); });
-    return ["All", ...Array.from(set).sort()];
+    return Array.from(set).sort();
   }, [members]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  function toggleRegion(region: string) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      next.has(region) ? next.delete(region) : next.add(region);
+      return next;
+    });
+  }
+
+  function clearAll() { setSelected(new Set()); }
 
   const sorted = useMemo(() => sortMembers(members), [members]);
 
   const filtered = useMemo(
-    () => regionFilter === "All" ? sorted : sorted.filter((m) => m.region === regionFilter),
-    [sorted, regionFilter],
+    () => selected.size === 0 ? sorted : sorted.filter((m) => selected.has(m.region)),
+    [sorted, selected],
   );
+
+  const label = selected.size === 0
+    ? "All Regions"
+    : selected.size === 1
+      ? Array.from(selected)[0]
+      : `${selected.size} Regions`;
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -55,23 +84,42 @@ export default function MemberDirectory({ members, showHeader = true }: { member
           </div>
         )}
 
-        {/* Region filter */}
-        <div className={`flex items-center gap-2 flex-wrap ${!showHeader ? "ml-auto" : ""}`}>
-          <span className="text-sm font-medium text-gray-500">Region:</span>
-          {regions.map((r) => (
-            <button
-              key={r}
-              onClick={() => setRegionFilter(r)}
-              className="px-3 py-1.5 text-sm font-semibold rounded transition-colors border"
-              style={
-                regionFilter === r
-                  ? { backgroundColor: "#011224", color: "#fff", borderColor: "#011224" }
-                  : { backgroundColor: "#fff", color: "#374151", borderColor: "#d1d5db" }
-              }
-            >
-              {r}
-            </button>
-          ))}
+        {/* Region multi-select dropdown */}
+        <div className={`relative ${!showHeader ? "ml-auto" : ""}`} ref={dropdownRef}>
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded border transition-colors"
+            style={{ borderColor: selected.size > 0 ? "#011224" : "#d1d5db", color: "#011224", backgroundColor: "#fff" }}
+          >
+            <span>Region: {label}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`} viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
+          </button>
+
+          {open && (
+            <div className="absolute right-0 mt-1 w-52 bg-white border border-gray-200 rounded-lg shadow-lg z-20 py-1">
+              {regions.map((r) => (
+                <label key={r} className="flex items-center gap-2.5 px-4 py-2 text-sm cursor-pointer hover:bg-gray-50">
+                  <input
+                    type="checkbox"
+                    checked={selected.has(r)}
+                    onChange={() => toggleRegion(r)}
+                    className="rounded"
+                    style={{ accentColor: "#011224" }}
+                  />
+                  <span className="text-gray-700">{r}</span>
+                </label>
+              ))}
+              {selected.size > 0 && (
+                <div className="border-t border-gray-100 mt-1 pt-1">
+                  <button onClick={clearAll} className="w-full text-left px-4 py-2 text-sm font-semibold hover:bg-gray-50" style={{ color: "#c4921a" }}>
+                    Clear all
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
