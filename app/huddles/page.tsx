@@ -11,7 +11,8 @@ const MEMBER_QUOTES: Quote[] = [
     name: "Andy Mowat",
     title: "VP RevOps @ 4 Unicorns",
     quote: "We've been quietly running these huddles for 9 years. The unique format to bring in CEOs who know the tech and space creates such great discussion and learning with our members.",
-    linkedin: "https://www.linkedin.com/in/andymowat/",
+    // photoUrl: "/photos/andy-mowat.jpg",  — place file at public/photos/andy-mowat.jpg to enable
+    linkedin: "https://www.linkedin.com/in/amowat/",
   },
 ];
 
@@ -20,13 +21,15 @@ const COMPANY_QUOTES: Quote[] = [
     name: "Elio Narciso",
     title: "CEO @ Scalestack",
     quote: "The opportunity to share our platform and vision for the future with 15 top RevOps leaders and get feedback was amazing. We built great relationships and even closed a few deals from the discussion.",
+    // photoUrl: "/photos/elio-narciso.jpg",  — place file at public/photos/elio-narciso.jpg to enable
     linkedin: "https://www.linkedin.com/in/elionarciso/",
   },
   {
     name: "Sriharsha (Sal) Guduguntia",
     title: "CEO @ Hyperbound",
     quote: "It was powerful to share how we are seeing AI change manager coaching and enablement with 20+ RevOps leaders and get input on our platform / vision. The insights around how the group looks at buy-vs-build in this AI area accelerated our thinking.",
-    linkedin: "https://www.linkedin.com/in/sriharsha-guduguntla/",
+    // photoUrl: "/photos/sriharsha-guduguntia.jpg",  — place file at public/photos/sriharsha-guduguntia.jpg to enable
+    linkedin: "https://www.linkedin.com/in/sguduguntla/",
   },
 ];
 
@@ -99,42 +102,38 @@ export default function HuddlesPage() {
             Value for Both Sides
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* For Members */}
-            <div className="flex flex-col gap-3">
-              {/* Description card */}
-              <div className="rounded-xl p-6" style={{ backgroundColor: "#011224" }}>
-                <div className="flex items-center gap-3 mb-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" />
-                  </svg>
-                  <h3 className="font-extrabold text-white text-lg">For Members</h3>
-                </div>
-                <p className="text-white/80 text-sm leading-relaxed">
-                  Discover emerging technologies that could address your pain points. Build relationships with innovative vendors and push your thinking on the future of GTM technology.
-                </p>
+          {/* Flat 2×2 grid — CSS grid keeps each row equal height */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
+
+            {/* Row 1: description cards */}
+            <div className="rounded-xl p-6" style={{ backgroundColor: "#011224" }}>
+              <div className="flex items-center gap-3 mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" />
+                </svg>
+                <h3 className="font-extrabold text-white text-lg">For Members</h3>
               </div>
-              {/* Quote carousel */}
-              <QuoteCarousel quotes={MEMBER_QUOTES} bg="#011224" light={true} />
+              <p className="text-white/80 text-sm leading-relaxed">
+                Discover emerging technologies that could address your pain points. Build relationships with innovative vendors and push your thinking on the future of GTM technology.
+              </p>
             </div>
 
-            {/* For GTM Tech Companies */}
-            <div className="flex flex-col gap-3">
-              {/* Description card */}
-              <div className="rounded-xl p-6" style={{ backgroundColor: "#c4921a" }}>
-                <div className="flex items-center gap-3 mb-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-                  </svg>
-                  <h3 className="font-extrabold text-white text-lg">For GTM Tech Companies</h3>
-                </div>
-                <p className="text-white/80 text-sm leading-relaxed">
-                  Get input from senior RevOps leaders (typically 10-20 attend a huddle). Share your vision for the future and get critical feedback.
-                </p>
+            <div className="rounded-xl p-6" style={{ backgroundColor: "#c4921a" }}>
+              <div className="flex items-center gap-3 mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                </svg>
+                <h3 className="font-extrabold text-white text-lg">For GTM Tech Companies</h3>
               </div>
-              {/* Quote carousel */}
-              <QuoteCarousel quotes={COMPANY_QUOTES} bg="#c4921a" light={true} />
+              <p className="text-white/80 text-sm leading-relaxed">
+                Get input from senior RevOps leaders (typically 10-20 attend a huddle). Share your vision for the future and get critical feedback.
+              </p>
             </div>
+
+            {/* Row 2: quote carousels — grid forces equal height */}
+            <QuoteCarousel quotes={MEMBER_QUOTES} bg="#011224" light={true} />
+            <QuoteCarousel quotes={COMPANY_QUOTES} bg="#c4921a" light={true} />
+
           </div>
         </div>
       </section>
@@ -148,7 +147,7 @@ export default function HuddlesPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {FORMAT_CARDS.map((card) => (
-              <div key={card.title} className="rounded-xl border border-gray-200 bg-white p-6">
+              <div key={card.title} className="rounded-xl border border-gray-200 bg-gray-50 p-6">
                 <div className="flex items-center gap-2 mb-3" style={{ color: "#011224" }}>
                   {card.icon}
                   <h3 className="font-bold">{card.title}</h3>

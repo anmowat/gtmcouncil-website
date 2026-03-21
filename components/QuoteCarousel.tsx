@@ -37,7 +37,7 @@ export default function QuoteCarousel({ quotes, bg, light = true }: Props) {
 
   return (
     <div
-      className="relative rounded-xl overflow-hidden flex group"
+      className="relative rounded-xl overflow-hidden flex group h-full"
       style={{ backgroundColor: bg, minHeight: "140px" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
