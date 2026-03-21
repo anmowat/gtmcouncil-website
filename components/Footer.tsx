@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Logo */}
           <a href="https://www.gtmcouncil.com" target="_blank" rel="noopener noreferrer">
-            <Image src="/logo-gtmcouncil.svg" alt="GTM Council" width={90} height={50} className="brightness-0 invert" />
+            <Image src="/logo-gtmcouncil.png" alt="GTM Council" width={70} height={70} className="brightness-0 invert" />
           </a>
 
           <p className="text-white/60 text-sm">© 2026 GTM Council. All rights reserved.</p>

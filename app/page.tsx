@@ -81,10 +81,12 @@ const SPONSORS = [
 
 export default async function HomePage() {
   let members: Member[] = [];
+  let membersError: string | null = null;
   try {
     members = await getMembers();
-  } catch {
-    // show empty grid if Airtable isn't configured yet
+  } catch (err) {
+    membersError = err instanceof Error ? err.message : String(err);
+    console.error("getMembers failed:", membersError);
   }
 
   return (
@@ -160,7 +162,9 @@ export default async function HomePage() {
           <p className="text-center text-gray-500 mb-10">
             The GTM Council brings together senior GTM systems-thinkers.
           </p>
-          {members.length > 0 ? (
+          {membersError ? (
+            <p className="text-center text-red-500 py-12 text-sm font-mono">{membersError}</p>
+          ) : members.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {members.map((m) => (
                 <MemberCard key={m.id} member={m} />

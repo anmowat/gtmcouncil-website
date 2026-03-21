@@ -53,8 +53,8 @@ async function fetchAllRecords(table: string, filterFormula?: string): Promise<A
     });
 
     if (!res.ok) {
-      console.error(`Airtable error: ${res.status} ${await res.text()}`);
-      break;
+      const body = await res.text();
+      throw new Error(`Airtable ${res.status}: ${body}`);
     }
 
     const data = await res.json();

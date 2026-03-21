@@ -12,7 +12,7 @@ export default function Nav() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="https://www.gtmcouncil.com" target="_blank" rel="noopener noreferrer" className="shrink-0">
-            <Image src="/logo-gtmcouncil.svg" alt="GTM Council" width={110} height={60} priority />
+            <Image src="/logo-gtmcouncil.png" alt="GTM Council" width={90} height={90} priority />
           </a>
 
           {/* Nav links (desktop) */}
