@@ -137,8 +137,10 @@ export default async function HomePage() {
                 key={pillar.title}
                 className="bg-white rounded-xl border border-gray-200 p-6 flex flex-col gap-4 shadow-sm"
               >
-                <div className="text-gray-500">{pillar.icon}</div>
-                <h3 className="text-lg font-bold" style={{ color: "#011224" }}>{pillar.title}</h3>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                  <div className="text-gray-500 shrink-0">{pillar.icon}</div>
+                  <h3 className="text-lg font-bold" style={{ color: "#011224" }}>{pillar.title}</h3>
+                </div>
                 <p className="text-sm text-gray-600 flex-1">{"descriptionNode" in pillar ? pillar.descriptionNode : pillar.description}</p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {pillar.actions.map((action) =>
