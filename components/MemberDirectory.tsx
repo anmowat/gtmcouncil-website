@@ -25,7 +25,7 @@ function sortMembers(members: Member[]): Member[] {
   });
 }
 
-export default function MemberDirectory({ members }: { members: Member[] }) {
+export default function MemberDirectory({ members, showHeader = true }: { members: Member[]; showHeader?: boolean }) {
   const [regionFilter, setRegionFilter] = useState("All");
 
   const regions = useMemo(() => {
@@ -44,17 +44,19 @@ export default function MemberDirectory({ members }: { members: Member[] }) {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
-        <div>
-          <h2 className="text-2xl font-extrabold" style={{ color: "#011224" }}>
-            Member Directory
-          </h2>
-          <p className="text-gray-500 text-sm mt-1">
-            {filtered.length} member{filtered.length !== 1 ? "s" : ""} — updated daily from Airtable
-          </p>
-        </div>
+        {showHeader && (
+          <div>
+            <h2 className="text-2xl font-extrabold" style={{ color: "#011224" }}>
+              Member Directory
+            </h2>
+            <p className="text-gray-500 text-sm mt-1">
+              {filtered.length} member{filtered.length !== 1 ? "s" : ""} — updated daily from Airtable
+            </p>
+          </div>
+        )}
 
         {/* Region filter */}
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className={`flex items-center gap-2 flex-wrap ${!showHeader ? "ml-auto" : ""}`}>
           <span className="text-sm font-medium text-gray-500">Region:</span>
           {regions.map((r) => (
             <button

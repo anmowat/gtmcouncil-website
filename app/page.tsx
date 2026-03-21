@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import MemberCard, { Member } from "@/components/MemberCard";
+import { Member } from "@/components/MemberCard";
+import MemberDirectory from "@/components/MemberDirectory";
 import { getMembers } from "@/lib/airtable";
 
 export const revalidate = 86400; // rebuild member list once per day
@@ -171,11 +172,7 @@ export default async function HomePage() {
           {membersError ? (
             <p className="text-center text-red-500 py-12 text-sm font-mono">{membersError}</p>
           ) : members.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {members.map((m) => (
-                <MemberCard key={m.id} member={m} />
-              ))}
-            </div>
+            <MemberDirectory members={members} showHeader={false} />
           ) : (
             <p className="text-center text-gray-400 py-12">
               Member directory coming soon — connect your Airtable to populate this section.
