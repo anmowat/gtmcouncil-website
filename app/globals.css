@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+  --color-navy: #011224;
+  --color-gold: #c4921a;
+  --color-gold-light: #d4a82a;
+  --color-badge-founder: #15803d;
+  --color-badge-og: #16a34a;
+  --color-badge-gg: #22c55e;
+  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body {
+  background: #ffffff;
+  color: #171717;
+  font-family: var(--font-sans);
+}
