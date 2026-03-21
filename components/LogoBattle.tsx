@@ -58,9 +58,9 @@ const G2_SVGS = [
 const G2_COLORS = ["#111111", "#D4785A"];
 
 // ── Tuning ────────────────────────────────────────────────────────────────
-const BASE_G1   = 72;
-const BASE_WAVE = 10;
-const R         = 13;
+const BASE_G1   = 52;
+const BASE_WAVE = 6;
+const R         = 26;   // doubled from 13
 
 // Both sides: engage/hunt threshold — how close the enemy must be before
 // a unit switches from holding territory to actively attacking
@@ -78,15 +78,21 @@ const G2_HOLD_SPD = 22;  // garrisoning captured territory
 const STEER_F   = 6;   // /s for both sides
 
 // Spread radii / strength — both sides use the same values for symmetry
-const SPREAD_R  = 70;  // px: spread when nearer than this to same-team unit
+const SPREAD_R  = 95;  // px: spread when nearer than this to same-team unit
 // (spread creates a desired velocity of HOLD_SPD in the push direction)
 
-const INFECT_R  = 28;
+const INFECT_R  = 46;
 const CVT_TIME  = 1.2;
 const ALPHA     = 0.70;
-const MARGIN    = 36;
+const MARGIN    = 44;
 const EDGE_F    = 520;
 const WAND_JRK  = 1.6;
+
+// Text exclusion zone — ellipse centred on canvas, keeps icons off the text.
+// Horizontal semi-axis is proportional to canvas width (matches max-w-3xl).
+// Vertical semi-axis is fixed: py-20 padding (80px) + ~½ content height.
+const EXCL_B    = 118;  // px, fixed vertical semi-axis
+const EXCL_A_PCT = 0.27; // horizontal semi-axis as fraction of canvas width
 
 type State = "g1" | "g2" | "cvt" | "dead";
 
@@ -363,6 +369,29 @@ export default function LogoBattle() {
             spawns.push(mkG2(p.x + rand(-6, 6), p.y + rand(-6, 6), 0));
             spawns.push(mkG2(p.x + rand(-6, 6), p.y + rand(-6, 6), 1));
             fxs.push({ x: p.x, y: p.y, progress: 0, r: p.r, color: G2_COLORS[p.g2] });
+          }
+        }
+
+        // ── Text exclusion zone ─────────────────────────────────────────
+        // Ellipse centred at canvas middle; push particles outward so they
+        // never overlap the hero heading / paragraph text.
+        {
+          const exA  = W * EXCL_A_PCT;
+          const exDx = p.x - W / 2;
+          const exDy = p.y - H / 2;
+          const exN  = Math.hypot(exDx / exA, exDy / EXCL_B); // 1.0 = on ellipse
+          if (exN < 1.3) {
+            // Ellipse outward normal: gradient of (x/a²,  y/b²)
+            const gx   = exDx / (exA * exA);
+            const gy   = exDy / (EXCL_B * EXCL_B);
+            const gMag = Math.hypot(gx, gy) || 0.001;
+            const nx   = gx / gMag, ny = gy / gMag;
+            // Inside ellipse: instant reversal; margin: proportional push
+            const str   = exN < 1.0 ? 1.5 : (1.3 - exN) / 0.3;
+            const rate  = exN < 1.0 ? 25  : 10;
+            const pushS = 105; // outward speed target (px/s)
+            p.vx += (nx * pushS - p.vx) * Math.min(1, rate * dt) * str;
+            p.vy += (ny * pushS - p.vy) * Math.min(1, rate * dt) * str;
           }
         }
 
