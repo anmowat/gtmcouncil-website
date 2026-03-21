@@ -7,20 +7,13 @@ export default function Nav() {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+    <nav className="sticky top-0 z-50 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="https://www.gtmcouncil.com" target="_blank" rel="noopener noreferrer" className="shrink-0">
             <Image src="/logo-gtmcouncil.png" alt="GTM Council" width={90} height={90} priority />
           </a>
-
-          {/* Nav links (desktop) */}
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
-            <Link href="/briefings" className={`hover:text-navy transition-colors ${pathname === "/briefings" ? "text-navy font-semibold" : ""}`} style={{ color: pathname === "/briefings" ? "#011224" : undefined }}>Briefings</Link>
-            <Link href="/huddles" className={`hover:text-navy transition-colors ${pathname === "/huddles" ? "font-semibold" : ""}`} style={{ color: pathname === "/huddles" ? "#011224" : undefined }}>Huddles</Link>
-            <Link href="/podcast" className={`hover:text-navy transition-colors ${pathname === "/podcast" ? "font-semibold" : ""}`} style={{ color: pathname === "/podcast" ? "#011224" : undefined }}>Podcast</Link>
-          </div>
 
           {/* CTA buttons */}
           <div className="flex items-center gap-2">
