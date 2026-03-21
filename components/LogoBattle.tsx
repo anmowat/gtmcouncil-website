@@ -55,92 +55,40 @@ const G2_SVGS = [
   </svg>`,
 ];
 
-const G2_COLORS = ["#111111", "#D4785A"];
+// ── Layout ─────────────────────────────────────────────────────────────────
+// Base logo draw size at full scale (W ≥ 800).  Scales down on small screens.
+const BASE_DRAW = 91 * 1.85; // ≈ 168 px
+const COLS      = 3;
+const ROWS      = 2;
+const N         = COLS * ROWS; // 6 logos per team
 
-// ── Tuning ────────────────────────────────────────────────────────────────
-const BASE_G1   = 52;
-const BASE_WAVE = 6;
-const R         = 26;   // doubled from 13
+// ── Phase durations (seconds) ──────────────────────────────────────────────
+const T_IDLE   = 1.6;  // G1 sits, G2 waiting above
+const T_DROP   = 1.9;  // G2 drops in (staggered)
+const T_SQUISH = 0.9;  // G2 settled, G1 scattering
+const T_FADE   = 2.2;  // both fade out
+const T_PAUSE  = 0.5;  // invisible gap before restart
+const T_TOTAL  = T_IDLE + T_DROP + T_SQUISH + T_FADE + T_PAUSE;
 
-// Both sides: engage/hunt threshold — how close the enemy must be before
-// a unit switches from holding territory to actively attacking
-const ENGAGE_R  = 210;  // px
-
-// G1 speeds
-const G1_ATK_SPD  = 55;  // charging at G2
-const G1_HOLD_SPD = 22;  // spreading / holding rear
-
-// G2 speeds
-const G2_ATK_SPD  = 78;  // hunting G1
-const G2_HOLD_SPD = 22;  // garrisoning captured territory
-
-// Steering rates (higher = snappier turns)
-const STEER_F   = 6;   // /s for both sides
-
-// Spread radii / strength — both sides use the same values for symmetry
-const SPREAD_R  = 95;  // px: spread when nearer than this to same-team unit
-// (spread creates a desired velocity of HOLD_SPD in the push direction)
-
-const INFECT_R  = 46;
-const CVT_TIME  = 1.2;
-const ALPHA     = 0.70;
-const MARGIN    = 44;
-const EDGE_F    = 520;
-const WAND_JRK  = 1.6;
-
-// Text exclusion zone — ellipse centred on canvas, keeps icons off the text.
-// Horizontal semi-axis is proportional to canvas width (matches max-w-3xl).
-// Vertical semi-axis is fixed: py-20 padding (80px) + ~½ content height.
-const EXCL_B    = 118;  // px, fixed vertical semi-axis
-const EXCL_A_PCT = 0.27; // horizontal semi-axis as fraction of canvas width
-
-type State = "g1" | "g2" | "cvt" | "dead";
-
-interface Pt {
-  x: number; y: number;
-  vx: number; vy: number;
-  state: State;
-  g1: number; g2: number;
-  r: number;
-  rot: number; rotSpd: number;
-  wander: number;
-  cvt: number;
+function easeInOut(t: number) {
+  t = Math.max(0, Math.min(1, t));
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
-
-interface Fx { x: number; y: number; progress: number; r: number; color: string; }
-
 function rand(a: number, b: number) { return a + Math.random() * (b - a); }
-function svgUrl(s: string) { return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(s); }
-
-function mkG1(x: number, y: number): Pt {
-  return {
-    x, y, vx: rand(-12, 12), vy: rand(-12, 12),
-    state: "g1",
-    g1: Math.floor(Math.random() * G1_SVGS.length),
-    g2: 0,
-    r: rand(R - 1.5, R + 2),
-    rot: rand(0, Math.PI * 2),
-    rotSpd: rand(-0.3, 0.3),
-    wander: rand(0, Math.PI * 2),
-    cvt: 0,
-  };
+function svgUrl(s: string) {
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(s);
 }
 
-function mkG2(x: number, y: number, g2Idx: number, vx?: number, vy?: number): Pt {
-  const a = rand(0, Math.PI * 2);
-  return {
-    x, y,
-    vx: vx ?? Math.cos(a) * G2_ATK_SPD * 0.4,
-    vy: vy ?? Math.sin(a) * G2_ATK_SPD * 0.4,
-    state: "g2",
-    g1: Math.floor(Math.random() * G1_SVGS.length),
-    g2: g2Idx,
-    r: rand(R - 1.5, R + 2),
-    rot: rand(0, Math.PI * 2),
-    rotSpd: rand(-1.1, 1.1),
-    wander: rand(0, Math.PI * 2),
-    cvt: 0,
-  };
+interface Sprite {
+  team: "g1" | "g2";
+  logoIdx: number;
+  gx: number; gy: number;   // rest position
+  x: number;  y: number;    // current position
+  vx: number; vy: number;   // velocity (physics in squish/fade)
+  alpha: number;
+  rot: number; rotSpd: number;
+  dropDelay: number;        // G2 per-logo stagger (s)
+  dropStartY: number;       // G2 starting y, above canvas
 }
 
 export default function LogoBattle() {
@@ -152,11 +100,45 @@ export default function LogoBattle() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let W = 0, H = 0, dpr = 1, cancelled = false, lastT = 0;
-    let pts: Pt[] = [], fxs: Fx[] = [];
+    let W = 0, H = 0, dpr = 1, cancelled = false, lastTs = 0;
+    let elapsed = 0, prevPhase = "pause";
 
     const g1imgs = G1_SVGS.map(s => { const i = new Image(); i.src = svgUrl(s); return i; });
     const g2imgs = G2_SVGS.map(s => { const i = new Image(); i.src = svgUrl(s); return i; });
+
+    let sprites: Sprite[] = [];
+    let drawS = BASE_DRAW; // actual draw size (scaled for viewport)
+
+    function buildSprites() {
+      // Scale logos down on small canvases
+      drawS = BASE_DRAW * Math.min(1, Math.max(0.4, W / 900));
+      const spacingX = drawS * 1.10;
+      const spacingY = drawS * 1.14;
+      const startX   = W * 0.05;                         // left edge of first logo
+      const startY   = H / 2 - ((ROWS - 1) / 2) * spacingY;
+      const dropStartY = -(drawS * 2.5);                 // above canvas
+
+      sprites = [];
+      for (let i = 0; i < N; i++) {
+        const col = i % COLS;
+        const row = Math.floor(i / COLS);
+        const gx  = startX + col * spacingX + drawS / 2;
+        const gy  = startY + row * spacingY;
+
+        sprites.push({
+          team: "g1", logoIdx: i % G1_SVGS.length,
+          gx, gy, x: gx, y: gy, vx: 0, vy: 0, alpha: 0.85,
+          rot: rand(0, Math.PI * 2), rotSpd: rand(-0.12, 0.12),
+          dropDelay: 0, dropStartY: 0,
+        });
+        sprites.push({
+          team: "g2", logoIdx: i % G2_SVGS.length,
+          gx, gy, x: gx, y: dropStartY, vx: 0, vy: 0, alpha: 0,
+          rot: rand(0, Math.PI * 2), rotSpd: rand(-0.28, 0.28),
+          dropDelay: i * 0.11, dropStartY,
+        });
+      }
+    }
 
     function init() {
       const parent = canvas!.parentElement;
@@ -168,33 +150,10 @@ export default function LogoBattle() {
       canvas!.style.width  = W + "px";
       canvas!.style.height = H + "px";
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      const sc    = Math.sqrt(W * H / (1200 * 400));
-      const nG1   = Math.max(20, Math.min(Math.round(BASE_G1   * sc), 130));
-      const nWave = Math.max(4,  Math.min(Math.round(BASE_WAVE * sc), 22));
-
-      fxs = [];
-      pts = [];
-
-      // G1: jittered grid — full canvas coverage from the start
-      const cols = Math.ceil(Math.sqrt(nG1 * W / H));
-      const rows = Math.ceil(nG1 / cols);
-      for (let i = 0; i < nG1; i++) {
-        const col = i % cols;
-        const row = Math.floor(i / cols);
-        const x = MARGIN + (W - 2 * MARGIN) * (col + 0.5 + rand(-0.38, 0.38)) / cols;
-        const y = MARGIN + (H - 2 * MARGIN) * (row + 0.5 + rand(-0.38, 0.38)) / rows;
-        pts.push(mkG1(x, y));
-      }
-
-      // G2 wave: lined up at right edge, charging left
-      for (let i = 0; i < nWave; i++) {
-        const y = H * (i + 0.5) / nWave + rand(-H * 0.04, H * 0.04);
-        pts.push(mkG2(W - R - 2, y, i % G2_SVGS.length,
-          rand(-128, -105), rand(-15, 15)));
-      }
-
-      lastT = 0;
+      elapsed = 0;
+      prevPhase = "pause";
+      buildSprites();
+      lastTs = 0;
     }
 
     init();
@@ -203,241 +162,124 @@ export default function LogoBattle() {
 
     let raf: number;
 
-    function drawLogo(
-      img: HTMLImageElement, x: number, y: number,
-      r: number, a: number, angle: number, sc = 1
-    ) {
-      const s = r * 1.85 * sc;
-      ctx!.save();
-      ctx!.globalAlpha = a;
-      ctx!.translate(x, y);
-      ctx!.rotate(angle);
-      ctx!.drawImage(img, -s / 2, -s / 2, s, s);
-      ctx!.restore();
-    }
-
-    // Compute the spread desired-velocity for a unit based on same-team
-    // neighbors: push away from them, magnitude = holdSpeed when at 0 dist,
-    // 0 at SPREAD_R.  Falls back to the unit's wander direction if isolated.
-    function spreadVel(p: Pt, team: State, holdSpd: number): [number, number] {
-      let sx = 0, sy = 0;
-      for (const q of pts) {
-        if (q === p || q.state !== team) continue;
-        const dx = p.x - q.x, dy = p.y - q.y;
-        const dist = Math.hypot(dx, dy) || 1;
-        if (dist < SPREAD_R) {
-          const str = 1 - dist / SPREAD_R;
-          sx += (dx / dist) * str;
-          sy += (dy / dist) * str;
-        }
-      }
-      const mag = Math.hypot(sx, sy);
-      if (mag > 0.01) {
-        return [(sx / mag) * holdSpd, (sy / mag) * holdSpd];
-      }
-      // Isolated — gentle wander
-      p.wander += (Math.random() - 0.5) * WAND_JRK * 0.016; // small nudge
-      return [Math.cos(p.wander) * holdSpd * 0.6, Math.sin(p.wander) * holdSpd * 0.6];
-    }
-
     function frame(now: number) {
       if (cancelled) return;
       if (!ctx || W === 0) { raf = requestAnimationFrame(frame); return; }
 
-      const dt = lastT ? Math.min((now - lastT) / 1000, 0.05) : 0.016;
-      lastT = now;
+      const dt = lastTs ? Math.min((now - lastTs) / 1000, 0.05) : 0.016;
+      lastTs = now;
 
-      // Wander angles drift once per frame
-      for (const p of pts) {
-        if (p.state === "g1" || p.state === "g2")
-          p.wander += (Math.random() - 0.5) * WAND_JRK * dt;
+      elapsed += dt;
+      if (elapsed >= T_TOTAL) {
+        elapsed -= T_TOTAL;
+        buildSprites(); // reset for next loop
       }
 
-      const spawns: Pt[] = [];
-      let anyDead = false;
+      // Determine phase + time within phase
+      let phase: string, phaseT: number;
+      if (elapsed < T_IDLE) {
+        phase = "idle";   phaseT = elapsed;
+      } else if (elapsed < T_IDLE + T_DROP) {
+        phase = "drop";   phaseT = elapsed - T_IDLE;
+      } else if (elapsed < T_IDLE + T_DROP + T_SQUISH) {
+        phase = "squish"; phaseT = elapsed - T_IDLE - T_DROP;
+      } else if (elapsed < T_IDLE + T_DROP + T_SQUISH + T_FADE) {
+        phase = "fade";   phaseT = elapsed - T_IDLE - T_DROP - T_SQUISH;
+      } else {
+        phase = "pause";  phaseT = 0;
+      }
 
-      for (let i = 0; i < pts.length; i++) {
-        const p = pts[i];
-        if (p.state === "dead") continue;
-
-        // ── G1 ─────────────────────────────────────────────────────────
-        if (p.state === "g1") {
-          // Find nearest G2
-          let ex = 0, ey = 0, eDist = Infinity;
-          for (const q of pts) {
-            if (q.state !== "g2") continue;
-            const dx = q.x - p.x, dy = q.y - p.y;
-            const d = Math.hypot(dx, dy);
-            if (d < eDist) { eDist = d; ex = dx; ey = dy; }
+      // On first frame of squish: scatter G1 logos
+      if (phase === "squish" && prevPhase !== "squish") {
+        for (const s of sprites) {
+          if (s.team === "g1") {
+            s.vx     = rand(-200, 200);
+            s.vy     = rand(160, 380);
+            s.rotSpd = rand(-8, 8); // spin while flying
           }
+        }
+      }
+      prevPhase = phase;
 
-          // engageW: 0 = pure hold, 1 = pure attack
-          const engageW = eDist < Infinity
-            ? Math.max(0, 1 - eDist / ENGAGE_R)
-            : 0;
-          const holdW = 1 - engageW;
+      ctx.clearRect(0, 0, W, H);
 
-          // Attack desired velocity: charge toward nearest G2
-          let atkVx = 0, atkVy = 0;
-          if (eDist < Infinity) {
-            const d = eDist || 1;
-            atkVx = (ex / d) * G1_ATK_SPD;
-            atkVy = (ey / d) * G1_ATK_SPD;
+      const GRAV = 800; // px/s²
+
+      for (const s of sprites) {
+        if (phase === "idle") {
+          if (s.team === "g1") {
+            // Subtle breathing hover
+            s.x = s.gx + Math.sin(elapsed * 1.0 + s.gx * 0.008) * 2.5;
+            s.y = s.gy + Math.cos(elapsed * 1.2 + s.gy * 0.010) * 3;
+            s.alpha = 0.85;
+          } else {
+            s.alpha = 0; // G2 hidden above
           }
+          s.rot += s.rotSpd * dt;
 
-          // Hold desired velocity: spread from G1 neighbors
-          const [holdVx, holdVy] = spreadVel(p, "g1", G1_HOLD_SPD);
-
-          // Blend and steer
-          const desVx = atkVx * engageW + holdVx * holdW;
-          const desVy = atkVy * engageW + holdVy * holdW;
-          p.vx += (desVx - p.vx) * Math.min(1, STEER_F * dt);
-          p.vy += (desVy - p.vy) * Math.min(1, STEER_F * dt);
-
-          // Speed cap scales with role
-          const maxS = G1_HOLD_SPD + (G1_ATK_SPD - G1_HOLD_SPD) * engageW;
-          const spd = Math.hypot(p.vx, p.vy);
-          if (spd > maxS * 1.1) { p.vx *= maxS * 1.1 / spd; p.vy *= maxS * 1.1 / spd; }
-
-          p.rot += p.rotSpd * dt;
-
-        // ── G2 ─────────────────────────────────────────────────────────
-        } else if (p.state === "g2") {
-          // Find nearest G1
-          let tx = 0, ty = 0, tDist = Infinity;
-          for (const q of pts) {
-            if (q.state !== "g1") continue;
-            const d = Math.hypot(q.x - p.x, q.y - p.y);
-            if (d < tDist) { tDist = d; tx = q.x; ty = q.y; }
-          }
-
-          // huntW: 0 = pure garrison, 1 = pure attack
-          const huntW = tDist < Infinity
-            ? Math.max(0, 1 - tDist / ENGAGE_R)
-            : 0;
-          const holdW = 1 - huntW;
-
-          // Attack desired velocity: seek nearest G1 (ease off when very close)
-          let atkVx = 0, atkVy = 0;
-          if (tDist < Infinity) {
-            const dx = tx - p.x, dy = ty - p.y;
-            const dist = tDist || 1;
-            const spd = G2_ATK_SPD * (1 - Math.exp(-dist / 55));
-            atkVx = (dx / dist) * spd;
-            atkVy = (dy / dist) * spd;
-          }
-
-          // Garrison desired velocity: spread from G2 neighbors
-          const [holdVx, holdVy] = spreadVel(p, "g2", G2_HOLD_SPD);
-
-          // Blend and steer
-          const desVx = atkVx * huntW + holdVx * holdW;
-          const desVy = atkVy * huntW + holdVy * holdW;
-          p.vx += (desVx - p.vx) * Math.min(1, STEER_F * dt);
-          p.vy += (desVy - p.vy) * Math.min(1, STEER_F * dt);
-
-          // Speed cap
-          const maxS = G2_HOLD_SPD + (G2_ATK_SPD - G2_HOLD_SPD) * huntW;
-          const spd = Math.hypot(p.vx, p.vy);
-          if (spd > maxS * 1.1) { p.vx *= maxS * 1.1 / spd; p.vy *= maxS * 1.1 / spd; }
-
-          // Infect any G1 in contact range
-          for (let j = 0; j < pts.length; j++) {
-            if (pts[j].state !== "g1") continue;
-            if (Math.hypot(pts[j].x - p.x, pts[j].y - p.y) < INFECT_R) {
-              pts[j].state = "cvt";
-              pts[j].cvt   = 0;
-              pts[j].g2    = p.g2;
-              pts[j].vx   *= 0.1;
-              pts[j].vy   *= 0.1;
-              break;
+        } else if (phase === "drop") {
+          s.rot += s.rotSpd * dt;
+          if (s.team === "g1") {
+            // Continue hover while waiting to be squished
+            s.x = s.gx + Math.sin(elapsed * 1.0 + s.gx * 0.008) * 1.5;
+            s.y = s.gy + Math.cos(elapsed * 1.2 + s.gy * 0.010) * 1.5;
+            s.alpha = 0.85;
+          } else {
+            // Each G2 falls in at a staggered time
+            const dropDur = T_DROP - s.dropDelay;
+            const t = (phaseT - s.dropDelay) / dropDur;
+            if (t <= 0) {
+              s.alpha = 0;
+            } else {
+              s.alpha = 0.85;
+              s.x = s.gx;
+              s.y = s.dropStartY + (s.gy - s.dropStartY) * easeInOut(Math.min(t, 1));
             }
           }
 
-          p.rot += p.rotSpd * dt;
-
-        // ── Converting ─────────────────────────────────────────────────
-        } else if (p.state === "cvt") {
-          p.cvt += dt / CVT_TIME;
-          p.vx *= Math.max(0, 1 - dt * 6);
-          p.vy *= Math.max(0, 1 - dt * 6);
-          p.rot += (2 + p.cvt * 10) * dt;
-
-          if (p.cvt >= 1) {
-            p.state = "dead";
-            anyDead = true;
-            spawns.push(mkG2(p.x + rand(-6, 6), p.y + rand(-6, 6), 0));
-            spawns.push(mkG2(p.x + rand(-6, 6), p.y + rand(-6, 6), 1));
-            fxs.push({ x: p.x, y: p.y, progress: 0, r: p.r, color: G2_COLORS[p.g2] });
+        } else if (phase === "squish") {
+          if (s.team === "g1") {
+            // Physics: fly away under gravity
+            s.vy += GRAV * dt;
+            s.x  += s.vx * dt;
+            s.y  += s.vy * dt;
+            s.rot += s.rotSpd * dt;
+            s.alpha = 0.85;
+          } else {
+            // G2 settled: slight impact bounce
+            const bounce = Math.exp(-phaseT * 10) * Math.sin(phaseT * 24) * 12;
+            s.x = s.gx;
+            s.y = s.gy + bounce;
+            s.rot += s.rotSpd * dt;
+            s.alpha = 0.85;
           }
+
+        } else if (phase === "fade") {
+          const fadeAlpha = Math.max(0, 0.85 * (1 - phaseT / T_FADE));
+          s.alpha = fadeAlpha;
+          if (s.team === "g1") {
+            s.vy += GRAV * dt;
+            s.x  += s.vx * dt;
+            s.y  += s.vy * dt;
+          } else {
+            s.x = s.gx;
+            s.y = s.gy;
+          }
+          s.rot += s.rotSpd * dt;
+
+        } else {
+          s.alpha = 0;
         }
 
-        // ── Text exclusion zone ─────────────────────────────────────────
-        // Ellipse centred at canvas middle; push particles outward so they
-        // never overlap the hero heading / paragraph text.
-        {
-          const exA  = W * EXCL_A_PCT;
-          const exDx = p.x - W / 2;
-          const exDy = p.y - H / 2;
-          const exN  = Math.hypot(exDx / exA, exDy / EXCL_B); // 1.0 = on ellipse
-          if (exN < 1.3) {
-            // Ellipse outward normal: gradient of (x/a²,  y/b²)
-            const gx   = exDx / (exA * exA);
-            const gy   = exDy / (EXCL_B * EXCL_B);
-            const gMag = Math.hypot(gx, gy) || 0.001;
-            const nx   = gx / gMag, ny = gy / gMag;
-            // Inside ellipse: instant reversal; margin: proportional push
-            const str   = exN < 1.0 ? 1.5 : (1.3 - exN) / 0.3;
-            const rate  = exN < 1.0 ? 25  : 10;
-            const pushS = 105; // outward speed target (px/s)
-            p.vx += (nx * pushS - p.vx) * Math.min(1, rate * dt) * str;
-            p.vy += (ny * pushS - p.vy) * Math.min(1, rate * dt) * str;
-          }
-        }
+        if (s.alpha < 0.01) continue;
 
-        // ── Edge repulsion + integrate (all live states) ────────────────
-        if (p.x < MARGIN)     p.vx += EDGE_F * (1 - p.x / MARGIN) * dt;
-        if (p.x > W - MARGIN) p.vx -= EDGE_F * (1 - (W - p.x) / MARGIN) * dt;
-        if (p.y < MARGIN)     p.vy += EDGE_F * (1 - p.y / MARGIN) * dt;
-        if (p.y > H - MARGIN) p.vy -= EDGE_F * (1 - (H - p.y) / MARGIN) * dt;
-
-        p.x += p.vx * dt;
-        p.y += p.vy * dt;
-        p.x = Math.max(p.r, Math.min(W - p.r, p.x));
-        p.y = Math.max(p.r, Math.min(H - p.r, p.y));
-      }
-
-      if (anyDead || spawns.length > 0) {
-        pts = pts.filter(p => p.state !== "dead").concat(spawns);
-      }
-
-      // ── Draw ──────────────────────────────────────────────────────────
-      ctx.clearRect(0, 0, W, H);
-
-      // Conversion flash rings
-      fxs = fxs.filter(e => e.progress < 1);
-      for (const e of fxs) {
-        e.progress += dt / 0.5;
+        const imgs = s.team === "g1" ? g1imgs : g2imgs;
         ctx.save();
-        ctx.globalAlpha = (1 - e.progress) * 0.55;
-        ctx.strokeStyle = e.color;
-        ctx.lineWidth   = 2.5;
-        ctx.beginPath();
-        ctx.arc(e.x, e.y, e.r * 1.85 * (1 + e.progress * 2.5), 0, Math.PI * 2);
-        ctx.stroke();
+        ctx.globalAlpha = s.alpha;
+        ctx.translate(s.x, s.y);
+        ctx.rotate(s.rot);
+        ctx.drawImage(imgs[s.logoIdx], -drawS / 2, -drawS / 2, drawS, drawS);
         ctx.restore();
-      }
-
-      for (const p of pts) {
-        if (p.state === "g1") {
-          drawLogo(g1imgs[p.g1], p.x, p.y, p.r, ALPHA, p.rot);
-        } else if (p.state === "g2") {
-          drawLogo(g2imgs[p.g2], p.x, p.y, p.r, ALPHA, p.rot);
-        } else if (p.state === "cvt") {
-          const sc = 1 + Math.sin(p.cvt * Math.PI) * 0.45;
-          drawLogo(g1imgs[p.g1], p.x, p.y, p.r, ALPHA * (1 - p.cvt), p.rot, sc);
-          drawLogo(g2imgs[p.g2], p.x, p.y, p.r, ALPHA * p.cvt,       p.rot, sc);
-        }
       }
 
       raf = requestAnimationFrame(frame);

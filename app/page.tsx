@@ -100,15 +100,15 @@ export default async function HomePage() {
   return (
     <div>
       {/* ── Mission ───────────────────────────────────────────────── */}
-      <section className="relative py-20 px-4 text-center overflow-hidden">
-        {/* Animated logo battle background */}
+      <section className="relative py-20 px-4 text-center overflow-hidden min-h-[420px] flex flex-col justify-center">
+        {/* Choreographed logo animation — group 1 left, group 2 drops in */}
         <LogoBattle />
-        {/* Radial vignette so text stays crisp in the centre */}
+        {/* Horizontal vignette: clear on left (logos) → white centre (text) → clear right */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 60% 70% at 50% 50%, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.55) 60%, rgba(255,255,255,0.15) 100%)",
+              "linear-gradient(to right, transparent 25%, rgba(255,255,255,0.92) 42%, rgba(255,255,255,0.92) 58%, transparent 75%)",
           }}
         />
         <div className="relative z-10 max-w-3xl mx-auto">
