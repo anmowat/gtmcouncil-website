@@ -1,148 +1,174 @@
 import Link from "next/link";
+import QuoteCarousel, { Quote } from "@/components/QuoteCarousel";
 
 export const metadata = {
-  title: "Huddles | GTM Council",
-  description: "Vendor/Member Huddles and Tech Huddles — informal, confidential sessions where tech CEOs share their vision and get direct feedback from senior GTM leaders.",
+  title: "Tech Huddles | GTM Council",
+  description: "Each month we invite a GTM Tech CEO to meet with our members for an intimate discussion.",
 };
+
+const MEMBER_QUOTES: Quote[] = [
+  {
+    name: "Andy Mowat",
+    title: "VP RevOps @ 4 Unicorns",
+    quote: "We've been quietly running these huddles for 9 years. The unique format to bring in CEOs who know the tech and space creates such great discussion and learning with our members.",
+    linkedin: "https://www.linkedin.com/in/andymowat/",
+  },
+];
+
+const COMPANY_QUOTES: Quote[] = [
+  {
+    name: "Elio Narciso",
+    title: "CEO @ Scalestack",
+    quote: "The opportunity to share our platform and vision for the future with 15 top RevOps leaders and get feedback was amazing. We built great relationships and even closed a few deals from the discussion.",
+    linkedin: "https://www.linkedin.com/in/elionarciso/",
+  },
+  {
+    name: "Sriharsha (Sal) Guduguntia",
+    title: "CEO @ Hyperbound",
+    quote: "It was powerful to share how we are seeing AI change manager coaching and enablement with 20+ RevOps leaders and get input on our platform / vision. The insights around how the group looks at buy-vs-build in this AI area accelerated our thinking.",
+    linkedin: "https://www.linkedin.com/in/sriharsha-guduguntla/",
+  },
+];
+
+const FORMAT_CARDS = [
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+      </svg>
+    ),
+    title: "C-Level",
+    body: "We want to hear and help you pressure test your vision and messaging. We've found that this only works with the CEO (or in some cases CPO).",
+    bullets: null,
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+      </svg>
+    ),
+    title: "Strategy not Pitching",
+    body: "Focus on vision and industry trends, not sales demos. Use this as an opportunity to get real input from top RevOps leaders. Discussions can get 🌶️ given the sophistication of our members so come prepared for great questions (and debate).",
+    bullets: null,
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    title: "60-Minute Sessions",
+    body: null,
+    bullets: [
+      "First 10 minutes: Members only",
+      "30 Mins: Short intro from vendor and then lively discussion/Q&A",
+      "Last 10 minutes: Members only download (insights shared anonymously)",
+    ],
+  },
+];
 
 export default function HuddlesPage() {
   return (
     <div>
-      {/* ── Header ────────────────────────────────────────────────── */}
+      {/* ── Header ──────────────────────────────────────────────────── */}
       <section className="py-16 px-4 text-center">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4" style={{ color: "#011224" }}>
-            Huddles
-          </h1>
-          <p className="text-lg text-gray-600 max-w-xl mx-auto">
-            Informal, confidential sessions where tech CEOs share their vision and get direct feedback from senior GTM leaders.
-          </p>
-        </div>
-      </section>
-
-      {/* ── Formats ───────────────────────────────────────────────── */}
-      <section className="px-4 pb-16">
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-
-          {/* Vendor/Member Huddles */}
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-8 flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <span
-                className="text-xs font-bold px-2.5 py-1 rounded-full text-white"
-                style={{ backgroundColor: "#15803d" }}
-              >
-                Huddle
-              </span>
-              <h2 className="text-xl font-extrabold" style={{ color: "#011224" }}>
-                Vendor / Member Huddles
-              </h2>
-            </div>
-            <p className="text-gray-600">
-              We invite tech CEOs to share their vision for the future and get critical feedback from our members in an informal, confidential setting.
-            </p>
-            <blockquote className="border-l-4 pl-4 italic text-gray-500 text-sm" style={{ borderColor: "#c4921a" }}>
-              &ldquo;We&apos;ve been quietly running these huddles for 9 years. The unique format to bring in CEOs who know the tech and space creates such great discussion and learning with our members.&rdquo;
-            </blockquote>
-            <ul className="text-sm text-gray-600 space-y-2 mt-2">
-              <li className="flex items-start gap-2">
-                <span style={{ color: "#c4921a" }}>✓</span>
-                Typically 10–20 senior RevOps leaders attend
-              </li>
-              <li className="flex items-start gap-2">
-                <span style={{ color: "#c4921a" }}>✓</span>
-                Informal Q&amp;A — no slides required
-              </li>
-              <li className="flex items-start gap-2">
-                <span style={{ color: "#c4921a" }}>✓</span>
-                Last 10 minutes: Members-only insights shared anonymously
-              </li>
-            </ul>
-            <div className="mt-auto pt-4 flex gap-3">
-              <a
-                href="https://www.gtmcouncil.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2.5 text-sm font-semibold rounded text-white transition-colors"
-                style={{ backgroundColor: "#c4921a" }}
-              >
-                Request a Huddle
-              </a>
-              <Link
-                href="/insights"
-                className="px-5 py-2.5 text-sm font-semibold rounded text-white transition-colors"
-                style={{ backgroundColor: "#011224" }}
-              >
-                Past Huddles
-              </Link>
-            </div>
-          </div>
-
-          {/* Tech Huddles */}
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-8 flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <span
-                className="text-xs font-bold px-2.5 py-1 rounded-full text-white"
-                style={{ backgroundColor: "#15803d" }}
-              >
-                Huddle
-              </span>
-              <h2 className="text-xl font-extrabold" style={{ color: "#011224" }}>
-                Tech Huddles
-              </h2>
-            </div>
-            <p className="text-gray-600">
-              Get direct input from senior RevOps leaders. Share your vision for the future and receive critical, candid feedback from operators who live the problems you&apos;re solving.
-            </p>
-            <blockquote className="border-l-4 pl-4 italic text-gray-500 text-sm" style={{ borderColor: "#c4921a" }}>
-              &ldquo;It was powerful to share how we are seeing AI change manager coaching and enablement with 20+ RevOps leaders and get input on our platform. The insights around how the group looks at buy-vs-build in this AI area accelerated our thinking.&rdquo;
-            </blockquote>
-            <ul className="text-sm text-gray-600 space-y-2 mt-2">
-              <li className="flex items-start gap-2">
-                <span style={{ color: "#c4921a" }}>✓</span>
-                Candid, off-the-record dialog
-              </li>
-              <li className="flex items-start gap-2">
-                <span style={{ color: "#c4921a" }}>✓</span>
-                Accelerate product thinking with real operator feedback
-              </li>
-              <li className="flex items-start gap-2">
-                <span style={{ color: "#c4921a" }}>✓</span>
-                Build trust with a room of VP+ buyers
-              </li>
-            </ul>
-            <div className="mt-auto pt-4">
-              <a
-                href="https://www.gtmcouncil.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-5 py-2.5 text-sm font-semibold rounded text-white transition-colors"
-                style={{ backgroundColor: "#c4921a" }}
-              >
-                Request a Tech Huddle
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA Banner ────────────────────────────────────────────── */}
-      <section className="py-16 px-4 border-t border-gray-200 bg-gray-50 text-center">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl font-extrabold mb-3" style={{ color: "#011224" }}>
-            Want to join a huddle as a member?
-          </h2>
-          <p className="text-gray-500 mb-6">
-            GTM Council members get invited to upcoming huddles. Apply to join the community.
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-5" style={{ color: "#011224" }}>
+            Tech Huddles
+          </h1>
+          <p className="text-lg text-gray-600">
+            Each month we invite a GTM Tech CEO
           </p>
-          <a
-            href="https://www.gtmcouncil.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-8 py-3 text-sm font-semibold rounded text-white transition-colors"
-            style={{ backgroundColor: "#c4921a" }}
-          >
-            Apply to Join
-          </a>
+          <p className="text-lg text-gray-600 mb-3">
+            to meet with our members for an intimate discussion
+          </p>
+          <p className="text-gray-500 text-sm">
+            Some sessions (with permission of members and company){" "}
+            <Link href="/insights" className="underline hover:opacity-80" style={{ color: "#011224" }}>
+              we share publicly
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
+
+      {/* ── Value for Both Sides ────────────────────────────────────── */}
+      <section className="px-4 pb-16">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-extrabold mb-6" style={{ color: "#011224" }}>
+            Value for Both Sides
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* For Members */}
+            <div className="flex flex-col gap-3">
+              {/* Description card */}
+              <div className="rounded-xl p-6" style={{ backgroundColor: "#011224" }}>
+                <div className="flex items-center gap-3 mb-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" />
+                  </svg>
+                  <h3 className="font-extrabold text-white text-lg">For Members</h3>
+                </div>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  Discover emerging technologies that could address your pain points. Build relationships with innovative vendors and push your thinking on the future of GTM technology.
+                </p>
+              </div>
+              {/* Quote carousel */}
+              <QuoteCarousel quotes={MEMBER_QUOTES} bg="#011224" light={true} />
+            </div>
+
+            {/* For GTM Tech Companies */}
+            <div className="flex flex-col gap-3">
+              {/* Description card */}
+              <div className="rounded-xl p-6" style={{ backgroundColor: "#c4921a" }}>
+                <div className="flex items-center gap-3 mb-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                  </svg>
+                  <h3 className="font-extrabold text-white text-lg">For GTM Tech Companies</h3>
+                </div>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  Get input from senior RevOps leaders (typically 10-20 attend a huddle). Share your vision for the future and get critical feedback.
+                </p>
+              </div>
+              {/* Quote carousel */}
+              <QuoteCarousel quotes={COMPANY_QUOTES} bg="#c4921a" light={true} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Format ──────────────────────────────────────────────────── */}
+      <section className="px-4 pb-20">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-extrabold mb-6" style={{ color: "#011224" }}>
+            Format
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {FORMAT_CARDS.map((card) => (
+              <div key={card.title} className="rounded-xl border border-gray-200 bg-white p-6">
+                <div className="flex items-center gap-2 mb-3" style={{ color: "#011224" }}>
+                  {card.icon}
+                  <h3 className="font-bold">{card.title}</h3>
+                </div>
+                {card.body && (
+                  <p className="text-sm text-gray-600 leading-relaxed">{card.body}</p>
+                )}
+                {card.bullets && (
+                  <ul className="space-y-1.5">
+                    {card.bullets.map((b) => (
+                      <li key={b} className="text-sm text-gray-600 flex items-start gap-2">
+                        <span className="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#c4921a" }} />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </div>
