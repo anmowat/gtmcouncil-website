@@ -14,7 +14,7 @@ const PILLARS = [
     ),
     title: "Community",
     description: "Leaders helping leaders in an exclusive forum.",
-    actions: [{ label: "Apply", href: "https://www.gtmcouncil.com", gold: true }],
+    actions: [{ label: "Apply", href: "https://airtable.com/appU94hAvQcQ6XTNO/pag8kIMP7bzMXoQzG/form", gold: true }],
   },
   {
     icon: (
@@ -33,10 +33,16 @@ const PILLARS = [
       </svg>
     ),
     title: "Thought Leadership",
-    description: "We deep-dive into how the GTM landscape is changing in our podcast series and online briefings.",
+    descriptionNode: (
+      <>
+        We deep-dive into how the GTM landscape is changing in our{" "}
+        <Link href="/podcast" className="underline hover:opacity-80" style={{ color: "#c4921a" }}>podcast series</Link>
+        {" "}and{" "}
+        <Link href="/briefings" className="underline hover:opacity-80" style={{ color: "#c4921a" }}>online briefings</Link>.
+      </>
+    ),
     actions: [
-      { label: "View", href: "/insights", gold: false },
-      { label: "Subscribe", href: "https://www.gtmcouncil.com", gold: false },
+      { label: "Subscribe", href: "https://gtmcouncil.substack.com/about", gold: false },
     ],
   },
   {
@@ -47,7 +53,7 @@ const PILLARS = [
     ),
     title: "Career Support",
     description: "We help each other with our careers and share high-potential rising stars to nurture the next generation of operational GTM leaders.",
-    actions: [{ label: "Submit Role", href: "https://www.gtmcouncil.com", gold: true }],
+    actions: [{ label: "Submit Role", href: "https://airtable.com/appU94hAvQcQ6XTNO/pagpeSRflmGRDpFBB/form", gold: true }],
   },
   {
     icon: (
@@ -58,7 +64,7 @@ const PILLARS = [
     title: "Personal Brand",
     description: "We help members turn their experience into influence by introducing them to partner podcasts and featuring them on GTM Council briefings.",
     actions: [
-      { label: "Share Your Podcast", href: "https://www.gtmcouncil.com", gold: true },
+      { label: "Share Your Podcast", href: "https://airtable.com/appU94hAvQcQ6XTNO/pagU3D904PBGB8ZqM/form", gold: true },
       { label: "View Briefings", href: "/briefings", gold: false },
     ],
   },
@@ -70,7 +76,7 @@ const PILLARS = [
     ),
     title: "Events",
     description: "We bring our membership together for intimate events and also share select sponsored events with our community.",
-    actions: [{ label: "Share Event", href: "https://www.gtmcouncil.com", gold: true }],
+    actions: [{ label: "Share Event", href: "https://airtable.com/appU94hAvQcQ6XTNO/pagv90IY4XvvaNeLN/form", gold: true }],
   },
 ];
 
@@ -121,7 +127,7 @@ export default async function HomePage() {
               >
                 <div className="text-gray-500">{pillar.icon}</div>
                 <h3 className="text-lg font-bold" style={{ color: "#011224" }}>{pillar.title}</h3>
-                <p className="text-sm text-gray-600 flex-1">{pillar.description}</p>
+                <p className="text-sm text-gray-600 flex-1">{"descriptionNode" in pillar ? pillar.descriptionNode : pillar.description}</p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {pillar.actions.map((action) =>
                     action.href.startsWith("http") ? (

@@ -25,7 +25,7 @@ export default function Nav() {
           {/* CTA buttons */}
           <div className="flex items-center gap-2">
             <a
-              href="https://www.gtmcouncil.com"
+              href="https://gtmcouncil.substack.com/about"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-semibold text-white rounded transition-colors"
@@ -34,7 +34,7 @@ export default function Nav() {
               Subscribe
             </a>
             <a
-              href="https://www.gtmcouncil.com"
+              href="https://airtable.com/appU94hAvQcQ6XTNO/pag8kIMP7bzMXoQzG/form"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-semibold rounded border-2 transition-colors hover:bg-gray-50"
@@ -42,8 +42,10 @@ export default function Nav() {
             >
               Apply
             </a>
-            <Link
-              href="/members"
+            <a
+              href="https://docs.google.com/document/d/1lkZ4DKQ6LptbRYbLFnQMH6wJYGDS4kK-9pFjKbNX5Ds/edit?tab=t.0"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white rounded transition-colors"
               style={{ backgroundColor: "#c4921a" }}
             >
@@ -52,7 +54,7 @@ export default function Nav() {
                 <circle cx="12" cy="7" r="4" />
               </svg>
               Members
-            </Link>
+            </a>
           </div>
         </div>
       </div>
