@@ -30,7 +30,7 @@ const G1_SVGS = [
     <polygon points="28,88 46,88 52,26 34,26" fill="#5B5BC4"/>
     <polygon points="55,88 74,88 82,2 63,2"   fill="#5B5BC4"/>
   </svg>`,
-  // Outreach — blue plectrum with hole
+  // Outreach — blue plectrum
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
     <path d="M50,7 C64,5 82,20 91,38 C98,53 96,72 82,84 C70,94 56,97 50,97 C44,97 30,94 18,84 C4,72 2,53 9,38 C18,20 36,5 50,7 Z" fill="#5757D9"/>
     <circle cx="50" cy="52" r="22" fill="white"/>
@@ -63,22 +63,22 @@ const G2_SVGS = [
 
 const G2_COLORS = ["#111111", "#D4785A"];
 
-// ── tuning ────────────────────────────────────────────────────────────────
-const BASE_N    = 68;   // particles at 1200×400
-const INIT_G2   = 2;    // initial attacker count
+// ── Tuning ────────────────────────────────────────────────────────────────
+const BASE_G1   = 72;   // initial G1s at 1200×400
+const BASE_WAVE = 10;   // G2 wave count at 1200×400
 const R         = 13;   // icon half-size
-const G1_WANDER = 38;   // px/s casual drift
-const G1_FLEE   = 72;   // px/s when running
-const G2_HUNT   = 92;   // px/s — always faster than G1
-const FLEE_R    = 120;  // px — G1 starts fleeing when G2 is this close
-const INFECT_R  = 30;   // px — trigger conversion on contact
-const CVT_TIME  = 1.3;  // seconds to complete conversion
-const WAND_JRK  = 2.2;  // wander heading jitter (rad/s)
-const ALPHA     = 0.72;
-const MARGIN    = 38;
-const EDGE_F    = 550;
+const G1_SPD    = 55;   // G1 charge speed (px/s)
+const G2_SPD    = 76;   // G2 hunt speed (px/s) — faster so it always wins
+const SPREAD_R  = 72;   // G2→G2 repulsion radius (px)
+const SPREAD_F  = 270;  // repulsion strength
+const INFECT_R  = 28;   // contact distance to trigger conversion
+const CVT_TIME  = 1.2;  // conversion animation duration (s)
+const ALPHA     = 0.70;
+const MARGIN    = 36;
+const EDGE_F    = 520;
+const SEEK_F    = 5;    // G2 turning rate (/s)
 
-type State = "g1" | "g2" | "cvt";
+type State = "g1" | "g2" | "cvt" | "dead";
 
 interface Pt {
   x: number; y: number;
@@ -87,15 +87,45 @@ interface Pt {
   g1: number; g2: number;
   r: number;
   rot: number; rotSpd: number;
-  wander: number;   // heading angle for wander/flee
-  cvt: number;      // conversion progress 0..1
-  tid: number;      // target particle index (-1 = none, G2 only)
+  wander: number;
+  cvt: number;
 }
 
 interface Fx { x: number; y: number; progress: number; r: number; color: string; }
 
 function rand(a: number, b: number) { return a + Math.random() * (b - a); }
 function svgUrl(s: string) { return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(s); }
+
+function mkG1(x: number, y: number): Pt {
+  return {
+    x, y, vx: rand(-15, 15), vy: rand(-15, 15),
+    state: "g1",
+    g1: Math.floor(Math.random() * G1_SVGS.length),
+    g2: 0,
+    r: rand(R - 1.5, R + 2),
+    rot: rand(0, Math.PI * 2),
+    rotSpd: rand(-0.35, 0.35),
+    wander: rand(0, Math.PI * 2),
+    cvt: 0,
+  };
+}
+
+function mkG2(x: number, y: number, g2Idx: number, vx?: number, vy?: number): Pt {
+  const a = rand(0, Math.PI * 2);
+  return {
+    x, y,
+    vx: vx ?? Math.cos(a) * G2_SPD * 0.5,
+    vy: vy ?? Math.sin(a) * G2_SPD * 0.5,
+    state: "g2",
+    g1: Math.floor(Math.random() * G1_SVGS.length),
+    g2: g2Idx,
+    r: rand(R - 1.5, R + 2),
+    rot: rand(0, Math.PI * 2),
+    rotSpd: rand(-1.2, 1.2),
+    wander: rand(0, Math.PI * 2),
+    cvt: 0,
+  };
+}
 
 export default function LogoBattle() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -123,25 +153,31 @@ export default function LogoBattle() {
       canvas!.style.height = H + "px";
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const n = Math.max(30, Math.min(Math.round(BASE_N * Math.sqrt(W * H / (1200 * 400))), 160));
+      const sc    = Math.sqrt(W * H / (1200 * 400));
+      const nG1   = Math.max(20, Math.min(Math.round(BASE_G1   * sc), 130));
+      const nWave = Math.max(4,  Math.min(Math.round(BASE_WAVE * sc), 22));
+
       fxs = [];
-      pts = Array.from({ length: n }, (_, i) => {
-        const isG2 = i < INIT_G2;
-        return {
-          x: rand(MARGIN, W - MARGIN),
-          y: rand(MARGIN, H - MARGIN),
-          vx: rand(-25, 25), vy: rand(-25, 25),
-          state: isG2 ? "g2" : "g1",
-          g1: Math.floor(Math.random() * G1_SVGS.length),
-          g2: i % G2_SVGS.length,
-          r: rand(R - 1.5, R + 2),
-          rot: rand(0, Math.PI * 2),
-          rotSpd: isG2 ? rand(-1.3, 1.3) : rand(-0.35, 0.35),
-          wander: rand(0, Math.PI * 2),
-          cvt: 0,
-          tid: -1,
-        };
-      });
+      pts = [];
+
+      // G1: jittered grid covering the full canvas
+      const cols = Math.ceil(Math.sqrt(nG1 * W / H));
+      const rows = Math.ceil(nG1 / cols);
+      for (let i = 0; i < nG1; i++) {
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const x = MARGIN + (W - 2 * MARGIN) * (col + 0.5 + rand(-0.4, 0.4)) / cols;
+        const y = MARGIN + (H - 2 * MARGIN) * (row + 0.5 + rand(-0.4, 0.4)) / rows;
+        pts.push(mkG1(x, y));
+      }
+
+      // G2 wave: lined up just off the right edge, charging left
+      for (let i = 0; i < nWave; i++) {
+        const y = H * (i + 0.5) / nWave + rand(-H * 0.04, H * 0.04);
+        pts.push(mkG2(W - R - 2, y, i % G2_SVGS.length,
+          rand(-130, -105), rand(-18, 18)));
+      }
+
       lastT = 0;
     }
 
@@ -153,9 +189,9 @@ export default function LogoBattle() {
 
     function drawLogo(
       img: HTMLImageElement, x: number, y: number,
-      r: number, a: number, angle: number, scale = 1
+      r: number, a: number, angle: number, sc = 1
     ) {
-      const s = r * 1.85 * scale;
+      const s = r * 1.85 * sc;
       ctx!.save();
       ctx!.globalAlpha = a;
       ctx!.translate(x, y);
@@ -171,152 +207,147 @@ export default function LogoBattle() {
       const dt = lastT ? Math.min((now - lastT) / 1000, 0.05) : 0.016;
       lastT = now;
 
-      // ── build claimed-target set for this frame ────────────────────────
-      const claimed = new Set<number>();
-      for (const p of pts) {
-        if (p.state === "g2" && p.tid >= 0 && pts[p.tid]?.state === "g1")
-          claimed.add(p.tid);
-      }
+      const spawns: Pt[] = [];
+      let anyDead = false;
 
-      // ── update particles ───────────────────────────────────────────────
       for (let i = 0; i < pts.length; i++) {
         const p = pts[i];
+        if (p.state === "dead") continue;
 
-        // ── G1: wander, flee when G2 nearby ───────────────────────────
+        // ── G1: charge toward nearest G2 (engage!) ─────────────────────
         if (p.state === "g1") {
-          let gx = 0, gy = 0, gd = Infinity;
+          let tx = 0, ty = 0, tDist = Infinity;
           for (const q of pts) {
             if (q.state !== "g2") continue;
-            const dx = p.x - q.x, dy = p.y - q.y;
+            const dx = q.x - p.x, dy = q.y - p.y;
             const d = Math.hypot(dx, dy);
-            if (d < gd) { gd = d; gx = dx; gy = dy; }
+            if (d < tDist) { tDist = d; tx = dx; ty = dy; }
           }
 
-          if (gd < FLEE_R) {
-            // Flee directly away from nearest G2
-            const dist = Math.hypot(gx, gy) || 1;
-            const str  = 1 - gd / FLEE_R;
-            const tx   = (gx / dist) * G1_FLEE;
-            const ty   = (gy / dist) * G1_FLEE;
-            p.vx += (tx - p.vx) * Math.min(1, dt * 6 * str);
-            p.vy += (ty - p.vy) * Math.min(1, dt * 6 * str);
+          if (tDist < Infinity) {
+            const dist = Math.hypot(tx, ty) || 1;
+            p.vx += ((tx / dist) * G1_SPD - p.vx) * Math.min(1, dt * 4);
+            p.vy += ((ty / dist) * G1_SPD - p.vy) * Math.min(1, dt * 4);
           } else {
-            // Gentle wander
-            p.wander += (Math.random() - 0.5) * WAND_JRK * dt;
-            const tx = Math.cos(p.wander) * G1_WANDER;
-            const ty = Math.sin(p.wander) * G1_WANDER;
-            p.vx += (tx - p.vx) * Math.min(1, dt * 2.5);
-            p.vy += (ty - p.vy) * Math.min(1, dt * 2.5);
+            // Peaceful wander before G2 arrives
+            p.wander += (Math.random() - 0.5) * 2.0 * dt;
+            p.vx += (Math.cos(p.wander) * 28 - p.vx) * Math.min(1, dt * 2);
+            p.vy += (Math.sin(p.wander) * 28 - p.vy) * Math.min(1, dt * 2);
           }
+
+          // Speed cap
+          const spd = Math.hypot(p.vx, p.vy);
+          if (spd > G1_SPD * 1.1) { p.vx *= G1_SPD * 1.1 / spd; p.vy *= G1_SPD * 1.1 / spd; }
+
           p.rot += p.rotSpd * dt;
 
-        // ── G2: seek exclusive target, infect on contact ───────────────
+        // ── G2: seek G1 + spread from other G2s ────────────────────────
         } else if (p.state === "g2") {
-          // Invalidate stale target
-          if (p.tid >= 0 && pts[p.tid]?.state !== "g1") p.tid = -1;
-
-          // Acquire new target (prefer unclaimed G1s)
-          if (p.tid === -1) {
-            let best = -1, bestD = Infinity;
-            // First pass: unclaimed only
-            for (let j = 0; j < pts.length; j++) {
-              if (pts[j].state !== "g1" || claimed.has(j)) continue;
-              const d = Math.hypot(pts[j].x - p.x, pts[j].y - p.y);
-              if (d < bestD) { bestD = d; best = j; }
-            }
-            // Fallback: any G1
-            if (best === -1) {
-              for (let j = 0; j < pts.length; j++) {
-                if (pts[j].state !== "g1") continue;
-                const d = Math.hypot(pts[j].x - p.x, pts[j].y - p.y);
-                if (d < bestD) { bestD = d; best = j; }
-              }
-            }
-            p.tid = best;
-            if (best >= 0) claimed.add(best);
+          let tgtX = 0, tgtY = 0, tgtD = Infinity;
+          for (const q of pts) {
+            if (q.state !== "g1") continue;
+            const d = Math.hypot(q.x - p.x, q.y - p.y);
+            if (d < tgtD) { tgtD = d; tgtX = q.x; tgtY = q.y; }
           }
 
-          if (p.tid >= 0) {
-            const tgt  = pts[p.tid];
-            const dx   = tgt.x - p.x, dy = tgt.y - p.y;
+          let ax = 0, ay = 0;
+
+          if (tgtD < Infinity) {
+            // Seek force toward nearest G1 (ease off when very close)
+            const dx = tgtX - p.x, dy = tgtY - p.y;
             const dist = Math.hypot(dx, dy) || 1;
-            // Ease off speed when very close
-            const spd  = G2_HUNT * (1 - Math.exp(-dist / 55));
-            p.vx += ((dx / dist) * spd - p.vx) * Math.min(1, dt * 6);
-            p.vy += ((dy / dist) * spd - p.vy) * Math.min(1, dt * 6);
-
-            // Infect
-            if (dist < INFECT_R && tgt.state === "g1") {
-              tgt.state = "cvt";
-              tgt.cvt   = 0;
-              tgt.g2    = p.g2;
-              tgt.vx   *= 0.15;
-              tgt.vy   *= 0.15;
-              p.tid     = -1; // immediately go hunt next
-            }
+            const spd = G2_SPD * (1 - Math.exp(-dist / 55));
+            ax += ((dx / dist) * spd - p.vx) * SEEK_F;
+            ay += ((dy / dist) * spd - p.vy) * SEEK_F;
           } else {
-            // No G1 targets left — drift
-            p.wander += (Math.random() - 0.5) * WAND_JRK * dt;
-            const tx = Math.cos(p.wander) * G2_HUNT * 0.4;
-            const ty = Math.sin(p.wander) * G2_HUNT * 0.4;
-            p.vx += (tx - p.vx) * Math.min(1, dt * 2);
-            p.vy += (ty - p.vy) * Math.min(1, dt * 2);
+            // No G1 left — wander gently
+            p.wander += (Math.random() - 0.5) * 1.5 * dt;
+            ax += (Math.cos(p.wander) * G2_SPD * 0.3 - p.vx) * 2;
+            ay += (Math.sin(p.wander) * G2_SPD * 0.3 - p.vy) * 2;
           }
+
+          // Spread: repel from nearby G2s (stronger when no targets remain)
+          const spreadMult = tgtD === Infinity ? 2.4 : 1.0;
+          for (const q of pts) {
+            if (q === p || q.state !== "g2") continue;
+            const dx = p.x - q.x, dy = p.y - q.y;
+            const dist = Math.hypot(dx, dy) || 1;
+            if (dist < SPREAD_R) {
+              const str = (1 - dist / SPREAD_R) * SPREAD_F * spreadMult;
+              ax += (dx / dist) * str;
+              ay += (dy / dist) * str;
+            }
+          }
+
+          p.vx += ax * dt;
+          p.vy += ay * dt;
+
+          // Speed cap
+          const spd = Math.hypot(p.vx, p.vy);
+          if (spd > G2_SPD * 1.6) { p.vx *= G2_SPD * 1.6 / spd; p.vy *= G2_SPD * 1.6 / spd; }
+
+          // Infect any G1 in range
+          for (let j = 0; j < pts.length; j++) {
+            if (pts[j].state !== "g1") continue;
+            if (Math.hypot(pts[j].x - p.x, pts[j].y - p.y) < INFECT_R) {
+              pts[j].state = "cvt";
+              pts[j].cvt   = 0;
+              pts[j].g2    = p.g2;
+              pts[j].vx   *= 0.1;
+              pts[j].vy   *= 0.1;
+              break;
+            }
+          }
+
           p.rot += p.rotSpd * dt;
 
-        // ── Converting: stop, spin up, crossfade ──────────────────────
-        } else {
+        // ── Converting: halt, spin up, crossfade → 2 new G2s ───────────
+        } else if (p.state === "cvt") {
           p.cvt += dt / CVT_TIME;
-          // Brake to a halt
           p.vx *= Math.max(0, 1 - dt * 6);
           p.vy *= Math.max(0, 1 - dt * 6);
-          // Spin accelerates as conversion progresses
           p.rot += (2 + p.cvt * 10) * dt;
 
           if (p.cvt >= 1) {
-            p.state  = "g2";
-            p.cvt    = 1;
-            p.rotSpd = rand(-1.3, 1.3);
-            p.wander = rand(0, Math.PI * 2);
-            p.tid    = -1;
-            // Launch toward a new victim
-            p.vx = Math.cos(p.wander) * G2_HUNT * 0.55;
-            p.vy = Math.sin(p.wander) * G2_HUNT * 0.55;
+            p.state = "dead";
+            anyDead = true;
+            // Spawn one of each G2 type at the conversion point
+            spawns.push(mkG2(p.x + rand(-6, 6), p.y + rand(-6, 6), 0));
+            spawns.push(mkG2(p.x + rand(-6, 6), p.y + rand(-6, 6), 1));
             fxs.push({ x: p.x, y: p.y, progress: 0, r: p.r, color: G2_COLORS[p.g2] });
           }
         }
 
-        // Edge repulsion (smooth, not hard bounce)
+        // ── Edge repulsion (all live states) ───────────────────────────
         if (p.x < MARGIN)     p.vx += EDGE_F * (1 - p.x / MARGIN) * dt;
         if (p.x > W - MARGIN) p.vx -= EDGE_F * (1 - (W - p.x) / MARGIN) * dt;
         if (p.y < MARGIN)     p.vy += EDGE_F * (1 - p.y / MARGIN) * dt;
         if (p.y > H - MARGIN) p.vy -= EDGE_F * (1 - (H - p.y) / MARGIN) * dt;
 
-        // Speed cap
-        const spd  = Math.hypot(p.vx, p.vy);
-        const maxS = p.state === "cvt" ? 10 : p.state === "g1" ? G1_FLEE : G2_HUNT;
-        if (spd > maxS) { p.vx *= maxS / spd; p.vy *= maxS / spd; }
-
         p.x += p.vx * dt;
         p.y += p.vy * dt;
-        // Hard clamp as safety net
         p.x = Math.max(p.r, Math.min(W - p.r, p.x));
         p.y = Math.max(p.r, Math.min(H - p.r, p.y));
       }
 
-      // ── draw ──────────────────────────────────────────────────────────
+      // Remove dead particles and add spawned ones
+      if (anyDead || spawns.length > 0) {
+        pts = pts.filter(p => p.state !== "dead").concat(spawns);
+      }
+
+      // ── Draw ──────────────────────────────────────────────────────────
       ctx.clearRect(0, 0, W, H);
 
       // Conversion flash rings
       fxs = fxs.filter(e => e.progress < 1);
       for (const e of fxs) {
-        e.progress += dt / 0.55;
+        e.progress += dt / 0.5;
         ctx.save();
         ctx.globalAlpha = (1 - e.progress) * 0.55;
         ctx.strokeStyle = e.color;
         ctx.lineWidth   = 2.5;
         ctx.beginPath();
-        ctx.arc(e.x, e.y, e.r * 1.85 * (1 + e.progress * 2.2), 0, Math.PI * 2);
+        ctx.arc(e.x, e.y, e.r * 1.85 * (1 + e.progress * 2.5), 0, Math.PI * 2);
         ctx.stroke();
         ctx.restore();
       }
@@ -327,11 +358,10 @@ export default function LogoBattle() {
           drawLogo(g1imgs[p.g1], p.x, p.y, p.r, ALPHA, p.rot);
         } else if (p.state === "g2") {
           drawLogo(g2imgs[p.g2], p.x, p.y, p.r, ALPHA, p.rot);
-        } else {
-          // Crossfade: G1 fades out, G2 fades in, both scale up then back
-          const scale = 1 + Math.sin(p.cvt * Math.PI) * 0.45;
-          drawLogo(g1imgs[p.g1], p.x, p.y, p.r, ALPHA * (1 - p.cvt), p.rot, scale);
-          drawLogo(g2imgs[p.g2], p.x, p.y, p.r, ALPHA * p.cvt,       p.rot, scale);
+        } else if (p.state === "cvt") {
+          const sc = 1 + Math.sin(p.cvt * Math.PI) * 0.45;
+          drawLogo(g1imgs[p.g1], p.x, p.y, p.r, ALPHA * (1 - p.cvt), p.rot, sc);
+          drawLogo(g2imgs[p.g2], p.x, p.y, p.r, ALPHA * p.cvt,       p.rot, sc);
         }
       }
 
