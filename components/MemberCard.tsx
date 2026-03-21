@@ -11,13 +11,20 @@ export interface Member {
   photoUrl?: string;
 }
 
-const BADGE: Record<string, { label: string; color: string }> = {
-  "MEM-Founding": { label: "Founder", color: "#c4921a" },
-  "MEM-OG":       { label: "OG",      color: "#011224" },
-};
+const FOUNDERS = new Set(["andy mowat", "noah marks"]);
+
+function getBadge(member: Member): { label: string; color: string } | null {
+  if (FOUNDERS.has(member.name.toLowerCase())) {
+    return { label: "Founder", color: "#c4921a" };
+  }
+  if (member.type === "MEM-OG") {
+    return { label: "OG", color: "#011224" };
+  }
+  return null;
+}
 
 export default function MemberCard({ member }: { member: Member }) {
-  const badge = BADGE[member.type];
+  const badge = getBadge(member);
   const initials = member.firstName?.[0] ?? member.name?.[0] ?? "?";
 
   return (
