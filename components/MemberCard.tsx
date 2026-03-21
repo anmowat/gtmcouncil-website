@@ -12,9 +12,8 @@ export interface Member {
 }
 
 const BADGE: Record<string, { label: string; color: string }> = {
-  "MEM-Founding": { label: "Founder", color: "#166534" },
-  "MEM-OG":       { label: "OG",      color: "#15803d" },
-  "MEM-Regular":  { label: "GG",      color: "#16a34a" },
+  "MEM-Founding": { label: "Founder", color: "#c4921a" },
+  "MEM-OG":       { label: "OG",      color: "#011224" },
 };
 
 export default function MemberCard({ member }: { member: Member }) {

@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { getMembers } from "@/lib/airtable";
-import MemberCard, { Member } from "@/components/MemberCard";
+import { Member } from "@/components/MemberCard";
+import MemberDirectory from "@/components/MemberDirectory";
 import LogoutButton from "./LogoutButton";
 
 export const dynamic = "force-dynamic";
@@ -40,30 +41,13 @@ export default async function MembersPage() {
 
       {/* ── Full member directory ─────────────────────────────── */}
       <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
-            <div>
-              <h2 className="text-2xl font-extrabold" style={{ color: "#011224" }}>
-                Member Directory
-              </h2>
-              <p className="text-gray-500 text-sm mt-1">
-                {members.length} members — updated daily from Airtable
-              </p>
-            </div>
+        {members.length > 0 ? (
+          <MemberDirectory members={members} />
+        ) : (
+          <div className="text-center py-16 text-gray-400">
+            <p>Member directory is loading — make sure your Airtable env vars are configured.</p>
           </div>
-
-          {members.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-              {members.map((m) => (
-                <MemberCard key={m.id} member={m} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16 text-gray-400">
-              <p>Member directory is loading — make sure your Airtable env vars are configured.</p>
-            </div>
-          )}
-        </div>
+        )}
       </section>
     </div>
   );
