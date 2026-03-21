@@ -55,40 +55,34 @@ const G2_SVGS = [
   </svg>`,
 ];
 
-// ── Layout ─────────────────────────────────────────────────────────────────
-// Base logo draw size at full scale (W ≥ 800).  Scales down on small screens.
-const BASE_DRAW = 91 * 1.85; // ≈ 168 px
-const COLS      = 3;
-const ROWS      = 2;
-const N         = COLS * ROWS; // 6 logos per team
+// ── Constants ─────────────────────────────────────────────────────────────
+const BASE_DRAW = 91 * 1.85; // ≈ 168 px at full scale
 
-// ── Phase durations (seconds) ──────────────────────────────────────────────
-const T_IDLE   = 1.6;  // G1 sits, G2 waiting above
-const T_DROP   = 1.9;  // G2 drops in (staggered)
-const T_SQUISH = 0.9;  // G2 settled, G1 scattering
-const T_FADE   = 2.2;  // both fade out
-const T_PAUSE  = 0.5;  // invisible gap before restart
+// Phase durations (seconds)
+const T_IDLE   = 1.6;  // G1 sitting alone
+const T_DROP   = 1.6;  // G2 falling in
+const T_SQUISH = 0.65; // impact + squish
+const T_FADE   = 1.8;  // G2 fades, G1 already gone
+const T_PAUSE  = 0.5;
 const T_TOTAL  = T_IDLE + T_DROP + T_SQUISH + T_FADE + T_PAUSE;
 
-function easeInOut(t: number) {
-  t = Math.max(0, Math.min(1, t));
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+// Splat particle colours (loosely "watermelon")
+const SPLAT_COLORS = ["#e74c3c", "#c0392b", "#27ae60", "#f39c12", "#1e8449", "#e74c3c"];
+
+function easeInCubic(t: number) {
+  return Math.max(0, Math.min(1, t)) ** 3;
 }
 function rand(a: number, b: number) { return a + Math.random() * (b - a); }
 function svgUrl(s: string) {
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(s);
 }
 
-interface Sprite {
-  team: "g1" | "g2";
-  logoIdx: number;
-  gx: number; gy: number;   // rest position
-  x: number;  y: number;    // current position
-  vx: number; vy: number;   // velocity (physics in squish/fade)
+interface Splat {
+  x: number; y: number;
+  vx: number; vy: number;
+  r: number;
+  color: string;
   alpha: number;
-  rot: number; rotSpd: number;
-  dropDelay: number;        // G2 per-logo stagger (s)
-  dropStartY: number;       // G2 starting y, above canvas
 }
 
 export default function LogoBattle() {
@@ -106,36 +100,33 @@ export default function LogoBattle() {
     const g1imgs = G1_SVGS.map(s => { const i = new Image(); i.src = svgUrl(s); return i; });
     const g2imgs = G2_SVGS.map(s => { const i = new Image(); i.src = svgUrl(s); return i; });
 
-    let sprites: Sprite[] = [];
-    let drawS = BASE_DRAW; // actual draw size (scaled for viewport)
+    // Per-cycle state (randomised each loop)
+    let g1Idx = 0, g2Idx = 0;
+    let logoX = 0, logoY = 0;  // centre of G1 at rest
+    let drawS = BASE_DRAW;
+    let splats: Splat[] = [];
 
-    function buildSprites() {
-      // Scale logos down on small canvases
-      drawS = BASE_DRAW * Math.min(1, Math.max(0.4, W / 900));
-      const spacingX = drawS * 1.10;
-      const spacingY = drawS * 1.14;
-      const startX   = W * 0.05;                         // left edge of first logo
-      const startY   = H / 2 - ((ROWS - 1) / 2) * spacingY;
-      const dropStartY = -(drawS * 2.5);                 // above canvas
+    function reset() {
+      drawS  = BASE_DRAW * Math.min(1, Math.max(0.45, W / 900));
+      g1Idx  = Math.floor(Math.random() * G1_SVGS.length);
+      g2Idx  = Math.floor(Math.random() * G2_SVGS.length);
+      logoX  = W * 0.20;
+      logoY  = H * 0.50;
+      splats = [];
+    }
 
-      sprites = [];
-      for (let i = 0; i < N; i++) {
-        const col = i % COLS;
-        const row = Math.floor(i / COLS);
-        const gx  = startX + col * spacingX + drawS / 2;
-        const gy  = startY + row * spacingY;
-
-        sprites.push({
-          team: "g1", logoIdx: i % G1_SVGS.length,
-          gx, gy, x: gx, y: gy, vx: 0, vy: 0, alpha: 0.85,
-          rot: rand(0, Math.PI * 2), rotSpd: rand(-0.12, 0.12),
-          dropDelay: 0, dropStartY: 0,
-        });
-        sprites.push({
-          team: "g2", logoIdx: i % G2_SVGS.length,
-          gx, gy, x: gx, y: dropStartY, vx: 0, vy: 0, alpha: 0,
-          rot: rand(0, Math.PI * 2), rotSpd: rand(-0.28, 0.28),
-          dropDelay: i * 0.11, dropStartY,
+    function spawnSplats() {
+      // Blobs fly sideways as if G1 was pulped
+      for (let i = 0; i < 14; i++) {
+        const side = i % 2 === 0 ? 1 : -1;
+        splats.push({
+          x:     logoX + rand(-drawS * 0.25, drawS * 0.25),
+          y:     logoY + drawS * 0.1,                         // near G1 bottom
+          vx:    side * rand(80, 260) + rand(-40, 40),
+          vy:    rand(-100, 40),
+          r:     rand(4, 12) * (drawS / BASE_DRAW),
+          color: SPLAT_COLORS[Math.floor(Math.random() * SPLAT_COLORS.length)],
+          alpha: rand(0.7, 1.0),
         });
       }
     }
@@ -152,7 +143,7 @@ export default function LogoBattle() {
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
       elapsed = 0;
       prevPhase = "pause";
-      buildSprites();
+      reset();
       lastTs = 0;
     }
 
@@ -172,10 +163,10 @@ export default function LogoBattle() {
       elapsed += dt;
       if (elapsed >= T_TOTAL) {
         elapsed -= T_TOTAL;
-        buildSprites(); // reset for next loop
+        reset();
       }
 
-      // Determine phase + time within phase
+      // Phase + time within phase
       let phase: string, phaseT: number;
       if (elapsed < T_IDLE) {
         phase = "idle";   phaseT = elapsed;
@@ -189,96 +180,91 @@ export default function LogoBattle() {
         phase = "pause";  phaseT = 0;
       }
 
-      // On first frame of squish: scatter G1 logos
-      if (phase === "squish" && prevPhase !== "squish") {
-        for (const s of sprites) {
-          if (s.team === "g1") {
-            s.vx     = rand(-200, 200);
-            s.vy     = rand(160, 380);
-            s.rotSpd = rand(-8, 8); // spin while flying
-          }
-        }
-      }
+      // Spawn splats on first frame of squish
+      if (phase === "squish" && prevPhase !== "squish") spawnSplats();
       prevPhase = phase;
 
       ctx.clearRect(0, 0, W, H);
 
-      const GRAV = 800; // px/s²
-
-      for (const s of sprites) {
-        if (phase === "idle") {
-          if (s.team === "g1") {
-            // Subtle breathing hover
-            s.x = s.gx + Math.sin(elapsed * 1.0 + s.gx * 0.008) * 2.5;
-            s.y = s.gy + Math.cos(elapsed * 1.2 + s.gy * 0.010) * 3;
-            s.alpha = 0.85;
-          } else {
-            s.alpha = 0; // G2 hidden above
-          }
-          s.rot += s.rotSpd * dt;
-
-        } else if (phase === "drop") {
-          s.rot += s.rotSpd * dt;
-          if (s.team === "g1") {
-            // Continue hover while waiting to be squished
-            s.x = s.gx + Math.sin(elapsed * 1.0 + s.gx * 0.008) * 1.5;
-            s.y = s.gy + Math.cos(elapsed * 1.2 + s.gy * 0.010) * 1.5;
-            s.alpha = 0.85;
-          } else {
-            // Each G2 falls in at a staggered time
-            const dropDur = T_DROP - s.dropDelay;
-            const t = (phaseT - s.dropDelay) / dropDur;
-            if (t <= 0) {
-              s.alpha = 0;
-            } else {
-              s.alpha = 0.85;
-              s.x = s.gx;
-              s.y = s.dropStartY + (s.gy - s.dropStartY) * easeInOut(Math.min(t, 1));
-            }
-          }
-
-        } else if (phase === "squish") {
-          if (s.team === "g1") {
-            // Physics: fly away under gravity
-            s.vy += GRAV * dt;
-            s.x  += s.vx * dt;
-            s.y  += s.vy * dt;
-            s.rot += s.rotSpd * dt;
-            s.alpha = 0.85;
-          } else {
-            // G2 settled: slight impact bounce
-            const bounce = Math.exp(-phaseT * 10) * Math.sin(phaseT * 24) * 12;
-            s.x = s.gx;
-            s.y = s.gy + bounce;
-            s.rot += s.rotSpd * dt;
-            s.alpha = 0.85;
-          }
-
-        } else if (phase === "fade") {
-          const fadeAlpha = Math.max(0, 0.85 * (1 - phaseT / T_FADE));
-          s.alpha = fadeAlpha;
-          if (s.team === "g1") {
-            s.vy += GRAV * dt;
-            s.x  += s.vx * dt;
-            s.y  += s.vy * dt;
-          } else {
-            s.x = s.gx;
-            s.y = s.gy;
-          }
-          s.rot += s.rotSpd * dt;
-
-        } else {
-          s.alpha = 0;
-        }
-
+      // ── Splat particles ───────────────────────────────────────────────
+      const GRAV = 700;
+      for (const s of splats) {
+        s.x  += s.vx * dt;
+        s.y  += s.vy * dt;
+        s.vy += GRAV * dt;
+        s.alpha = Math.max(0, s.alpha - dt * 1.1);
         if (s.alpha < 0.01) continue;
-
-        const imgs = s.team === "g1" ? g1imgs : g2imgs;
         ctx.save();
         ctx.globalAlpha = s.alpha;
-        ctx.translate(s.x, s.y);
-        ctx.rotate(s.rot);
-        ctx.drawImage(imgs[s.logoIdx], -drawS / 2, -drawS / 2, drawS, drawS);
+        ctx.fillStyle = s.color;
+        ctx.beginPath();
+        // Flat horizontal ellipse — looks like splattered juice
+        ctx.ellipse(s.x, s.y, s.r * 1.8, s.r * 0.65, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // G2 drop-start position: well above canvas
+      const g2StartY = -(drawS * 2);
+      // G2 lands so its bottom edge just meets G1's top edge
+      const g2LandY  = logoY - drawS;         // g2 centre when touching G1 top
+
+      // ── G1 ────────────────────────────────────────────────────────────
+      // Drawn bottom-anchored: bottom edge stays fixed at logoY + drawS/2
+      // while scaleY collapses and scaleX spreads (watermelon squish).
+      let g1Alpha = 0, g1ScaleX = 1, g1ScaleY = 1;
+
+      if (phase === "idle" || phase === "drop") {
+        g1Alpha = 0.88;
+      } else if (phase === "squish") {
+        const t = phaseT / T_SQUISH;
+        // Flatten fast: fully flat by ~60 % of squish phase
+        g1ScaleY = Math.max(0, 1 - t / 0.6);
+        // Spread wide then collapse back (peak at t ≈ 0.3)
+        g1ScaleX = t < 0.3
+          ? 1 + (t / 0.3) * 2.2          // 1 → 3.2
+          : Math.max(0, 3.2 * (1 - (t - 0.3) / 0.7)); // 3.2 → 0
+        g1Alpha = g1ScaleY > 0.01 ? 0.88 : 0;
+      }
+      // G1 invisible during fade/pause (already gone)
+
+      if (g1Alpha > 0.01) {
+        ctx.save();
+        ctx.globalAlpha = g1Alpha;
+        // Anchor at bottom of G1 so it squishes downward
+        ctx.translate(logoX, logoY + drawS / 2);
+        ctx.scale(g1ScaleX, g1ScaleY);
+        ctx.drawImage(g1imgs[g1Idx], -drawS / 2, -drawS, drawS, drawS);
+        ctx.restore();
+      }
+
+      // ── G2 ────────────────────────────────────────────────────────────
+      let g2Y = g2StartY, g2Alpha = 0, g2ScaleY = 1;
+
+      if (phase === "idle") {
+        g2Alpha = 0;
+      } else if (phase === "drop") {
+        const t = easeInCubic(phaseT / T_DROP);
+        g2Y     = g2StartY + (g2LandY - g2StartY) * t;
+        g2Alpha = 0.88;
+      } else if (phase === "squish") {
+        // Press downward as G1 flattens: centre moves from g2LandY → logoY
+        const t    = phaseT / T_SQUISH;
+        g2Y        = g2LandY + (logoY - g2LandY) * Math.min(t / 0.6, 1);
+        // Slight impact squash on G2 itself (quick vertical compress then rebound)
+        g2ScaleY   = 1 - Math.exp(-t * 18) * Math.sin(t * 35) * 0.18;
+        g2Alpha    = 0.88;
+      } else if (phase === "fade") {
+        g2Y     = logoY;
+        g2Alpha = Math.max(0, 0.88 * (1 - phaseT / T_FADE));
+      }
+
+      if (g2Alpha > 0.01) {
+        ctx.save();
+        ctx.globalAlpha = g2Alpha;
+        ctx.translate(logoX, g2Y);
+        ctx.scale(1, g2ScaleY);
+        ctx.drawImage(g2imgs[g2Idx], -drawS / 2, -drawS / 2, drawS, drawS);
         ctx.restore();
       }
 
