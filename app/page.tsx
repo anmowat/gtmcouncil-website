@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import MemberCard, { Member } from "@/components/MemberCard";
 import { getMembers } from "@/lib/airtable";
 
@@ -74,8 +75,8 @@ const PILLARS = [
 ];
 
 const SPONSORS = [
-  { name: "Fullcast", logoText: "FULLCAST" },
-  { name: "Whispered", logoText: "Whispered" },
+  { name: "Fullcast", logo: "/logo-fullcast.webp", href: "https://www.fullcast.com/", width: 160, height: 44 },
+  { name: "Whispered", logo: "/logo-whispered.png", href: "https://www.whispered.com/", width: 180, height: 44 },
 ];
 
 export default async function HomePage() {
@@ -180,9 +181,9 @@ export default async function HomePage() {
           <p className="text-gray-500 mb-10">Our community is proudly supported by a select group of trusted partners</p>
           <div className="flex items-center justify-center gap-16 flex-wrap">
             {SPONSORS.map((s) => (
-              <div key={s.name} className="text-2xl font-bold tracking-tight" style={{ color: "#011224" }}>
-                {s.logoText}
-              </div>
+              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 transition-opacity">
+                <Image src={s.logo} alt={s.name} width={s.width} height={s.height} className="object-contain" />
+              </a>
             ))}
           </div>
         </div>

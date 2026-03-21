@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -6,15 +7,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded bg-white/20 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">G</span>
-            </div>
-            <div className="leading-none">
-              <div className="font-extrabold text-base tracking-wide text-white">GTM</div>
-              <div className="text-xs tracking-[0.2em] font-medium text-white/80">COUNCIL</div>
-            </div>
-          </Link>
+          <a href="https://www.gtmcouncil.com" target="_blank" rel="noopener noreferrer">
+            <Image src="/logo-gtmcouncil.svg" alt="GTM Council" width={90} height={50} className="brightness-0 invert" />
+          </a>
 
           <p className="text-white/60 text-sm">© 2026 GTM Council. All rights reserved.</p>
 

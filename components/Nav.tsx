@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export default function Nav() {
@@ -10,15 +11,9 @@ export default function Nav() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <div className="w-8 h-8 rounded flex items-center justify-center" style={{ backgroundColor: "#011224" }}>
-              <span className="text-white font-bold text-sm">G</span>
-            </div>
-            <div className="leading-none">
-              <div className="font-extrabold text-base tracking-wide" style={{ color: "#011224" }}>GTM</div>
-              <div className="text-xs tracking-[0.2em] font-medium" style={{ color: "#011224" }}>COUNCIL</div>
-            </div>
-          </Link>
+          <a href="https://www.gtmcouncil.com" target="_blank" rel="noopener noreferrer" className="shrink-0">
+            <Image src="/logo-gtmcouncil.svg" alt="GTM Council" width={110} height={60} priority />
+          </a>
 
           {/* Nav links (desktop) */}
           <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
