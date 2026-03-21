@@ -167,7 +167,7 @@ export default async function HomePage() {
             Our Membership
           </h2>
           <p className="text-center text-gray-500 mb-10">
-            The GTM Council brings together senior GTM systems-thinkers.
+            The GTM Council brings together the top GTM systems-thinkers.
           </p>
           {membersError ? (
             <p className="text-center text-red-500 py-12 text-sm font-mono">{membersError}</p>
