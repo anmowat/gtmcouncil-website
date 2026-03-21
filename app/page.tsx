@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Member } from "@/components/MemberCard";
 import MemberDirectory from "@/components/MemberDirectory";
 import { getMembers } from "@/lib/airtable";
+import LogoBattle from "@/components/LogoBattle";
 
 export const revalidate = 86400; // rebuild member list once per day
 
@@ -99,8 +100,18 @@ export default async function HomePage() {
   return (
     <div>
       {/* ── Mission ───────────────────────────────────────────────── */}
-      <section className="py-20 px-4 text-center">
-        <div className="max-w-3xl mx-auto">
+      <section className="relative py-20 px-4 text-center overflow-hidden">
+        {/* Animated logo battle background */}
+        <LogoBattle />
+        {/* Radial vignette so text stays crisp in the centre */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 70% at 50% 50%, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.55) 60%, rgba(255,255,255,0.15) 100%)",
+          }}
+        />
+        <div className="relative z-10 max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6" style={{ color: "#011224" }}>
             Our Mission
           </h1>
