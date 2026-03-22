@@ -44,8 +44,13 @@ const T_FADE   = 1.8;  // G2 fades, G1 already gone
 const T_PAUSE  = 0.5;
 const T_TOTAL  = T_IDLE + T_DROP + T_SQUISH + T_FADE + T_PAUSE;
 
-// Splat particle colours (loosely "watermelon")
-const SPLAT_COLORS = ["#e74c3c", "#c0392b", "#27ae60", "#f39c12", "#1e8449", "#e74c3c"];
+// Splat colour palettes — match each G1 logo's brand colour (same order as G1_SVGS)
+const G1_SPLAT_PALETTES = [
+  ["#00A1E0", "#33BBF0", "#0079B8"],  // Salesforce — blues
+  ["#FF7A59", "#FF9A7A", "#E05535"],  // HubSpot — oranges
+  ["#5951FF", "#7874FF", "#3530D8"],  // Outreach — purples
+  ["#5C4C9F", "#7B68C0", "#40347A"],  // Marketo — purples
+];
 
 function easeInCubic(t: number) {
   return Math.max(0, Math.min(1, t)) ** 3;
@@ -103,7 +108,7 @@ export default function LogoBattle() {
           vx:    side * rand(80, 260) + rand(-40, 40),
           vy:    rand(-100, 40),
           r:     rand(4, 12) * (drawS / BASE_DRAW),
-          color: SPLAT_COLORS[Math.floor(Math.random() * SPLAT_COLORS.length)],
+          color: G1_SPLAT_PALETTES[g1Idx % G1_SPLAT_PALETTES.length][Math.floor(Math.random() * 3)],
           alpha: rand(0.7, 1.0),
         });
       }

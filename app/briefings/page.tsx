@@ -44,7 +44,7 @@ export default async function BriefingsPage() {
       {/* ── Upcoming & Past Briefings (Contrast embed) ───────────── */}
       <section className="px-4 pb-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-8" style={{ color: "#c4921a" }}>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-4" style={{ color: "#c4921a" }}>
             Upcoming (and Past) Briefings
           </h2>
           <div className="rounded-xl overflow-hidden border border-gray-200 shadow-sm">
@@ -86,7 +86,7 @@ export default async function BriefingsPage() {
               Volunteer as Panelist
             </a>
           </div>
-          <p className="text-center text-sm mb-10" style={{ color: "#c4921a" }}>
+          <p className="text-center text-sm mb-4" style={{ color: "#c4921a" }}>
             We typically have 2–3 panelists for a briefing. If you&apos;d like to volunteer, DM or click the button above.
           </p>
 

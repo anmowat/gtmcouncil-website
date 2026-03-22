@@ -141,7 +141,7 @@ export default async function HomePage() {
       {/* ── Community Pillars ─────────────────────────────────────── */}
       <section className="pt-8 pb-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-12" style={{ color: "#011224" }}>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: "#011224" }}>
             Community Pillars
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -208,13 +208,13 @@ export default async function HomePage() {
       </section>
 
       {/* ── Sponsors ──────────────────────────────────────────────── */}
-      <section className="py-16 px-4 bg-gray-50 border-t border-gray-200">
+      <section className="py-8 px-4 bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-extrabold mb-3" style={{ color: "#011224" }}>Our Sponsors</h2>
-          <p className="text-gray-500 mb-10">Our community is proudly supported by a select group of trusted partners</p>
+          <h2 className="text-3xl font-extrabold mb-2" style={{ color: "#011224" }}>Our Sponsors</h2>
+          <p className="text-gray-500 mb-4">Our community is proudly supported by a select group of trusted partners</p>
           <div className="flex items-center justify-center gap-16 flex-wrap">
             {SPONSORS.map((s) => (
-              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="opacity-80 hover:opacity-100 transition-opacity">
+              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
                 <Image src={s.logo} alt={s.name} width={s.width} height={s.height} className="object-contain" />
               </a>
             ))}

@@ -98,7 +98,7 @@ export default function HuddlesPage() {
       {/* ── Value for Both Sides ────────────────────────────────────── */}
       <section className="px-4 pb-16">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-extrabold mb-6" style={{ color: "#011224" }}>
+          <h2 className="text-2xl font-extrabold mb-3" style={{ color: "#011224" }}>
             Value for Both Sides
           </h2>
 
@@ -141,7 +141,7 @@ export default function HuddlesPage() {
       {/* ── Format ──────────────────────────────────────────────────── */}
       <section className="px-4 pb-20">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-extrabold mb-6" style={{ color: "#011224" }}>
+          <h2 className="text-2xl font-extrabold mb-3" style={{ color: "#011224" }}>
             Format
           </h2>
 

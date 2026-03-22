@@ -101,7 +101,7 @@ export async function getFutureTopics(): Promise<FutureTopic[]> {
   const records = await fetchAllRecords(tableName);
   return records.map((r) => ({
     id: r.id,
-    title: String(r.fields["Name"] ?? r.fields["Title"] ?? ""),
+    title: String(r.fields["Topic"] ?? r.fields["Name"] ?? r.fields["Title"] ?? ""),
     area: String(r.fields["Area"] ?? ""),
     description: String(r.fields["Description"] ?? ""),
   }));
