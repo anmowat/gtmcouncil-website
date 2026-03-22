@@ -72,7 +72,7 @@ export default function MemberDirectory({ members, showHeader = true }: { member
 
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
+      <div className={`flex items-center mb-8 flex-wrap gap-4 ${showHeader ? "justify-between" : "justify-center"}`}>
         {showHeader && (
           <div>
             <h2 className="text-2xl font-extrabold" style={{ color: "#011224" }}>
@@ -85,13 +85,13 @@ export default function MemberDirectory({ members, showHeader = true }: { member
         )}
 
         {/* Region multi-select dropdown */}
-        <div className={`relative ${!showHeader ? "ml-auto" : ""}`} ref={dropdownRef}>
+        <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setOpen((v) => !v)}
             className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded border transition-colors"
             style={{ borderColor: selected.size > 0 ? "#011224" : "#d1d5db", color: "#011224", backgroundColor: "#fff" }}
           >
-            <span>Region: {label}</span>
+            <span>{label}</span>
             <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`} viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>

@@ -262,7 +262,7 @@ export default function LogoBattle() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="absolute inset-0 w-full h-full pointer-events-none select-none"
+      className="absolute inset-0 w-full h-full pointer-events-none select-none hidden sm:block"
     />
   );
 }

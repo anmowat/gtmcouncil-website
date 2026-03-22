@@ -118,7 +118,7 @@ export default async function HomePage() {
         <LogoBattle />
         {/* Horizontal vignette: clear on left (logos) → white centre (text) → clear right */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none hidden sm:block"
           style={{
             background:
               "linear-gradient(to right, transparent 25%, rgba(255,255,255,0.92) 42%, rgba(255,255,255,0.92) 58%, transparent 75%)",

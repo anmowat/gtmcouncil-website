@@ -11,7 +11,7 @@ const MEMBER_QUOTES: Quote[] = [
     name: "Andy Mowat",
     title: "VP RevOps @ 4 Unicorns",
     quote: "We've been quietly running these huddles for 9 years. The unique format to bring in CEOs who know the tech and space creates such great discussion and learning with our members.",
-    // photoUrl: "/photos/andy-mowat.jpg",  — place file at public/photos/andy-mowat.jpg to enable
+    photoUrl: "/photos/andy-mowat.jpg",
     linkedin: "https://www.linkedin.com/in/amowat/",
   },
 ];
@@ -21,14 +21,14 @@ const COMPANY_QUOTES: Quote[] = [
     name: "Elio Narciso",
     title: "CEO @ Scalestack",
     quote: "The opportunity to share our platform and vision for the future with 15 top RevOps leaders and get feedback was amazing. We built great relationships and even closed a few deals from the discussion.",
-    // photoUrl: "/photos/elio-narciso.jpg",  — place file at public/photos/elio-narciso.jpg to enable
+    photoUrl: "/photos/elio-narciso.jpg",
     linkedin: "https://www.linkedin.com/in/elionarciso/",
   },
   {
     name: "Sriharsha (Sal) Guduguntia",
     title: "CEO @ Hyperbound",
     quote: "It was powerful to share how we are seeing AI change manager coaching and enablement with 20+ RevOps leaders and get input on our platform / vision. The insights around how the group looks at buy-vs-build in this AI area accelerated our thinking.",
-    // photoUrl: "/photos/sriharsha-guduguntia.jpg",  — place file at public/photos/sriharsha-guduguntia.jpg to enable
+    photoUrl: "/photos/sriharsha-guduguntia.jpg",
     linkedin: "https://www.linkedin.com/in/sguduguntla/",
   },
 ];
@@ -147,7 +147,7 @@ export default function HuddlesPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {FORMAT_CARDS.map((card) => (
-              <div key={card.title} className="rounded-xl border border-gray-200 bg-gray-50 p-6">
+              <div key={card.title} className="rounded-xl border border-gray-200 bg-gray-100 p-6">
                 <div className="flex items-center gap-2 mb-3" style={{ color: "#011224" }}>
                   {card.icon}
                   <h3 className="font-bold">{card.title}</h3>
