@@ -72,7 +72,7 @@ export default function MemberDirectory({ members, showHeader = true }: { member
 
   return (
     <div className="max-w-7xl mx-auto">
-      <div className={`flex items-center mb-8 flex-wrap gap-4 ${showHeader ? "justify-between" : "justify-center"}`}>
+      <div className={`flex items-center flex-wrap gap-4 ${showHeader ? "justify-between mb-6" : "justify-center mb-3"}`}>
         {showHeader && (
           <div>
             <h2 className="text-2xl font-extrabold" style={{ color: "#011224" }}>

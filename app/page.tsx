@@ -192,7 +192,7 @@ export default async function HomePage() {
           <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: "#011224" }}>
             Our Membership
           </h2>
-          <p className="text-center text-gray-500 mb-10">
+          <p className="text-center text-gray-500 mb-4">
             The GTM Council brings together the top GTM systems-thinkers.
           </p>
           {membersError ? (
