@@ -37,13 +37,13 @@ export default function QuoteCarousel({ quotes, bg, light = true }: Props) {
 
   return (
     <div
-      className="relative rounded-xl overflow-hidden flex group h-full"
-      style={{ backgroundColor: bg, minHeight: "140px" }}
+      className="relative rounded-xl overflow-hidden flex group"
+      style={{ backgroundColor: bg }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Photo */}
-      <div className="relative w-32 shrink-0 bg-black/10">
+      {/* Photo column — stretches to full height via flexbox */}
+      <div className="relative w-32 shrink-0 bg-black/10" style={{ minHeight: "140px" }}>
         {q.photoUrl ? (
           <Image src={q.photoUrl} alt={q.name} fill className="object-cover object-top" sizes="128px" />
         ) : (
@@ -67,11 +67,19 @@ export default function QuoteCarousel({ quotes, bg, light = true }: Props) {
         )}
       </div>
 
-      {/* Text */}
-      <div className="flex-1 p-5 flex flex-col justify-center">
-        <p className={`font-bold text-sm leading-tight ${textCls}`}>{q.name}</p>
-        <p className={`text-xs mb-3 ${mutedCls}`}>{q.title}</p>
-        <p className={`text-sm italic leading-relaxed ${textCls}`}>&ldquo;{q.quote}&rdquo;</p>
+      {/* Text — all quotes stacked in one grid cell so height = tallest slide always */}
+      <div className="flex-1" style={{ display: "grid" }}>
+        {quotes.map((slide, i) => (
+          <div
+            key={i}
+            className="p-5 flex flex-col justify-center"
+            style={{ gridArea: "1 / 1", visibility: i === idx ? "visible" : "hidden" }}
+          >
+            <p className={`font-bold text-sm leading-tight ${textCls}`}>{slide.name}</p>
+            <p className={`text-xs mb-3 ${mutedCls}`}>{slide.title}</p>
+            <p className={`text-sm italic leading-relaxed ${textCls}`}>&ldquo;{slide.quote}&rdquo;</p>
+          </div>
+        ))}
       </div>
 
       {/* Arrows — visible on hover when multiple quotes */}

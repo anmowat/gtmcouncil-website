@@ -42,7 +42,7 @@ export default async function BriefingsPage() {
       </section>
 
       {/* ── Upcoming & Past Briefings (Contrast embed) ───────────── */}
-      <section className="px-4 pb-16">
+      <section className="px-4 pb-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-8" style={{ color: "#c4921a" }}>
             Upcoming (and Past) Briefings
@@ -59,7 +59,7 @@ export default async function BriefingsPage() {
       </section>
 
       {/* ── Future Topics ─────────────────────────────────────────── */}
-      <section className="py-16 px-4 bg-gray-50 border-t border-gray-200">
+      <section className="pt-6 pb-16 px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-4" style={{ color: "#c4921a" }}>
             Future Topics
@@ -112,9 +112,9 @@ export default async function BriefingsPage() {
 
 function TopicCard({ topic }: { topic: FutureTopic }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition-shadow">
+    <div className="bg-gray-100 rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition-shadow">
       <div className="flex items-start justify-between gap-3 mb-2">
-        <h3 className="font-bold text-gray-900">{topic.title}</h3>
+        <h3 className="text-base font-bold text-gray-600">{topic.title}</h3>
         {topic.area && (
           <span
             className="shrink-0 text-xs font-semibold px-2.5 py-1 rounded-full text-white"

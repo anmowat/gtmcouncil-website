@@ -96,8 +96,8 @@ const PILLARS = [
 ];
 
 const SPONSORS = [
-  { name: "Fullcast", logo: "/logo-fullcast.webp", href: "https://www.fullcast.com/", width: 160, height: 44 },
-  { name: "Whispered", logo: "/logo-whispered.png", href: "https://www.whispered.com/", width: 180, height: 44 },
+  { name: "Fullcast", logo: "/logo-fullcast.webp", href: "https://www.fullcast.com/", width: 240, height: 66 },
+  { name: "Whispered", logo: "/logo-whispered.png", href: "https://www.whispered.com/", width: 270, height: 66 },
 ];
 
 export default async function HomePage() {
@@ -113,7 +113,7 @@ export default async function HomePage() {
   return (
     <div>
       {/* ── Mission ───────────────────────────────────────────────── */}
-      <section className="relative py-20 px-4 text-center overflow-hidden min-h-[420px] flex flex-col justify-center">
+      <section className="relative pt-20 pb-8 px-4 text-center overflow-hidden min-h-[420px] flex flex-col justify-center">
         {/* Choreographed logo animation — group 1 left, group 2 drops in */}
         <LogoBattle />
         {/* Horizontal vignette: clear on left (logos) → white centre (text) → clear right */}
@@ -139,7 +139,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Community Pillars ─────────────────────────────────────── */}
-      <section className="py-16 px-4 bg-gray-50">
+      <section className="pt-8 pb-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-12" style={{ color: "#011224" }}>
             Community Pillars
@@ -148,7 +148,7 @@ export default async function HomePage() {
             {PILLARS.map((pillar) => (
               <div
                 key={pillar.title}
-                className="bg-white rounded-xl border border-gray-200 p-6 flex flex-col gap-4 shadow-sm"
+                className="bg-gray-100 rounded-xl border border-gray-200 p-6 flex flex-col gap-4 shadow-sm"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
                   <div className="text-gray-500 shrink-0">{pillar.icon}</div>
@@ -187,7 +187,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Our Membership ────────────────────────────────────────── */}
-      <section className="py-20 px-4">
+      <section className="pt-8 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: "#011224" }}>
             Our Membership

@@ -34,7 +34,7 @@ const G2_SVGS = [
 ];
 
 // ── Constants ─────────────────────────────────────────────────────────────
-const BASE_DRAW = 91 * 1.85; // ≈ 168 px at full scale
+const BASE_DRAW = 91 * 1.85 * 0.7; // ≈ 118 px at full scale (30% smaller)
 
 // Phase durations (seconds)
 const T_IDLE   = 1.6;  // G1 sitting alone
