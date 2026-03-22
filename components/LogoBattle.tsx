@@ -4,23 +4,25 @@ import { useEffect, useRef } from "react";
 
 // ── SVG logos ─────────────────────────────────────────────────────────────
 const G1_SVGS = [
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 36">
-    <circle cx="22" cy="22" r="13" fill="#00A1E0"/>
-    <circle cx="11" cy="27" r="9"  fill="#00A1E0"/>
-    <circle cx="35" cy="17" r="17" fill="#00A1E0"/>
-    <circle cx="47" cy="24" r="11" fill="#00A1E0"/>
-    <circle cx="40" cy="29" r="8"  fill="#00A1E0"/>
-    <rect x="2" y="24" width="52" height="12" fill="#00A1E0"/>
+  // Salesforce cloud — 5 overlapping circles + bottom ellipse fill, all within viewBox
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 195">
+    <ellipse cx="150" cy="156" rx="130" ry="40" fill="#00A1E0"/>
+    <circle  cx="52"  cy="113" r="43"          fill="#00A1E0"/>
+    <circle  cx="96"  cy="91"  r="55"          fill="#00A1E0"/>
+    <circle  cx="150" cy="76"  r="65"          fill="#00A1E0"/>
+    <circle  cx="204" cy="91"  r="55"          fill="#00A1E0"/>
+    <circle  cx="248" cy="113" r="43"          fill="#00A1E0"/>
   </svg>`,
+  // HubSpot sprocket — ring on right, three arms extend upper-left / left / lower-left
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-    <line x1="37" y1="52" x2="15" y2="17" stroke="#FF7A59" stroke-width="11" stroke-linecap="round"/>
-    <line x1="61" y1="40" x2="63" y2="9"  stroke="#FF7A59" stroke-width="11" stroke-linecap="round"/>
-    <line x1="38" y1="69" x2="11" y2="84" stroke="#FF7A59" stroke-width="11" stroke-linecap="round"/>
-    <circle cx="13" cy="13" r="12" fill="#FF7A59"/>
-    <circle cx="64" cy="7"  r="12" fill="#FF7A59"/>
-    <circle cx="9"  cy="86" r="12" fill="#FF7A59"/>
-    <circle cx="60" cy="62" r="28" fill="#FF7A59"/>
-    <circle cx="60" cy="62" r="14" fill="white"/>
+    <circle cx="72" cy="50" r="18" fill="#FF7A59"/>
+    <circle cx="72" cy="50" r="9"  fill="white"/>
+    <line x1="59" y1="37" x2="38" y2="16" stroke="#FF7A59" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="31" cy="9"  r="9" fill="#FF7A59"/>
+    <line x1="54" y1="50" x2="22" y2="50" stroke="#FF7A59" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="13" cy="50" r="9" fill="#FF7A59"/>
+    <line x1="59" y1="63" x2="38" y2="84" stroke="#FF7A59" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="31" cy="91" r="9" fill="#FF7A59"/>
   </svg>`,
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85 90">
     <polygon points="4,88 20,88 23,58 7,58"   fill="#5B5BC4"/>
