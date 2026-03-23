@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Member } from "@/components/MemberCard";
 import MemberDirectory from "@/components/MemberDirectory";
 import { getMembers } from "@/lib/airtable";
-import LogoBattle from "@/components/LogoBattle";
 
 export const revalidate = 86400; // rebuild member list once per day
 
@@ -114,8 +113,6 @@ export default async function HomePage() {
     <div>
       {/* ── Mission ───────────────────────────────────────────────── */}
       <section className="relative pt-20 pb-8 px-4 text-center overflow-hidden min-h-[420px] flex flex-col justify-center">
-        {/* Choreographed logo animation — group 1 left, group 2 drops in */}
-        <LogoBattle />
         {/* Horizontal vignette: clear on left (logos) → white centre (text) → clear right */}
         <div
           className="absolute inset-0 pointer-events-none hidden sm:block"
