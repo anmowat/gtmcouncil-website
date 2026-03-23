@@ -40,18 +40,18 @@ const SERIES = [
   {
     title: "GTM Engineering",
     description: "Companies are building teams dedicated to leveraging AI across their GTM motion. How can they set themselves up for success.",
-    status: "live" as const,
+    status: "inprogress" as const,
     briefUrl: "https://www.gtmcouncil.com",
   },
   {
     title: "Agentic SDR",
     description: "Personalized nurture and sequences is here. Innovative companies are increasingly automating inbound and outbound SDR. Learn from the best.",
-    status: "live" as const,
+    status: "inprogress" as const,
     briefUrl: "https://www.gtmcouncil.com",
   },
   {
-    title: "CRM 2.0",
-    description: "Your data warehouse will be your next CRM. There is a new wave of companies rebuilding CRM on top of AI and Data. Learn about the innovation that is coming.",
+    title: "Agentic Analytics",
+    description: "Agents change analytics. No more creating dashboards. Instead we will soon have agents monitoring us and coaching each GTM leader.",
     status: "soon" as const,
   },
   {
@@ -60,14 +60,19 @@ const SERIES = [
     status: "soon" as const,
   },
   {
+    title: "CRM 2.0",
+    description: "Your data warehouse will be your next CRM. There is a new wave of companies rebuilding CRM on top of AI and Data. Learn about the innovation that is coming.",
+    status: "future" as const,
+  },
+  {
     title: "Consumption Pricing",
     description: "AI is changing how companies charge. And when they do your sales and finance team need to have the systems to forecast, close and bill in this new era.",
-    status: "soon" as const,
+    status: "future" as const,
   },
   {
     title: "Marketing Automation 2.0",
     description: "We all hate Marketo. And we have 5+ systems sending email. Learn about the innovation some amazing vendors are bringing.",
-    status: "soon" as const,
+    status: "future" as const,
   },
 ];
 
@@ -141,22 +146,26 @@ export default function PodcastPage() {
               >
                 <div className="flex items-start justify-between gap-3 mb-2">
                   <h3 className="font-bold text-gray-900">{s.title}</h3>
-                  {s.status === "live" && s.briefUrl ? (
-                    <a
-                      href={s.briefUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                  {s.status === "inprogress" ? (
+                    <span
                       className="shrink-0 text-xs font-bold px-3 py-1 rounded text-white"
-                      style={{ backgroundColor: "#c4921a" }}
+                      style={{ backgroundColor: "#16a34a" }}
                     >
-                      See Brief
-                    </a>
+                      In Progress
+                    </span>
+                  ) : s.status === "soon" ? (
+                    <span
+                      className="shrink-0 text-xs font-bold px-3 py-1 rounded text-white"
+                      style={{ backgroundColor: "#ea580c" }}
+                    >
+                      Coming Soon
+                    </span>
                   ) : (
                     <span
                       className="shrink-0 text-xs font-bold px-3 py-1 rounded text-white"
                       style={{ backgroundColor: "#011224" }}
                     >
-                      Coming Soon
+                      Future
                     </span>
                   )}
                 </div>
