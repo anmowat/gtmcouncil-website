@@ -33,7 +33,14 @@ export default function MemberDirectory({ members, showHeader = true }: { member
   const regions = useMemo(() => {
     const set = new Set<string>();
     members.forEach((m) => { if (m.region) set.add(m.region); });
-    return Array.from(set).sort();
+    const BOTTOM = ["APAC", "Europe", "Remote"];
+    return Array.from(set).sort((a, b) => {
+      const ai = BOTTOM.indexOf(a), bi = BOTTOM.indexOf(b);
+      if (ai === -1 && bi === -1) return a.localeCompare(b);
+      if (ai === -1) return -1;
+      if (bi === -1) return 1;
+      return ai - bi;
+    });
   }, [members]);
 
   // Close dropdown when clicking outside

@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 export interface Member {
   id: string;
@@ -26,18 +29,20 @@ function getBadge(member: Member): { label: string; color: string } | null {
 export default function MemberCard({ member }: { member: Member }) {
   const badge = getBadge(member);
   const initials = member.firstName?.[0] ?? member.name?.[0] ?? "?";
+  const [imgError, setImgError] = useState(false);
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
       {/* Photo */}
       <div className="relative aspect-square bg-gray-100">
-        {member.photoUrl ? (
+        {member.photoUrl && !imgError ? (
           <Image
             src={member.photoUrl}
             alt={member.name}
             fill
             className="object-cover object-top"
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
+            onError={() => setImgError(true)}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-gray-400">
