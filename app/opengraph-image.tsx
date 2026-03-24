@@ -28,8 +28,8 @@ export default async function Image() {
           display: "flex",
           alignItems: "center",
           background: "#ffffff",
-          padding: "60px",
-          gap: "60px",
+          padding: "80px",
+          gap: "70px",
         }}
       >
         {/* Logo on the left */}
@@ -41,14 +41,14 @@ export default async function Image() {
             flexShrink: 0,
           }}
         >
-          <img src={logoSrc} width={360} height={240} />
+          <img src={logoSrc} width={420} height={280} />
         </div>
 
         {/* Divider */}
         <div
           style={{
-            width: "3px",
-            height: "320px",
+            width: "4px",
+            height: "380px",
             background: "#c8952a",
             flexShrink: 0,
           }}
@@ -60,22 +60,22 @@ export default async function Image() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            gap: "24px",
+            gap: "32px",
           }}
         >
           <div
             style={{
-              fontSize: 42,
+              fontSize: 68,
               fontWeight: 700,
               color: "#0d2340",
-              lineHeight: 1.2,
+              lineHeight: 1.15,
             }}
           >
             AI will rewire the GTM motion.
           </div>
           <div
             style={{
-              fontSize: 28,
+              fontSize: 38,
               color: "#334155",
               lineHeight: 1.5,
             }}
