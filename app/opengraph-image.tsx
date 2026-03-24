@@ -36,20 +36,8 @@ export default async function Image() {
           gap: "0px",
         }}
       >
-        {/* Logo — 2.5× (500×500 image), container clips transparent padding */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 420,
-            height: 260,
-            overflow: "hidden",
-            flexShrink: 0,
-          }}
-        >
-          <img src={logoSrc} width={500} height={500} style={{ flexShrink: 0 }} />
-        </div>
+        {/* Logo — SVG viewBox 220×120, rendered at 500×273 (correct aspect ratio) */}
+        <img src={logoSrc} width={500} height={273} style={{ flexShrink: 0 }} />
 
         {/* Spacer */}
         <div style={{ height: 24, display: "flex" }} />
