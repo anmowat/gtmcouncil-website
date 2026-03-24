@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     "The GTM Council is built to support the modern GTM Operational leader. Our community connects members to the most innovative vendors to grow careers and lead the evolution of GTM technology.",
   openGraph: {
     title: "GTM Council",
-    description: "Community for GTM Operations Leaders",
+    description:
+      "AI will rewire the GTM motion. GTM Council is an exclusive community of the top 100+ GTM operators sharing insights and helping shape how GTM will evolve.",
     siteName: "GTM Council",
   },
 };
