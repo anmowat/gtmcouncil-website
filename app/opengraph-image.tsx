@@ -19,6 +19,13 @@ export default async function Image() {
   );
   const logoSrc = `data:image/png;base64,${logoData}`;
 
+  // Logo source is 132×132 (square). Render in an overflow:hidden container
+  // that is narrower than the image to crop whitespace on left/right edges,
+  // letting us scale the logo taller without distorting proportions.
+  const LOGO_RENDER = 310; // image rendered at 310×310 (1:1)
+  const LOGO_CROP_W = 240; // visible width after cropping ~35px each side
+  const LOGO_CROP_H = 310;
+
   return new ImageResponse(
     (
       <div
@@ -28,20 +35,28 @@ export default async function Image() {
           display: "flex",
           alignItems: "center",
           background: "#ffffff",
-          padding: "70px",
-          gap: "60px",
+          padding: "60px",
+          gap: "50px",
         }}
       >
-        {/* Logo on the left */}
+        {/* Logo — cropped container removes horizontal whitespace */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            width: LOGO_CROP_W,
+            height: LOGO_CROP_H,
+            overflow: "hidden",
             flexShrink: 0,
           }}
         >
-          <img src={logoSrc} width={340} height={226} />
+          <img
+            src={logoSrc}
+            width={LOGO_RENDER}
+            height={LOGO_RENDER}
+            style={{ flexShrink: 0 }}
+          />
         </div>
 
         {/* Divider */}
@@ -54,30 +69,34 @@ export default async function Image() {
           }}
         />
 
-        {/* Text on the right */}
+        {/* Text — flex:1 + minWidth:0 ensures it wraps inside remaining space */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            gap: "32px",
+            flex: 1,
+            minWidth: 0,
+            gap: "30px",
           }}
         >
           <div
             style={{
-              fontSize: 60,
+              fontSize: 62,
               fontWeight: 700,
               color: "#0d2340",
               lineHeight: 1.15,
+              wordBreak: "break-word",
             }}
           >
             AI will rewire GTM.
           </div>
           <div
             style={{
-              fontSize: 34,
+              fontSize: 36,
               color: "#334155",
               lineHeight: 1.5,
+              wordBreak: "break-word",
             }}
           >
             An exclusive community of RevOps leaders shaping what comes next.
