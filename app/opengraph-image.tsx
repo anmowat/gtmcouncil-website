@@ -13,14 +13,14 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image() {
-  const logoData = await readFile(
-    join(process.cwd(), "public/logo-gtmcouncil.svg"),
-    "base64"
-  );
-  const logoSrc = `data:image/svg+xml;base64,${logoData}`;
+  const [fontExtraBold, fontRegular] = await Promise.all([
+    readFile(join(process.cwd(), "public/fonts/montserrat-extrabold.ttf")),
+    readFile(join(process.cwd(), "public/fonts/montserrat-regular.ttf")),
+  ]);
 
-  // Vertical stack layout — readable even at LinkedIn DM thumbnail size.
-  // Logo centered top, large headline, subtitle below.
+  // Logo recreated as inline JSX using the actual brand colors.
+  // GTM: ExtraBold — G/M navy #0d2340, T gold #c4921a.
+  // COUNCIL: Regular, wide letter-spacing, navy.
   return new ImageResponse(
     (
       <div
@@ -33,20 +33,79 @@ export default async function Image() {
           justifyContent: "center",
           background: "#ffffff",
           padding: "60px 80px",
-          gap: "0px",
         }}
       >
-        {/* Logo — SVG viewBox 220×120, rendered at 500×273 (correct aspect ratio) */}
-        <img src={logoSrc} width={500} height={273} style={{ flexShrink: 0 }} />
+        {/* ── Logo ── */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "6px",
+            flexShrink: 0,
+          }}
+        >
+          {/* GTM */}
+          <div style={{ display: "flex", lineHeight: 1 }}>
+            <span
+              style={{
+                fontSize: 160,
+                fontWeight: 800,
+                fontFamily: "Montserrat",
+                color: "#0d2340",
+                lineHeight: 1,
+              }}
+            >
+              G
+            </span>
+            <span
+              style={{
+                fontSize: 160,
+                fontWeight: 800,
+                fontFamily: "Montserrat",
+                color: "#c4921a",
+                lineHeight: 1,
+              }}
+            >
+              T
+            </span>
+            <span
+              style={{
+                fontSize: 160,
+                fontWeight: 800,
+                fontFamily: "Montserrat",
+                color: "#0d2340",
+                lineHeight: 1,
+              }}
+            >
+              M
+            </span>
+          </div>
+
+          {/* COUNCIL */}
+          <div
+            style={{
+              fontSize: 30,
+              fontWeight: 400,
+              fontFamily: "Montserrat",
+              color: "#0d2340",
+              letterSpacing: "16px",
+              paddingLeft: "16px", // offset trailing letter-spacing so it centres
+            }}
+          >
+            COUNCIL
+          </div>
+        </div>
 
         {/* Spacer */}
-        <div style={{ height: 24, display: "flex" }} />
+        <div style={{ height: 36, display: "flex" }} />
 
         {/* Headline */}
         <div
           style={{
             fontSize: 80,
-            fontWeight: 700,
+            fontWeight: 800,
+            fontFamily: "Montserrat",
             color: "#0d2340",
             lineHeight: 1.1,
             textAlign: "center",
@@ -57,12 +116,14 @@ export default async function Image() {
         </div>
 
         {/* Spacer */}
-        <div style={{ height: 16, display: "flex" }} />
+        <div style={{ height: 20, display: "flex" }} />
 
         {/* Subtitle */}
         <div
           style={{
             fontSize: 36,
+            fontWeight: 400,
+            fontFamily: "Montserrat",
             color: "#334155",
             lineHeight: 1.45,
             textAlign: "center",
@@ -76,6 +137,22 @@ export default async function Image() {
         </div>
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      fonts: [
+        {
+          name: "Montserrat",
+          data: fontExtraBold,
+          weight: 800,
+          style: "normal",
+        },
+        {
+          name: "Montserrat",
+          data: fontRegular,
+          weight: 400,
+          style: "normal",
+        },
+      ],
+    }
   );
 }
