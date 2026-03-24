@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { readFile } from "node:fs/promises";
 
 export const alt =
-  "AI will rewire GTM. An exclusive community of RevOps leaders shaping what comes next.";
+  "AI will rewire GTM. An exclusive community of operational leaders shaping what comes next.";
 
 export const size = {
   width: 1200,
@@ -36,28 +36,28 @@ export default async function Image() {
           gap: "0px",
         }}
       >
-        {/* Logo — 200×200, crop ~15px each side to remove whitespace */}
+        {/* Logo — 2.5× (500×500 image), container clips transparent padding */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: 170,
-            height: 200,
+            width: 420,
+            height: 260,
             overflow: "hidden",
             flexShrink: 0,
           }}
         >
-          <img src={logoSrc} width={200} height={200} style={{ flexShrink: 0 }} />
+          <img src={logoSrc} width={500} height={500} style={{ flexShrink: 0 }} />
         </div>
 
         {/* Spacer */}
-        <div style={{ height: 40, display: "flex" }} />
+        <div style={{ height: 24, display: "flex" }} />
 
         {/* Headline */}
         <div
           style={{
-            fontSize: 90,
+            fontSize: 80,
             fontWeight: 700,
             color: "#0d2340",
             lineHeight: 1.1,
@@ -69,12 +69,12 @@ export default async function Image() {
         </div>
 
         {/* Spacer */}
-        <div style={{ height: 24, display: "flex" }} />
+        <div style={{ height: 16, display: "flex" }} />
 
         {/* Subtitle */}
         <div
           style={{
-            fontSize: 42,
+            fontSize: 36,
             color: "#334155",
             lineHeight: 1.45,
             textAlign: "center",
@@ -84,7 +84,7 @@ export default async function Image() {
             justifyContent: "center",
           }}
         >
-          An exclusive community of RevOps leaders shaping what comes next.
+          An exclusive community of operational leaders shaping what comes next.
         </div>
       </div>
     ),
