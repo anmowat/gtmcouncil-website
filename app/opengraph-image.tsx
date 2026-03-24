@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { readFile } from "node:fs/promises";
 
 export const alt =
-  "AI will rewire the GTM motion. GTM Council is an exclusive community of the top 100+ GTM operators sharing insights and helping shape how GTM will evolve.";
+  "AI will rewire GTM. An exclusive community of RevOps leaders shaping what comes next.";
 
 export const size = {
   width: 1200,
@@ -28,8 +28,8 @@ export default async function Image() {
           display: "flex",
           alignItems: "center",
           background: "#ffffff",
-          padding: "80px",
-          gap: "70px",
+          padding: "70px",
+          gap: "60px",
         }}
       >
         {/* Logo on the left */}
@@ -41,14 +41,14 @@ export default async function Image() {
             flexShrink: 0,
           }}
         >
-          <img src={logoSrc} width={420} height={280} />
+          <img src={logoSrc} width={340} height={226} />
         </div>
 
         {/* Divider */}
         <div
           style={{
             width: "4px",
-            height: "380px",
+            height: "340px",
             background: "#c8952a",
             flexShrink: 0,
           }}
@@ -65,23 +65,22 @@ export default async function Image() {
         >
           <div
             style={{
-              fontSize: 68,
+              fontSize: 60,
               fontWeight: 700,
               color: "#0d2340",
               lineHeight: 1.15,
             }}
           >
-            AI will rewire the GTM motion.
+            AI will rewire GTM.
           </div>
           <div
             style={{
-              fontSize: 38,
+              fontSize: 34,
               color: "#334155",
               lineHeight: 1.5,
             }}
           >
-            GTM Council is an exclusive community of the top 100+ GTM operators
-            sharing insights and helping shape how GTM will evolve.
+            An exclusive community of RevOps leaders shaping what comes next.
           </div>
         </div>
       </div>
