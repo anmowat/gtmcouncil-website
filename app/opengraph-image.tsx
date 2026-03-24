@@ -19,13 +19,8 @@ export default async function Image() {
   );
   const logoSrc = `data:image/png;base64,${logoData}`;
 
-  // Logo source is 132×132 (square). Render in an overflow:hidden container
-  // that is narrower than the image to crop whitespace on left/right edges,
-  // letting us scale the logo taller without distorting proportions.
-  const LOGO_RENDER = 310; // image rendered at 310×310 (1:1)
-  const LOGO_CROP_W = 280; // visible width after cropping ~15px each side
-  const LOGO_CROP_H = 310;
-
+  // Vertical stack layout — readable even at LinkedIn DM thumbnail size.
+  // Logo centered top, large headline, subtitle below.
   return new ImageResponse(
     (
       <div
@@ -33,74 +28,63 @@ export default async function Image() {
           width: "100%",
           height: "100%",
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
           background: "#ffffff",
-          padding: "60px",
-          gap: "50px",
+          padding: "60px 80px",
+          gap: "0px",
         }}
       >
-        {/* Logo — cropped container removes horizontal whitespace */}
+        {/* Logo — 200×200, crop ~15px each side to remove whitespace */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: LOGO_CROP_W,
-            height: LOGO_CROP_H,
+            width: 170,
+            height: 200,
             overflow: "hidden",
             flexShrink: 0,
           }}
         >
-          <img
-            src={logoSrc}
-            width={LOGO_RENDER}
-            height={LOGO_RENDER}
-            style={{ flexShrink: 0 }}
-          />
+          <img src={logoSrc} width={200} height={200} style={{ flexShrink: 0 }} />
         </div>
 
-        {/* Divider */}
-        <div
-          style={{
-            width: "4px",
-            height: "340px",
-            background: "#c8952a",
-            flexShrink: 0,
-          }}
-        />
+        {/* Spacer */}
+        <div style={{ height: 40, display: "flex" }} />
 
-        {/* Text — flex:1 + minWidth:0 ensures it wraps inside remaining space */}
+        {/* Headline */}
         <div
           style={{
+            fontSize: 90,
+            fontWeight: 700,
+            color: "#0d2340",
+            lineHeight: 1.1,
+            textAlign: "center",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            flex: 1,
-            minWidth: 0,
-            gap: "30px",
           }}
         >
-          <div
-            style={{
-              fontSize: 62,
-              fontWeight: 700,
-              color: "#0d2340",
-              lineHeight: 1.15,
-              wordBreak: "break-word",
-            }}
-          >
-            AI will rewire GTM.
-          </div>
-          <div
-            style={{
-              fontSize: 36,
-              color: "#334155",
-              lineHeight: 1.5,
-              wordBreak: "break-word",
-            }}
-          >
-            An exclusive community of RevOps leaders shaping what comes next.
-          </div>
+          AI will rewire GTM.
+        </div>
+
+        {/* Spacer */}
+        <div style={{ height: 24, display: "flex" }} />
+
+        {/* Subtitle */}
+        <div
+          style={{
+            fontSize: 42,
+            color: "#334155",
+            lineHeight: 1.45,
+            textAlign: "center",
+            maxWidth: 900,
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          An exclusive community of RevOps leaders shaping what comes next.
         </div>
       </div>
     ),
