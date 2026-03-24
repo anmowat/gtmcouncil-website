@@ -14,10 +14,10 @@ export const contentType = "image/png";
 
 export default async function Image() {
   const logoData = await readFile(
-    join(process.cwd(), "public/logo-gtmcouncil.png"),
+    join(process.cwd(), "public/logo-gtmcouncil.svg"),
     "base64"
   );
-  const logoSrc = `data:image/png;base64,${logoData}`;
+  const logoSrc = `data:image/svg+xml;base64,${logoData}`;
 
   // Vertical stack layout — readable even at LinkedIn DM thumbnail size.
   // Logo centered top, large headline, subtitle below.
