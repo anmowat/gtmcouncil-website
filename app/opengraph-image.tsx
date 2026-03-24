@@ -23,7 +23,7 @@ export default async function Image() {
   // that is narrower than the image to crop whitespace on left/right edges,
   // letting us scale the logo taller without distorting proportions.
   const LOGO_RENDER = 310; // image rendered at 310×310 (1:1)
-  const LOGO_CROP_W = 240; // visible width after cropping ~35px each side
+  const LOGO_CROP_W = 280; // visible width after cropping ~15px each side
   const LOGO_CROP_H = 310;
 
   return new ImageResponse(
