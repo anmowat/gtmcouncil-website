@@ -136,7 +136,7 @@ function InsightCard({ insight }: { insight: Insight }) {
               href={insight.companyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-bold text-sm hover:underline"
+              className="font-bold text-sm underline"
               style={{ color: "#1d4ed8" }}
             >
               {insight.company}
@@ -153,7 +153,7 @@ function InsightCard({ insight }: { insight: Insight }) {
             href={insight.speakerUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs font-medium hover:underline"
+            className="text-xs font-medium underline"
             style={{ color: "#1d4ed8" }}
           >
             {insight.speaker}
