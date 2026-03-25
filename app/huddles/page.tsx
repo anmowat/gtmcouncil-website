@@ -18,18 +18,18 @@ const MEMBER_QUOTES: Quote[] = [
 
 const COMPANY_QUOTES: Quote[] = [
   {
-    name: "Elio Narciso",
-    title: "CEO @ Scalestack",
-    quote: "The opportunity to share our platform and vision for the future with 15 top RevOps leaders and get feedback was amazing. We built great relationships and even closed a few deals from the discussion.",
-    photoUrl: "/photos/elio-narciso.jpg",
-    linkedin: "https://www.linkedin.com/in/elionarciso/",
-  },
-  {
     name: "Sriharsha (Sal) Guduguntia",
     title: "CEO @ Hyperbound",
     quote: "It was powerful to share how we are seeing AI change manager coaching and enablement with 20+ RevOps leaders and get input on our platform / vision. The insights around how the group looks at buy-vs-build in this AI area accelerated our thinking.",
     photoUrl: "/photos/sriharsha-guduguntia.jpg",
     linkedin: "https://www.linkedin.com/in/sguduguntla/",
+  },
+  {
+    name: "Elio Narciso",
+    title: "CEO @ Scalestack",
+    quote: "The opportunity to share our platform and vision for the future with 15 top RevOps leaders and get feedback was amazing. We built great relationships and even closed a few deals from the discussion.",
+    photoUrl: "/photos/elio-narciso.jpg",
+    linkedin: "https://www.linkedin.com/in/elionarciso/",
   },
 ];
 

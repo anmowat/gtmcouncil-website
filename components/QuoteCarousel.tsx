@@ -22,6 +22,18 @@ export default function QuoteCarousel({ quotes, bg, light = true }: Props) {
   const [hovered, setHovered] = useState(false);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // Pause while the visitor's mouse is anywhere on the page; resume when it leaves.
+  useEffect(() => {
+    const enter = () => setHovered(true);
+    const leave = () => setHovered(false);
+    document.documentElement.addEventListener("mouseenter", enter);
+    document.documentElement.addEventListener("mouseleave", leave);
+    return () => {
+      document.documentElement.removeEventListener("mouseenter", enter);
+      document.documentElement.removeEventListener("mouseleave", leave);
+    };
+  }, []);
+
   useEffect(() => {
     if (quotes.length <= 1 || hovered) return;
     timer.current = setInterval(() => setIdx((i) => (i + 1) % quotes.length), 10000);
@@ -39,8 +51,6 @@ export default function QuoteCarousel({ quotes, bg, light = true }: Props) {
     <div
       className="relative rounded-xl overflow-hidden flex group"
       style={{ backgroundColor: bg }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
       {/* ── Left: full-height photo ───────────────────────────────── */}
       <div className="relative w-36 shrink-0 self-stretch bg-black/10">
