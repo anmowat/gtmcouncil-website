@@ -51,6 +51,7 @@ const PILLARS = [
       </>
     ),
     actions: [
+      { label: "View", href: "/insights", gold: true },
       { label: "Subscribe", href: "https://gtmcouncil.substack.com/about", gold: false },
     ],
   },
