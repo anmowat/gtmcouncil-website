@@ -49,7 +49,7 @@ export default async function Image() {
           <div style={{ display: "flex", lineHeight: 1 }}>
             <span
               style={{
-                fontSize: 160,
+                fontSize: 320,
                 fontWeight: 800,
                 fontFamily: "Montserrat",
                 color: "#0d2340",
@@ -60,7 +60,7 @@ export default async function Image() {
             </span>
             <span
               style={{
-                fontSize: 160,
+                fontSize: 320,
                 fontWeight: 800,
                 fontFamily: "Montserrat",
                 color: "#c4921a",
@@ -71,7 +71,7 @@ export default async function Image() {
             </span>
             <span
               style={{
-                fontSize: 160,
+                fontSize: 320,
                 fontWeight: 800,
                 fontFamily: "Montserrat",
                 color: "#0d2340",
@@ -85,12 +85,12 @@ export default async function Image() {
           {/* COUNCIL */}
           <div
             style={{
-              fontSize: 30,
+              fontSize: 60,
               fontWeight: 400,
               fontFamily: "Montserrat",
               color: "#0d2340",
-              letterSpacing: "16px",
-              paddingLeft: "16px", // offset trailing letter-spacing so it centres
+              letterSpacing: "32px",
+              paddingLeft: "32px", // offset trailing letter-spacing so it centres
             }}
           >
             COUNCIL
@@ -98,7 +98,7 @@ export default async function Image() {
         </div>
 
         {/* Spacer */}
-        <div style={{ height: 36, display: "flex" }} />
+        <div style={{ height: 16, display: "flex" }} />
 
         {/* Headline */}
         <div
@@ -113,27 +113,6 @@ export default async function Image() {
           }}
         >
           AI will rewire GTM.
-        </div>
-
-        {/* Spacer */}
-        <div style={{ height: 20, display: "flex" }} />
-
-        {/* Subtitle */}
-        <div
-          style={{
-            fontSize: 36,
-            fontWeight: 400,
-            fontFamily: "Montserrat",
-            color: "#334155",
-            lineHeight: 1.45,
-            textAlign: "center",
-            maxWidth: 900,
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          An exclusive community of operational leaders shaping what comes next.
         </div>
       </div>
     ),
