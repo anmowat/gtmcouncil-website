@@ -5,9 +5,11 @@ import { readFile } from "node:fs/promises";
 export const alt =
   "AI will rewire GTM. An exclusive community of operational leaders shaping what comes next.";
 
+// Render at 2x resolution for crisp text — same 1.905:1 aspect ratio as 1200×630.
+// Social platforms accept the larger size and scale it down, giving sharp edges.
 export const size = {
-  width: 1200,
-  height: 630,
+  width: 2400,
+  height: 1260,
 };
 
 export const contentType = "image/png";
@@ -18,9 +20,9 @@ export default async function Image() {
     readFile(join(process.cwd(), "public/fonts/montserrat-regular.ttf")),
   ]);
 
-  // Logo recreated as inline JSX using the actual brand colors.
-  // GTM: ExtraBold — G/M navy #0d2340, T gold #c4921a.
-  // COUNCIL: Regular, wide letter-spacing, navy.
+  // All measurements are 2× the logical values so the image looks identical
+  // to the 1200×630 version when displayed at reference size, but with twice
+  // the pixel density → no soft anti-aliasing edges.
   return new ImageResponse(
     (
       <div
@@ -32,7 +34,7 @@ export default async function Image() {
           alignItems: "center",
           justifyContent: "center",
           background: "#ffffff",
-          padding: "60px 80px",
+          padding: "120px 160px",
         }}
       >
         {/* ── Logo ── */}
@@ -41,7 +43,7 @@ export default async function Image() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: "6px",
+            gap: "12px",
             flexShrink: 0,
           }}
         >
@@ -49,7 +51,7 @@ export default async function Image() {
           <div style={{ display: "flex", lineHeight: 1 }}>
             <span
               style={{
-                fontSize: 320,
+                fontSize: 640,
                 fontWeight: 800,
                 fontFamily: "Montserrat",
                 color: "#0d2340",
@@ -60,7 +62,7 @@ export default async function Image() {
             </span>
             <span
               style={{
-                fontSize: 320,
+                fontSize: 640,
                 fontWeight: 800,
                 fontFamily: "Montserrat",
                 color: "#c4921a",
@@ -71,7 +73,7 @@ export default async function Image() {
             </span>
             <span
               style={{
-                fontSize: 320,
+                fontSize: 640,
                 fontWeight: 800,
                 fontFamily: "Montserrat",
                 color: "#0d2340",
@@ -85,12 +87,12 @@ export default async function Image() {
           {/* COUNCIL */}
           <div
             style={{
-              fontSize: 60,
+              fontSize: 120,
               fontWeight: 400,
               fontFamily: "Montserrat",
               color: "#0d2340",
-              letterSpacing: "32px",
-              paddingLeft: "32px", // offset trailing letter-spacing so it centres
+              letterSpacing: "64px",
+              paddingLeft: "64px",
             }}
           >
             COUNCIL
@@ -98,12 +100,12 @@ export default async function Image() {
         </div>
 
         {/* Spacer */}
-        <div style={{ height: 16, display: "flex" }} />
+        <div style={{ height: 32, display: "flex" }} />
 
         {/* Headline */}
         <div
           style={{
-            fontSize: 80,
+            fontSize: 160,
             fontWeight: 800,
             fontFamily: "Montserrat",
             color: "#0d2340",
