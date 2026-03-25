@@ -22,25 +22,24 @@ const TYPE_COLORS: Record<SessionType, string> = {
   Podcast: "#1d4ed8",
 };
 
-// Current content — update embedUrl when you have the actual embed codes
 const INSIGHTS: Insight[] = [
   {
-    id: "1",
+    id: "6",
     company: "Hyperbound",
     month: "Mar 2026",
     type: "Huddle",
-    speaker: "Sriharsha (Sal) Guduguntla (CEO)",
+    speaker: "Sriharsha (Sai) Guduguntla (CEO)",
     topic: "AI Roleplays",
-    embedUrl: undefined,
+    embedUrl: undefined, // password-protected on Vimeo
   },
   {
-    id: "2",
+    id: "5",
     company: "Clay",
     month: "Mar 2026",
     type: "Podcast",
     speaker: "Everett (Head of GTM Engineering)",
     topic: "GTM Engineering",
-    embedUrl: undefined,
+    embedUrl: "https://player.vimeo.com/video/1172764939?h=5007e561ac&title=0&byline=0&portrait=0",
   },
   {
     id: "3",
@@ -49,7 +48,7 @@ const INSIGHTS: Insight[] = [
     type: "Podcast",
     speaker: "Prabhav (CEO)",
     topic: "Agentic SDR",
-    embedUrl: undefined,
+    embedUrl: "https://player.vimeo.com/video/1168162461?h=9e6a32b65c&title=0&byline=0&portrait=0",
   },
   {
     id: "4",
@@ -58,7 +57,25 @@ const INSIGHTS: Insight[] = [
     type: "Huddle",
     speaker: "Adam (VP Revenue)",
     topic: "Revenue Agents",
-    embedUrl: undefined,
+    embedUrl: undefined, // password-protected on Vimeo
+  },
+  {
+    id: "1",
+    company: "Scalestack",
+    month: "Jan 2026",
+    type: "Huddle",
+    speaker: "Elio (CEO)",
+    topic: "Enterprise data enrichment and GTM workflow platform",
+    embedUrl: "https://player.vimeo.com/video/1153053228?h=abb31de4ed&title=0&byline=0&portrait=0",
+  },
+  {
+    id: "2",
+    company: "AdamX",
+    month: "Dec 2025",
+    type: "Huddle",
+    speaker: "Neel (CEO)",
+    topic: "AI analysis of buyer journey",
+    embedUrl: "https://player.vimeo.com/video/1153459483?h=9201cf537b&title=0&byline=0&portrait=0",
   },
 ];
 
