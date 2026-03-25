@@ -10,9 +10,11 @@ type SessionType = "Huddle" | "Podcast";
 interface Insight {
   id: string;
   company: string;
+  companyUrl: string;
   month: string;
   type: SessionType;
   speaker: string;
+  speakerUrl: string;
   topic: string;
   embedUrl?: string; // iframe src — leave undefined for password-protected placeholder
 }
@@ -26,54 +28,66 @@ const INSIGHTS: Insight[] = [
   {
     id: "6",
     company: "Hyperbound",
+    companyUrl: "https://www.hyperbound.ai/",
     month: "Mar 2026",
     type: "Huddle",
     speaker: "Sriharsha (Sai) Guduguntla (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/sguduguntla/",
     topic: "AI Roleplays",
     embedUrl: undefined, // password-protected on Vimeo
   },
   {
     id: "5",
     company: "Clay",
+    companyUrl: "https://www.clay.com/",
     month: "Mar 2026",
     type: "Podcast",
     speaker: "Everett (Head of GTM Engineering)",
+    speakerUrl: "https://www.linkedin.com/in/everettberry/",
     topic: "GTM Engineering",
     embedUrl: "https://player.vimeo.com/video/1172764939?h=5007e561ac&title=0&byline=0&portrait=0",
   },
   {
     id: "3",
     company: "11x",
+    companyUrl: "https://www.11x.ai/",
     month: "Feb 2026",
     type: "Podcast",
     speaker: "Prabhav (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/jainprabhav/",
     topic: "Agentic SDR",
     embedUrl: "https://player.vimeo.com/video/1168162461?h=9e6a32b65c&title=0&byline=0&portrait=0",
   },
   {
     id: "4",
     company: "Rox",
+    companyUrl: "https://www.rox.com/",
     month: "Feb 2026",
     type: "Huddle",
     speaker: "Adam (VP Revenue)",
+    speakerUrl: "https://www.linkedin.com/in/adamali1/",
     topic: "Revenue Agents",
     embedUrl: undefined, // password-protected on Vimeo
   },
   {
     id: "1",
     company: "Scalestack",
+    companyUrl: "https://scalestack.ai/",
     month: "Jan 2026",
     type: "Huddle",
     speaker: "Elio (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/elionarciso/",
     topic: "Enterprise data enrichment and GTM workflow platform",
     embedUrl: "https://player.vimeo.com/video/1153053228?h=abb31de4ed&title=0&byline=0&portrait=0",
   },
   {
     id: "2",
     company: "AdamX",
+    companyUrl: "https://adamx.ai/",
     month: "Dec 2025",
     type: "Huddle",
     speaker: "Neel (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/neelkamal1/",
     topic: "AI analysis of buyer journey",
     embedUrl: "https://player.vimeo.com/video/1153459483?h=9201cf537b&title=0&byline=0&portrait=0",
   },
@@ -118,7 +132,15 @@ function InsightCard({ insight }: { insight: Insight }) {
       <div className="p-4 bg-gray-50">
         <div className="flex items-center justify-between gap-2 flex-wrap">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-sm" style={{ color: "#011224" }}>{insight.company}</span>
+            <a
+              href={insight.companyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-sm hover:underline"
+              style={{ color: "#011224" }}
+            >
+              {insight.company}
+            </a>
             <span className="text-sm text-gray-500">{insight.month}</span>
             <span
               className="text-xs font-semibold px-2 py-0.5 rounded-full text-white"
@@ -127,7 +149,15 @@ function InsightCard({ insight }: { insight: Insight }) {
               {insight.type}
             </span>
           </div>
-          <span className="text-xs text-gray-500 font-medium">{insight.speaker}</span>
+          <a
+            href={insight.speakerUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-medium hover:underline"
+            style={{ color: "#011224" }}
+          >
+            {insight.speaker}
+          </a>
         </div>
         <p className="text-sm text-gray-600 mt-1">{insight.topic}</p>
       </div>
