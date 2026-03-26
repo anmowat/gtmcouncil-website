@@ -5,7 +5,7 @@ export const metadata = {
   description: "Our members and vendors regularly come together to discuss how the GTM technology landscape is changing.",
 };
 
-type SessionType = "Huddle" | "Podcast";
+type SessionType = "Huddle" | "Podcast" | "OG";
 
 interface Insight {
   id: string;
@@ -20,33 +20,25 @@ interface Insight {
 }
 
 const TYPE_COLORS: Record<SessionType, string> = {
-  Huddle: "#15803d",
+  OG: "#9333ea",
   Podcast: "#1d4ed8",
+  Huddle: "#15803d",
 };
 
 const INSIGHTS: Insight[] = [
-  {
-    id: "6",
-    company: "Hyperbound",
-    companyUrl: "https://www.hyperbound.ai/",
-    month: "Mar 2026",
-    type: "Huddle",
-    speaker: "Sriharsha (Sai) Guduguntla (CEO)",
-    speakerUrl: "https://www.linkedin.com/in/sguduguntla/",
-    topic: "AI Roleplays",
-    embedUrl: undefined, // password-protected on Vimeo
-  },
+  // ── OG ──────────────────────────────────────────────────────────────
   {
     id: "5",
     company: "Clay",
     companyUrl: "https://www.clay.com/",
     month: "Mar 2026",
-    type: "Podcast",
+    type: "OG",
     speaker: "Everett (Head of GTM Engineering)",
     speakerUrl: "https://www.linkedin.com/in/everettberry/",
     topic: "GTM Engineering",
     embedUrl: "https://player.vimeo.com/video/1172764939?h=5007e561ac&title=0&byline=0&portrait=0",
   },
+  // ── Podcast ──────────────────────────────────────────────────────────
   {
     id: "3",
     company: "11x",
@@ -57,6 +49,18 @@ const INSIGHTS: Insight[] = [
     speakerUrl: "https://www.linkedin.com/in/jainprabhav/",
     topic: "Agentic SDR",
     embedUrl: "https://player.vimeo.com/video/1168162461?h=9e6a32b65c&title=0&byline=0&portrait=0",
+  },
+  // ── Huddle ──────────────────────────────────────────────────────────
+  {
+    id: "6",
+    company: "Hyperbound",
+    companyUrl: "https://www.hyperbound.ai/",
+    month: "Mar 2026",
+    type: "Huddle",
+    speaker: "Sriharsha (Sai) Guduguntla (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/sguduguntla/",
+    topic: "AI Roleplays",
+    embedUrl: undefined, // password-protected on Vimeo
   },
   {
     id: "4",
