@@ -5,7 +5,7 @@ export const metadata = {
   description: "Our members and vendors regularly come together to discuss how the GTM technology landscape is changing.",
 };
 
-type SessionType = "Huddle" | "Podcast" | "OG";
+type SessionType = "Huddle" | "Podcast";
 
 interface Insight {
   id: string;
@@ -20,37 +20,11 @@ interface Insight {
 }
 
 const TYPE_COLORS: Record<SessionType, string> = {
-  OG: "#9333ea",
-  Podcast: "#1d4ed8",
   Huddle: "#15803d",
+  Podcast: "#1d4ed8",
 };
 
 const INSIGHTS: Insight[] = [
-  // ── OG ──────────────────────────────────────────────────────────────
-  {
-    id: "5",
-    company: "Clay",
-    companyUrl: "https://www.clay.com/",
-    month: "Mar 2026",
-    type: "OG",
-    speaker: "Everett (Head of GTM Engineering)",
-    speakerUrl: "https://www.linkedin.com/in/everettberry/",
-    topic: "GTM Engineering",
-    embedUrl: "https://player.vimeo.com/video/1172764939?h=5007e561ac&title=0&byline=0&portrait=0",
-  },
-  // ── Podcast ──────────────────────────────────────────────────────────
-  {
-    id: "3",
-    company: "11x",
-    companyUrl: "https://www.11x.ai/",
-    month: "Feb 2026",
-    type: "Podcast",
-    speaker: "Prabhav (CEO)",
-    speakerUrl: "https://www.linkedin.com/in/jainprabhav/",
-    topic: "Agentic SDR",
-    embedUrl: "https://player.vimeo.com/video/1168162461?h=9e6a32b65c&title=0&byline=0&portrait=0",
-  },
-  // ── Huddle ──────────────────────────────────────────────────────────
   {
     id: "6",
     company: "Hyperbound",
@@ -61,6 +35,28 @@ const INSIGHTS: Insight[] = [
     speakerUrl: "https://www.linkedin.com/in/sguduguntla/",
     topic: "AI Roleplays",
     embedUrl: undefined, // password-protected on Vimeo
+  },
+  {
+    id: "5",
+    company: "Clay",
+    companyUrl: "https://www.clay.com/",
+    month: "Mar 2026",
+    type: "Podcast",
+    speaker: "Everett (Head of GTM Engineering)",
+    speakerUrl: "https://www.linkedin.com/in/everettberry/",
+    topic: "GTM Engineering",
+    embedUrl: "https://player.vimeo.com/video/1172764939?h=5007e561ac&title=0&byline=0&portrait=0",
+  },
+  {
+    id: "3",
+    company: "11x",
+    companyUrl: "https://www.11x.ai/",
+    month: "Feb 2026",
+    type: "Podcast",
+    speaker: "Prabhav (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/jainprabhav/",
+    topic: "Agentic SDR",
+    embedUrl: "https://player.vimeo.com/video/1168162461?h=9e6a32b65c&title=0&byline=0&portrait=0",
   },
   {
     id: "4",
