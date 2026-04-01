@@ -64,7 +64,7 @@ const FORMAT_CARDS = [
     body: null,
     bullets: [
       "First 10 minutes: Members only",
-      "30 Mins: Short intro from vendor and then lively discussion/Q&A",
+      "40 Mins: Short intro from vendor and then lively discussion/Q&A",
       "Last 10 minutes: Members only download (insights shared anonymously)",
     ],
   },
