@@ -72,7 +72,7 @@ const FORMAT_CARDS: { icon: ReactNode; title: string; body: string | null; bulle
     body: null,
     bullets: [
       "First 10 minutes: Members only",
-      <>40 Mins: <a href="https://docs.google.com/document/d/1FzcAGvArPVYEWgwM9bm7-B22rOGhSHpevTQzTPWDFH8/edit?tab=t.0" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-80" style={{ color: "#c4921a" }}>Short intro from vendor</a> and then lively discussion/Q&A</>,
+      <span>40 Mins: <a href="https://docs.google.com/document/d/1FzcAGvArPVYEWgwM9bm7-B22rOGhSHpevTQzTPWDFH8/edit?tab=t.0" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-80" style={{ color: "#c4921a" }}>Short intro from vendor</a> and then lively discussion/Q&amp;A</span>,
       "Last 10 minutes: Members only download (insights shared anonymously)",
     ],
   },
