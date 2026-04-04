@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import QuoteCarousel, { Quote } from "@/components/QuoteCarousel";
 
 export const metadata = {
@@ -7,6 +8,13 @@ export const metadata = {
 };
 
 const MEMBER_QUOTES: Quote[] = [
+  {
+    name: "Evan Quasney",
+    title: "RevOps Leader",
+    quote: "These huddles are an amazing chance to ideate with fellow members and leading vendors on the future of GTM tech and the impact of AI",
+    photoUrl: "/photos/evan-quasney.jpg",
+    linkedin: "https://www.linkedin.com/in/evan-quasney/",
+  },
   {
     name: "Andy Mowat",
     title: "VP RevOps @ 4 Unicorns",
@@ -33,7 +41,7 @@ const COMPANY_QUOTES: Quote[] = [
   },
 ];
 
-const FORMAT_CARDS = [
+const FORMAT_CARDS: { icon: ReactNode; title: string; body: string | null; bullets: ReactNode[] | null }[] = [
   {
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -64,7 +72,7 @@ const FORMAT_CARDS = [
     body: null,
     bullets: [
       "First 10 minutes: Members only",
-      "40 Mins: Short intro from vendor and then lively discussion/Q&A",
+      <>40 Mins: <a href="https://docs.google.com/document/d/1FzcAGvArPVYEWgwM9bm7-B22rOGhSHpevTQzTPWDFH8/edit?tab=t.0" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-80" style={{ color: "#c4921a" }}>Short intro from vendor</a> and then lively discussion/Q&A</>,
       "Last 10 minutes: Members only download (insights shared anonymously)",
     ],
   },
@@ -157,8 +165,8 @@ export default function HuddlesPage() {
                 )}
                 {card.bullets && (
                   <ul className="space-y-1.5">
-                    {card.bullets.map((b) => (
-                      <li key={b} className="text-sm text-gray-600 flex items-start gap-2">
+                    {card.bullets.map((b, i) => (
+                      <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
                         <span className="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#c4921a" }} />
                         {b}
                       </li>
