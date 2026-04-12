@@ -113,7 +113,7 @@ export default async function HomePage() {
   return (
     <div>
       {/* ── Mission ───────────────────────────────────────────────── */}
-      <section className="relative pt-20 pb-1 px-4 text-center overflow-hidden min-h-[420px] flex flex-col justify-center">
+      <section className="relative pt-10 pb-1 px-4 text-center overflow-hidden min-h-[420px] flex flex-col justify-center">
         {/* Horizontal vignette: clear on left (logos) → white centre (text) → clear right */}
         <div
           className="absolute inset-0 pointer-events-none hidden sm:block"
@@ -137,7 +137,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Community Pillars ─────────────────────────────────────── */}
-      <section className="pt-1 pb-16 px-4 bg-white">
+      <section className="pt-0 pb-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4" style={{ color: "#011224" }}>
             Community Pillars
@@ -187,7 +187,7 @@ export default async function HomePage() {
       {/* ── Our Membership ────────────────────────────────────────── */}
       <section className="pt-8 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: "#011224" }}>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-3" style={{ color: "#011224" }}>
             Our Membership
           </h2>
           <p className="text-center text-gray-500 mb-4">
@@ -208,7 +208,7 @@ export default async function HomePage() {
       {/* ── Sponsors ──────────────────────────────────────────────── */}
       <section className="py-8 px-4 bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-extrabold mb-2" style={{ color: "#011224" }}>Our Sponsors</h2>
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-2" style={{ color: "#011224" }}>Our Sponsors</h2>
           <p className="text-gray-500 mb-4">Our community is proudly supported by a select group of trusted partners</p>
           <div className="flex items-center justify-center gap-16 flex-wrap">
             {SPONSORS.map((s) => (
