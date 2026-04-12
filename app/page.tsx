@@ -113,7 +113,7 @@ export default async function HomePage() {
   return (
     <div>
       {/* ── Mission ───────────────────────────────────────────────── */}
-      <section className="relative pt-10 pb-1 px-4 text-center overflow-hidden min-h-[420px] flex flex-col justify-center">
+      <section className="relative pt-6 pb-4 px-4 text-center overflow-hidden">
         {/* Horizontal vignette: clear on left (logos) → white centre (text) → clear right */}
         <div
           className="absolute inset-0 pointer-events-none hidden sm:block"
