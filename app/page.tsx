@@ -190,7 +190,7 @@ export default async function HomePage() {
           <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-3" style={{ color: "#011224" }}>
             Our Membership
           </h2>
-          <p className="text-center text-gray-500 mb-4">
+          <p className="text-center text-lg text-gray-600 mb-4">
             The GTM Council brings together the top GTM systems-thinkers.
           </p>
           {membersError ? (
@@ -209,7 +209,7 @@ export default async function HomePage() {
       <section className="py-8 px-4 bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-2" style={{ color: "#011224" }}>Our Sponsors</h2>
-          <p className="text-gray-500 mb-4">Our community is proudly supported by a select group of trusted partners</p>
+          <p className="text-lg text-gray-600 mb-4">Our community is proudly supported by a select group of trusted partners</p>
           <div className="flex items-center justify-center gap-16 flex-wrap">
             {SPONSORS.map((s) => (
               <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
