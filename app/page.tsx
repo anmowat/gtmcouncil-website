@@ -137,7 +137,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Community Pillars ─────────────────────────────────────── */}
-      <section className="pt-0 pb-16 px-4 bg-white">
+      <section className="pt-4 pb-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4" style={{ color: "#011224" }}>
             Community Pillars
@@ -185,7 +185,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Our Membership ────────────────────────────────────────── */}
-      <section className="pt-8 pb-20 px-4">
+      <section className="pt-4 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-3" style={{ color: "#011224" }}>
             Our Membership
