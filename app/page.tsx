@@ -113,7 +113,7 @@ export default async function HomePage() {
   return (
     <div>
       {/* ── Mission ───────────────────────────────────────────────── */}
-      <section className="relative pt-20 pb-8 px-4 text-center overflow-hidden min-h-[420px] flex flex-col justify-center">
+      <section className="relative pt-20 pb-4 px-4 text-center overflow-hidden min-h-[420px] flex flex-col justify-center">
         {/* Horizontal vignette: clear on left (logos) → white centre (text) → clear right */}
         <div
           className="absolute inset-0 pointer-events-none hidden sm:block"
@@ -137,7 +137,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Community Pillars ─────────────────────────────────────── */}
-      <section className="pt-8 pb-16 px-4 bg-white">
+      <section className="pt-4 pb-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: "#011224" }}>
             Community Pillars
