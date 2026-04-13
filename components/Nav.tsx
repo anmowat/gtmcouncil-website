@@ -43,8 +43,9 @@ export default function Nav() {
               style={{ backgroundColor: "#c4921a" }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
+                <circle cx="7.5" cy="15.5" r="5.5"/>
+                <path d="M21 2l-9.6 9.6"/>
+                <path d="M15.5 7.5l3 3L22 7l-3-3"/>
               </svg>
               Members
             </a>
