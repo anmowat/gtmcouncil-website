@@ -36,7 +36,7 @@ export default function Nav() {
               Apply
             </a>
             <a
-              href="https://docs.google.com/document/d/1lkZ4DKQ6LptbRYbLFnQMH6wJYGDS4kK-9pFjKbNX5Ds/edit?tab=t.0"
+              href="https://www.gtmcouncil.com/members"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white rounded transition-colors"
