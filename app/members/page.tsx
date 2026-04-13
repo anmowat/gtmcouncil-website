@@ -56,7 +56,7 @@ const SECTIONS: {
     intro: "We love to amplify member's voices. Here are some areas you can take advantage of:",
     items: [
       {
-        heading: <L href="https://www.gtmcouncil.com/briefings">Do a Briefing (or 2)</L>,
+        heading: <L href="https://www.gtmcouncil.com/briefings">Participate in a Briefing</L>,
         body: "We love helping members share insights publicly. These are a great opportunity to increase your brand and get to know other members. DM Andy to volunteer for a briefing.",
       },
       {
