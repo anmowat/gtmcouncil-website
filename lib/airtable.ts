@@ -84,7 +84,10 @@ export async function getMemberByEmail(email: string): Promise<Member | null> {
   if (!res.ok) return null;
   const data = await res.json();
   if (!data.records?.length) return null;
-  return recordToMember(data.records[0]);
+  const member = recordToMember(data.records[0]);
+  // Only allow active members (Type must start with "MEM-")
+  if (!member.type?.toUpperCase().startsWith("MEM-")) return null;
+  return member;
 }
 
 // ── Future Topics ─────────────────────────────────────────────────────────────
