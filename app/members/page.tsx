@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import type { ReactNode } from "react";
 import { getSession } from "@/lib/auth";
 import LogoutButton from "./LogoutButton";
 
@@ -8,7 +9,17 @@ export const metadata = {
   title: "Member Resources | GTM Council",
 };
 
-const SECTIONS = [
+const L = ({ href, children }: { href: string; children: ReactNode }) => (
+  <a href={href} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70" style={{ color: "#1d4ed8" }}>
+    {children}
+  </a>
+);
+
+const SECTIONS: {
+  title: string;
+  intro: ReactNode;
+  items: { heading: ReactNode; body: ReactNode; bullets?: ReactNode[] }[];
+}[] = [
   {
     title: "Community",
     intro: "GTM Council gives our members a private forum to collaborate with our peers. Here are guidelines and ways you can get engaged:",
@@ -24,14 +35,12 @@ const SECTIONS = [
         ],
       },
       {
-        heading: "Join Huddles",
-        headingHref: "https://www.gtmcouncil.com/huddles",
+        heading: <L href="https://www.gtmcouncil.com/huddles">Join Huddles</L>,
         body: "We invite vendors in to talk strategy and get feedback. At the beginning and end we have opportunities for members to chat / get to know each other / build relationships.",
       },
       {
         heading: "Events",
-        body: "We share events from vendors and also love members to organize meetups locally. If you see a good senior event, add it in #community-events.",
-        bodyLink: { text: "Find upcoming events here", href: "https://airtable.com/appU94hAvQcQ6XTNO/shrG1RAcQbQDNiJ4i" },
+        body: <>We share events from vendors and also love members to organize meetups locally. If you see a good senior event, add it in #community-events. <L href="https://airtable.com/appU94hAvQcQ6XTNO/shrG1RAcQbQDNiJ4i">Find upcoming events here</L></>,
       },
     ],
   },
@@ -40,12 +49,12 @@ const SECTIONS = [
     intro: "We love to amplify member's voices. Here are some areas you can take advantage of:",
     items: [
       {
-        heading: "Do a Briefing (or 2)",
+        heading: <L href="https://www.gtmcouncil.com/briefings">Do a Briefing (or 2)</L>,
         body: "We love helping members share insights publicly. These are a great opportunity to increase your brand and get to know other members. DM Andy to volunteer for a briefing.",
       },
       {
         heading: "Getting You on Podcasts",
-        body: "We have found podcasts are a great way to build your brand. We maintain a list of RevOps podcasts that we know the hosts and can often make introductions to.",
+        body: <>We have found podcasts are a <L href="https://www.whispered.com/post/podcast">great way to build your brand</L>. We maintain a <L href="https://airtable.com/appU94hAvQcQ6XTNO/shr1RI3yYTK2U0eej">list of RevOps podcasts</L> that we know the hosts and can often make introductions to.</>,
         bullets: [
           "Get intros: If you want an introduction to a host, let us know",
           "Add new podcasts: If you have been on another podcast we should meet the host, DM Andy and we can add it",
@@ -55,9 +64,9 @@ const SECTIONS = [
         heading: "Careers",
         body: "There are several ways we can help you / each other here:",
         bullets: [
-          "Add a role: If you hear of a role, add it to #community-careers",
+          <><L href="https://airtable.com/appU94hAvQcQ6XTNO/pagpeSRflmGRDpFBB/form">Add a role</L>: If you hear of a role, add it to #community-careers</>,
           "Share rockstars: If you know someone junior who is great and looking, share their profile in #community-careers — another member may want to hire them!",
-          "Need Career Advice: If you need to chat on careers, drop Andy a note. He is always happy to support and can give discounts to Whispered for GTM council members",
+          <>Need Career Advice: If you need to chat on careers, drop Andy a note. He is always happy to support and can give discounts to <L href="http://www.whispered.com/">Whispered</L> for GTM council members</>,
         ],
       },
       {
@@ -71,19 +80,19 @@ const SECTIONS = [
     intro: "We have several different formats for creating great discussions around topics. We love to have members participate in all. Reach out to Andy/Noah to provide suggestions / get involved:",
     items: [
       {
-        heading: "Huddles",
+        heading: <L href="https://www.gtmcouncil.com/huddles">Huddles</L>,
         body: "Every month we will invite a C-level leader from a top vendor to meet with our group. These give us a chance to learn and share input with them. You should have these on your calendar (if not, ping Noah). If you want to suggest a vendor, reach out to Noah.",
       },
       {
-        heading: "Podcast",
+        heading: <L href="https://www.gtmcouncil.com/podcast">Podcast</L>,
         body: "We deep-dive into topics with vendors, practitioners and investors. If you have deep interest in a series topic, let Noah or Andy know.",
       },
       {
-        heading: "Briefings",
+        heading: <L href="https://www.gtmcouncil.com/briefings">Briefings</L>,
         body: "We bring together 2-4 members for a webinar style format. These can increase your brand and help you learn.",
       },
       {
-        heading: "Our Substack",
+        heading: <L href="https://gtmcouncil.substack.com/about">Our Substack</L>,
         body: "If you want to explore publishing an article together… drop us a line.",
       },
     ],
@@ -126,28 +135,19 @@ export default async function MembersPage() {
               </h2>
               <p className="text-gray-600 mb-4 text-lg leading-relaxed">{section.intro}</p>
               <div className="space-y-4">
-                {section.items.map((item) => (
-                  <div key={item.heading} className="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                {section.items.map((item, i) => (
+                  <div key={i} className="bg-gray-50 border border-gray-200 rounded-xl p-5">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#c4921a" }} />
-                      <h3 className="font-bold text-lg" style={{ color: "#011224" }}>
-                        {"headingHref" in item && item.headingHref ? (
-                          <a href={item.headingHref} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70" style={{ color: "#1d4ed8" }}>{item.heading}</a>
-                        ) : item.heading}
-                      </h3>
+                      <h3 className="font-bold text-lg" style={{ color: "#011224" }}>{item.heading}</h3>
                     </div>
-                    <p className="text-lg text-gray-600 leading-relaxed ml-4">
-                      {item.body}
-                      {"bodyLink" in item && item.bodyLink && (
-                        <> <a href={item.bodyLink.href} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70" style={{ color: "#1d4ed8" }}>{item.bodyLink.text}</a></>
-                      )}
-                    </p>
-                    {"bullets" in item && item.bullets && (
+                    <p className="text-lg text-gray-600 leading-relaxed ml-4">{item.body}</p>
+                    {item.bullets && (
                       <ul className="mt-2 ml-4 space-y-1">
-                        {item.bullets.map((b) => (
-                          <li key={b} className="text-lg text-gray-500 flex items-start gap-2">
+                        {item.bullets.map((b, j) => (
+                          <li key={j} className="text-lg text-gray-500 flex items-start gap-2">
                             <span className="mt-2 w-1.5 h-1.5 rounded-full shrink-0 bg-gray-400" />
-                            {b}
+                            <span>{b}</span>
                           </li>
                         ))}
                       </ul>
