@@ -1,54 +1,159 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
-import { getMembers } from "@/lib/airtable";
-import { Member } from "@/components/MemberCard";
-import MemberDirectory from "@/components/MemberDirectory";
 import LogoutButton from "./LogoutButton";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Member Portal | GTM Council",
+  title: "Member Resources | GTM Council",
 };
+
+const SECTIONS = [
+  {
+    title: "Community",
+    intro: "GTM Council gives our members a private forum to collaborate with our peers. Here are guidelines and ways you can get engaged:",
+    items: [
+      {
+        heading: "Slack",
+        body: "We created this slack to give us a safe place to share ideas and help each other.",
+        bullets: [
+          "Introduce Yourself: Add your photo and introduce yourself in #general",
+          "Basic Slack Etiquette: Use threads to reply to help keep conversations organized",
+          "Respect confidentiality: You can share concepts discussed but never share screenshots / people's names",
+          "Engage in the Discussion: Bring new topics / add your input to existing ones",
+        ],
+      },
+      {
+        heading: "Join Huddles",
+        body: "We invite vendors in to talk strategy and get feedback. At the beginning and end we have opportunities for members to chat / get to know each other / build relationships.",
+      },
+      {
+        heading: "Events",
+        body: "We share events from vendors and also love members to organize meetups locally. If you see a good senior event, add it in #community-events.",
+      },
+    ],
+  },
+  {
+    title: "Building Your Brand & Career",
+    intro: "We love to amplify member's voices. Here are some areas you can take advantage of:",
+    items: [
+      {
+        heading: "Do a Briefing (or 2)",
+        body: "We love helping members share insights publicly. These are a great opportunity to increase your brand and get to know other members. DM Andy to volunteer for a briefing.",
+      },
+      {
+        heading: "Getting You on Podcasts",
+        body: "We have found podcasts are a great way to build your brand. We maintain a list of RevOps podcasts that we know the hosts and can often make introductions to.",
+        bullets: [
+          "Get intros: If you want an introduction to a host, let us know",
+          "Add new podcasts: If you have been on another podcast we should meet the host, DM Andy and we can add it",
+        ],
+      },
+      {
+        heading: "Careers",
+        body: "There are several ways we can help you / each other here:",
+        bullets: [
+          "Add a role: If you hear of a role, add it to #community-careers",
+          "Share rockstars: If you know someone junior who is great and looking, share their profile in #community-careers — another member may want to hire them!",
+          "Need Career Advice: If you need to chat on careers, drop Andy a note. He is always happy to support and can give discounts to Whispered for GTM council members",
+        ],
+      },
+      {
+        heading: "Social",
+        body: "We created #community-social to help amplify posts you make / share interesting discussions.",
+      },
+    ],
+  },
+  {
+    title: "Thought Leadership",
+    intro: "We have several different formats for creating great discussions around topics. We love to have members participate in all. Reach out to Andy/Noah to provide suggestions / get involved:",
+    items: [
+      {
+        heading: "Huddles",
+        body: "Every month we will invite a C-level leader from a top vendor to meet with our group. These give us a chance to learn and share input with them. You should have these on your calendar (if not, ping Noah). If you want to suggest a vendor, reach out to Noah.",
+      },
+      {
+        heading: "Podcast",
+        body: "We deep-dive into topics with vendors, practitioners and investors. If you have deep interest in a series topic, let Noah or Andy know.",
+      },
+      {
+        heading: "Briefings",
+        body: "We bring together 2-4 members for a webinar style format. These can increase your brand and help you learn.",
+      },
+      {
+        heading: "Our Substack",
+        body: "If you want to explore publishing an article together… drop us a line.",
+      },
+    ],
+  },
+];
 
 export default async function MembersPage() {
   const session = await getSession();
   if (!session) redirect("/members/login");
 
-  let members: Member[] = [];
-  try {
-    members = await getMembers();
-  } catch {
-    // handle missing Airtable config gracefully
-  }
-
   return (
     <div>
-      {/* ── Portal header ──────────────────────────────────────── */}
-      <section
-        className="py-14 px-4 text-white"
-        style={{ backgroundColor: "#011224" }}
-      >
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      {/* ── Header ─────────────────────────────────────────────── */}
+      <section className="py-10 px-4 text-white" style={{ backgroundColor: "#011224" }}>
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <p className="text-white/60 text-sm mb-1">Logged in as {session.email}</p>
-            <h1 className="text-3xl md:text-4xl font-extrabold">Member Portal</h1>
-            <p className="text-white/70 mt-2">Welcome back to the GTM Council community.</p>
+            <p className="text-white/50 text-xs mb-1">Logged in as {session.email}</p>
+            <h1 className="text-4xl md:text-5xl font-extrabold">Member Resources</h1>
           </div>
           <LogoutButton />
         </div>
       </section>
 
-      {/* ── Full member directory ─────────────────────────────── */}
-      <section className="py-16 px-4">
-        {members.length > 0 ? (
-          <MemberDirectory members={members} />
-        ) : (
-          <div className="text-center py-16 text-gray-400">
-            <p>Member directory is loading — make sure your Airtable env vars are configured.</p>
-          </div>
-        )}
+      {/* ── Welcome ────────────────────────────────────────────── */}
+      <section className="px-4 pt-8 pb-2">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-lg text-gray-700 leading-relaxed">
+            Welcome to the GTM Council. We are building this to accelerate your career and understand and shape how AI drives GTM. This page provides actionable links to the latest member resources.
+          </p>
+        </div>
       </section>
+
+      {/* ── Sections ───────────────────────────────────────────── */}
+      <div className="px-4 pt-6 pb-16">
+        <div className="max-w-4xl mx-auto space-y-10">
+          {SECTIONS.map((section) => (
+            <div key={section.title}>
+              <h2 className="text-2xl font-extrabold mb-1" style={{ color: "#011224" }}>
+                {section.title}
+              </h2>
+              <p className="text-gray-600 mb-4 text-sm leading-relaxed">{section.intro}</p>
+              <div className="space-y-4">
+                {section.items.map((item) => (
+                  <div key={item.heading} className="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#c4921a" }} />
+                      <h3 className="font-bold text-sm" style={{ color: "#011224" }}>{item.heading}</h3>
+                    </div>
+                    <p className="text-sm text-gray-600 leading-relaxed ml-4">{item.body}</p>
+                    {"bullets" in item && item.bullets && (
+                      <ul className="mt-2 ml-4 space-y-1">
+                        {item.bullets.map((b) => (
+                          <li key={b} className="text-sm text-gray-500 flex items-start gap-2">
+                            <span className="mt-1.5 w-1 h-1 rounded-full shrink-0 bg-gray-400" />
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          {/* ── Feedback ─────────────────────────────────────── */}
+          <div className="rounded-xl p-6 text-center" style={{ backgroundColor: "#011224" }}>
+            <p className="text-white font-semibold mb-1">Feedback / Suggestions?</p>
+            <p className="text-white/70 text-sm">Slack Noah and Andy. We are building this for all of us.</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
