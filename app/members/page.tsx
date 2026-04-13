@@ -15,6 +15,13 @@ const L = ({ href, children }: { href: string; children: ReactNode }) => (
   </a>
 );
 
+// Bolds the text before the first ": "
+function bc(text: string): ReactNode {
+  const idx = text.indexOf(": ");
+  if (idx === -1) return text;
+  return <><strong>{text.slice(0, idx)}</strong>: {text.slice(idx + 2)}</>;
+}
+
 const SECTIONS: {
   title: string;
   intro: ReactNode;
@@ -28,10 +35,10 @@ const SECTIONS: {
         heading: "Slack",
         body: "We created this slack to give us a safe place to share ideas and help each other.",
         bullets: [
-          "Introduce Yourself: Add your photo and introduce yourself in #general",
-          "Basic Slack Etiquette: Use threads to reply to help keep conversations organized",
-          "Respect confidentiality: You can share concepts discussed but never share screenshots / people's names",
-          "Engage in the Discussion: Bring new topics / add your input to existing ones",
+          bc("Introduce Yourself: Add your photo and introduce yourself in #general"),
+          bc("Basic Slack Etiquette: Use threads to reply to help keep conversations organized"),
+          bc("Respect confidentiality: You can share concepts discussed but never share screenshots / people's names"),
+          bc("Engage in the Discussion: Bring new topics / add your input to existing ones"),
         ],
       },
       {
@@ -56,17 +63,17 @@ const SECTIONS: {
         heading: "Getting You on Podcasts",
         body: <>We have found podcasts are a <L href="https://www.whispered.com/post/podcast">great way to build your brand</L>. We maintain a <L href="https://airtable.com/appU94hAvQcQ6XTNO/shr1RI3yYTK2U0eej">list of RevOps podcasts</L> that we know the hosts and can often make introductions to.</>,
         bullets: [
-          "Get intros: If you want an introduction to a host, let us know",
-          "Add new podcasts: If you have been on another podcast we should meet the host, DM Andy and we can add it",
+          bc("Get intros: If you want an introduction to a host, let us know"),
+          bc("Add new podcasts: If you have been on another podcast we should meet the host, DM Andy and we can add it"),
         ],
       },
       {
         heading: "Careers",
         body: "There are several ways we can help you / each other here:",
         bullets: [
-          <><L href="https://airtable.com/appU94hAvQcQ6XTNO/pagpeSRflmGRDpFBB/form">Add a role</L>: If you hear of a role, add it to #community-careers</>,
-          "Share rockstars: If you know someone junior who is great and looking, share their profile in #community-careers — another member may want to hire them!",
-          <>Need Career Advice: If you need to chat on careers, drop Andy a note. He is always happy to support and can give discounts to <L href="http://www.whispered.com/">Whispered</L> for GTM council members</>,
+          <><strong><L href="https://airtable.com/appU94hAvQcQ6XTNO/pagpeSRflmGRDpFBB/form">Add a role</L></strong>: If you hear of a role, add it to #community-careers</>,
+          bc("Share rockstars: If you know someone junior who is great and looking, share their profile in #community-careers — another member may want to hire them!"),
+          <><strong>Need Career Advice</strong>: If you need to chat on careers, drop Andy a note. He is always happy to support and can give discounts to <L href="http://www.whispered.com/">Whispered</L> for GTM council members</>,
         ],
       },
       {
