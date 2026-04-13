@@ -25,11 +25,13 @@ const SECTIONS = [
       },
       {
         heading: "Join Huddles",
+        headingHref: "https://www.gtmcouncil.com/huddles",
         body: "We invite vendors in to talk strategy and get feedback. At the beginning and end we have opportunities for members to chat / get to know each other / build relationships.",
       },
       {
         heading: "Events",
         body: "We share events from vendors and also love members to organize meetups locally. If you see a good senior event, add it in #community-events.",
+        bodyLink: { text: "Find upcoming events here", href: "https://airtable.com/appU94hAvQcQ6XTNO/shrG1RAcQbQDNiJ4i" },
       },
     ],
   },
@@ -128,9 +130,18 @@ export default async function MembersPage() {
                   <div key={item.heading} className="bg-gray-50 border border-gray-200 rounded-xl p-5">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#c4921a" }} />
-                      <h3 className="font-bold text-lg" style={{ color: "#011224" }}>{item.heading}</h3>
+                      <h3 className="font-bold text-lg" style={{ color: "#011224" }}>
+                        {"headingHref" in item && item.headingHref ? (
+                          <a href={item.headingHref} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70" style={{ color: "#1d4ed8" }}>{item.heading}</a>
+                        ) : item.heading}
+                      </h3>
                     </div>
-                    <p className="text-lg text-gray-600 leading-relaxed ml-4">{item.body}</p>
+                    <p className="text-lg text-gray-600 leading-relaxed ml-4">
+                      {item.body}
+                      {"bodyLink" in item && item.bodyLink && (
+                        <> <a href={item.bodyLink.href} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70" style={{ color: "#1d4ed8" }}>{item.bodyLink.text}</a></>
+                      )}
+                    </p>
                     {"bullets" in item && item.bullets && (
                       <ul className="mt-2 ml-4 space-y-1">
                         {item.bullets.map((b) => (
