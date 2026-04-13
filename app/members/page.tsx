@@ -122,20 +122,20 @@ export default async function MembersPage() {
               <h2 className="text-2xl font-extrabold mb-1" style={{ color: "#011224" }}>
                 {section.title}
               </h2>
-              <p className="text-gray-600 mb-4 text-sm leading-relaxed">{section.intro}</p>
+              <p className="text-gray-600 mb-4 text-lg leading-relaxed">{section.intro}</p>
               <div className="space-y-4">
                 {section.items.map((item) => (
                   <div key={item.heading} className="bg-gray-50 border border-gray-200 rounded-xl p-5">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#c4921a" }} />
-                      <h3 className="font-bold text-sm" style={{ color: "#011224" }}>{item.heading}</h3>
+                      <h3 className="font-bold text-lg" style={{ color: "#011224" }}>{item.heading}</h3>
                     </div>
-                    <p className="text-sm text-gray-600 leading-relaxed ml-4">{item.body}</p>
+                    <p className="text-lg text-gray-600 leading-relaxed ml-4">{item.body}</p>
                     {"bullets" in item && item.bullets && (
                       <ul className="mt-2 ml-4 space-y-1">
                         {item.bullets.map((b) => (
-                          <li key={b} className="text-sm text-gray-500 flex items-start gap-2">
-                            <span className="mt-1.5 w-1 h-1 rounded-full shrink-0 bg-gray-400" />
+                          <li key={b} className="text-lg text-gray-500 flex items-start gap-2">
+                            <span className="mt-2 w-1.5 h-1.5 rounded-full shrink-0 bg-gray-400" />
                             {b}
                           </li>
                         ))}
@@ -149,8 +149,8 @@ export default async function MembersPage() {
 
           {/* ── Feedback ─────────────────────────────────────── */}
           <div className="rounded-xl p-6 text-center" style={{ backgroundColor: "#011224" }}>
-            <p className="text-white font-semibold mb-1">Feedback / Suggestions?</p>
-            <p className="text-white/70 text-sm">Slack Noah and Andy. We are building this for all of us.</p>
+            <p className="text-white font-semibold text-lg mb-1">Feedback / Suggestions?</p>
+            <p className="text-white/70 text-lg">Slack Noah and Andy. We are building this for all of us.</p>
           </div>
         </div>
       </div>
