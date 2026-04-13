@@ -33,7 +33,7 @@ const SECTIONS: {
     items: [
       {
         heading: "Slack",
-        body: "We created this slack to give us a safe place to share ideas and help each other.",
+        body: "We created the community to give us a safe place to share ideas and help each other.",
         bullets: [
           bc("Introduce Yourself: Add your photo and introduce yourself in #general"),
           bc("Basic Slack Etiquette: Use threads to reply to help keep conversations organized"),
@@ -42,7 +42,7 @@ const SECTIONS: {
         ],
       },
       {
-        heading: <L href="https://www.gtmcouncil.com/huddles">Join Huddles</L>,
+        heading: <L href="https://www.gtmcouncil.com/huddles">Huddles</L>,
         body: "We invite vendors in to talk strategy and get feedback. At the beginning and end we have opportunities for members to chat / get to know each other / build relationships.",
       },
       {
@@ -56,11 +56,11 @@ const SECTIONS: {
     intro: "We love to amplify member's voices. Here are some areas you can take advantage of:",
     items: [
       {
-        heading: <L href="https://www.gtmcouncil.com/briefings">Participate in a Briefing</L>,
+        heading: <L href="https://www.gtmcouncil.com/briefings">Amplify Your Expertise</L>,
         body: "We love helping members share insights publicly. These are a great opportunity to increase your brand and get to know other members. DM Andy to volunteer for a briefing.",
       },
       {
-        heading: "Getting You on Podcasts",
+        heading: "Amplify Your Voice",
         body: <>We have found podcasts are a <L href="https://www.whispered.com/post/podcast">great way to build your brand</L>. We maintain a <L href="https://airtable.com/appU94hAvQcQ6XTNO/shr1RI3yYTK2U0eej">list of RevOps podcasts</L> that we know the hosts and can often make introductions to.</>,
         bullets: [
           bc("Get intros: If you want an introduction to a host, let us know"),
@@ -68,7 +68,7 @@ const SECTIONS: {
         ],
       },
       {
-        heading: "Careers",
+        heading: "Amplify Your Career",
         body: "There are several ways we can help you / each other here:",
         bullets: [
           <><strong><L href="https://airtable.com/appU94hAvQcQ6XTNO/pagpeSRflmGRDpFBB/form">Add a role</L></strong>: If you hear of a role, add it to #community-careers</>,
@@ -77,7 +77,7 @@ const SECTIONS: {
         ],
       },
       {
-        heading: "Social",
+        heading: "Amplify Your Presence",
         body: "We created #community-social to help amplify posts you make / share interesting discussions.",
       },
     ],
