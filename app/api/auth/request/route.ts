@@ -19,10 +19,10 @@ export async function POST(req: NextRequest) {
   // Check if this email exists in the Airtable members table
   const member = await getMemberByEmail(normalizedEmail);
   if (!member) {
-    // Return same message to avoid email enumeration
-    return NextResponse.json({
-      message: "If that email is in our member list, you'll receive a code shortly.",
-    });
+    return NextResponse.json(
+      { error: "This email isn't in our member directory. This area is reserved for GTM council members only." },
+      { status: 403 }
+    );
   }
 
   const code = generateCode();
