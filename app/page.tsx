@@ -212,19 +212,19 @@ export default async function HomePage() {
       <section className="pt-3 pb-3 px-4 bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-0.5" style={{ color: "#011224" }}>Our Sponsors</h2>
-          <p className="text-lg text-gray-600 mb-1">Our community is proudly supported by a select group of trusted partners</p>
-          <div className="flex flex-col items-center gap-1">
+          <p className="text-lg text-gray-600 mb-2">Our community is proudly supported by a select group of trusted partners</p>
+          <div className="flex flex-col items-center gap-2">
             <div className="flex items-center justify-center gap-16 flex-wrap">
               {SPONSORS_FEATURED.map((s) => (
                 <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
-                  <Image src={s.logo} alt={s.name} width={s.width} height={s.height} className="object-contain" />
+                  <Image src={s.logo} alt={s.name} width={s.width} height={s.height} style={{ height: "52px", width: "auto" }} className="object-contain" />
                 </a>
               ))}
             </div>
             <div className="flex items-center justify-center gap-12 flex-wrap">
               {SPONSORS_SECONDARY.map((s) => (
                 <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
-                  <Image src={s.logo} alt={s.name} width={s.width} height={s.height} className="object-contain" />
+                  <Image src={s.logo} alt={s.name} width={s.width} height={s.height} style={{ height: "40px", width: "auto" }} className="object-contain" />
                 </a>
               ))}
             </div>
