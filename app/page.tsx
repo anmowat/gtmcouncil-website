@@ -3,6 +3,31 @@ import Image from "next/image";
 import { Member } from "@/components/MemberCard";
 import MemberDirectory from "@/components/MemberDirectory";
 import { getMembers } from "@/lib/airtable";
+import TestimonialCarousel from "@/components/TestimonialCarousel";
+
+const TESTIMONIALS = [
+  {
+    quote: "It's been awesome being part of this group. I've posted questions, gotten answers and had people jump on calls to pressure test ideas real-time. What I appreciate most is how everyone shows up. Zero ego, real operators, honest conversations, and a real willingness to help each other get better. With AI changing how we work so quickly, having a group like this to learn with, adapt with, and lean on is rare.",
+    name: "Noelle",
+    title: "Global VP of RevOps @ Clio",
+    photoUrl: "/photos/noelle-uglesic.jpg",
+    linkedin: "https://www.linkedin.com/in/noelleuglesic/",
+  },
+  {
+    quote: "GTM Council has personally been a great unlock for me and I'm super appreciative of the space to connect with peers and vendors on how AI is reshaping GTM.",
+    name: "Matt",
+    title: "VP of Revenue Operations @ Gong",
+    photoUrl: "/photos/matt-flotard.jpg",
+    linkedin: "https://www.linkedin.com/in/matthewflotard/",
+  },
+  {
+    quote: "I've leveled up here. GTM Council is the place where I can ask questions and learn from my peers in a safe, non-competitive space. I was looking for where to find people better than me I can look up to, and I found it.",
+    name: "Evan",
+    title: "RevOps Leader",
+    photoUrl: "/photos/evan-quasney.jpg",
+    linkedin: "https://www.linkedin.com/in/evan-quasney/",
+  },
+];
 
 export const revalidate = 86400; // rebuild member list once per day
 
@@ -185,6 +210,11 @@ export default async function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ── Member Testimonials ───────────────────────────────────── */}
+      <section className="py-8 px-4 bg-white">
+        <TestimonialCarousel testimonials={TESTIMONIALS} />
       </section>
 
       {/* ── Our Membership ────────────────────────────────────────── */}
