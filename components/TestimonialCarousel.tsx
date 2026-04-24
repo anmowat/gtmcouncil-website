@@ -33,7 +33,7 @@ export default function TestimonialCarousel({ testimonials }: Props) {
 
   return (
     <div
-      className="relative group max-w-3xl mx-auto px-10"
+      className="relative group max-w-5xl mx-auto px-12"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -45,15 +45,11 @@ export default function TestimonialCarousel({ testimonials }: Props) {
             style={{ gridArea: "1 / 1", visibility: i === idx ? "visible" : "hidden" }}
             className="flex flex-col items-center text-center px-4"
           >
-            {/* Quote mark open */}
-            <span className="text-6xl leading-none font-serif select-none mb-2" style={{ color: "#c4921a" }}>&ldquo;</span>
-
-            <p className="text-lg md:text-xl text-gray-700 italic leading-relaxed max-w-2xl">
+            <p className="text-lg md:text-xl text-gray-700 italic leading-relaxed">
+              <span className="text-5xl font-serif leading-none align-bottom mr-1 select-none" style={{ color: "#c4921a" }}>&ldquo;</span>
               {slide.quote}
+              <span className="text-5xl font-serif leading-none align-bottom ml-1 select-none" style={{ color: "#c4921a" }}>&rdquo;</span>
             </p>
-
-            {/* Quote mark close */}
-            <span className="text-6xl leading-none font-serif select-none mt-2" style={{ color: "#c4921a" }}>&rdquo;</span>
 
             {/* Photo */}
             <a
