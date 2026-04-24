@@ -61,7 +61,7 @@ export default function TestimonialCarousel({ testimonials }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               className="mt-5 block rounded-full overflow-hidden ring-2 ring-offset-2 hover:ring-4 transition-all"
-              style={{ width: 72, height: 72, ringColor: "#c4921a" }}
+              style={{ width: 72, height: 72 }}
               aria-label={`${slide.name} on LinkedIn`}
             >
               <Image
