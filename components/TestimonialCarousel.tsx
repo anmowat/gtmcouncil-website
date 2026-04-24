@@ -47,7 +47,7 @@ export default function TestimonialCarousel({ testimonials }: Props) {
             <p className="text-lg md:text-xl text-gray-700 italic leading-relaxed">
               <span className="text-5xl font-serif leading-none align-bottom mr-1 select-none" style={{ color: "#c4921a" }}>&ldquo;</span>
               {slide.quote}
-              <span className="text-5xl font-serif leading-none align-bottom ml-1 select-none" style={{ color: "#c4921a" }}>&rdquo;</span>
+              <span className="text-5xl font-serif align-bottom ml-1 select-none" style={{ color: "#c4921a", lineHeight: 0 }}>&rdquo;</span>
             </p>
           </div>
         ))}
