@@ -42,7 +42,7 @@ const PILLARS = [
       </svg>
     ),
     title: "Community",
-    description: "Leaders helping leaders in an exclusive forum.",
+    description: "Our community connects our members to each other and the most innovative vendors to grow our careers and lead the evolution of GTM technology.",
     actions: [{ label: "Apply", href: "https://airtable.com/appU94hAvQcQ6XTNO/pag8kIMP7bzMXoQzG/form", gold: true }],
   },
   {
@@ -155,11 +155,8 @@ export default async function HomePage() {
             Our Mission
           </h1>
           <p className="text-lg text-gray-600 mb-3">AI will fundamentally rewire the GTM motion.</p>
-          <p className="text-lg text-gray-700 mb-3">
+          <p className="text-lg text-gray-700">
             The GTM Council is built to support the modern GTM Operational leader.
-          </p>
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            Our community connects our members to each other and the most innovative vendors to grow our careers and lead the evolution of GTM technology.
           </p>
         </div>
       </section>
