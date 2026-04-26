@@ -220,8 +220,11 @@ export default async function HomePage() {
           <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-3" style={{ color: "#011224" }}>
             Our Membership
           </h2>
-          <p className="text-center text-lg text-gray-600 mb-4">
+          <p className="text-center text-lg text-gray-600 mb-1">
             The GTM Council brings together the top GTM systems-thinkers.
+          </p>
+          <p className="text-center text-lg text-gray-600 mb-4">
+            Following are select members of our group.
           </p>
           {membersError ? (
             <p className="text-center text-red-500 py-12 text-sm font-mono">{membersError}</p>
