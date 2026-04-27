@@ -147,7 +147,7 @@ export default function HuddlesPage() {
       </section>
 
       {/* ── Format ──────────────────────────────────────────────────── */}
-      <section className="px-4 pb-20">
+      <section className="px-4 pb-10">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-extrabold mb-3" style={{ color: "#011224" }}>
             Format
@@ -176,6 +176,23 @@ export default function HuddlesPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+      {/* ── View Huddles CTA ────────────────────────────────────────── */}
+      <section className="px-4 pb-20">
+        <div className="max-w-5xl mx-auto flex justify-center">
+          <Link
+            href="/insights"
+            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white rounded transition-colors"
+            style={{ backgroundColor: "#c4921a" }}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="7.5" cy="15.5" r="5.5"/>
+              <path d="M21 2l-9.6 9.6"/>
+              <path d="M15.5 7.5l3 3L22 7l-3-3"/>
+            </svg>
+            View Huddles
+          </Link>
         </div>
       </section>
     </div>
