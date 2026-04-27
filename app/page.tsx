@@ -14,11 +14,18 @@ const TESTIMONIALS = [
     linkedin: "https://www.linkedin.com/in/noelleuglesic/",
   },
   {
-    quote: "GTM Council has personally been a great unlock for me and I'm super appreciative of the space to connect with peers and vendors on how AI is reshaping GTM.",
+    quote: "GTM Council has personally been a great unlock for me and I'm super appreciative of the space. GTM Council gives me a forum to quickly vet and ideate with other operators who are in it every day. At the current pace of innovation, it's been incredibly valuable to cut through noise vs. signal and pressure test decisions with a trusted peer group",
     name: "Matt",
     title: "VP of Revenue Operations @ Gong",
     photoUrl: "/photos/matt-flotard.jpg",
     linkedin: "https://www.linkedin.com/in/matthewflotard/",
+  },
+  {
+    quote: "GTM is changing faster than any playbook can keep up with. What's rare about GTM Council is the quality of the people and how they show up — senior operators who are actually doing the work. Running experiments, building with AI hands-on, figuring out what's landing in real-time. More signal here than from any conference or report.",
+    name: "Sid Kumar",
+    title: "Head of GTM Strategy & Planning @ Databricks",
+    photoUrl: "/photos/sid-kumar.png",
+    linkedin: "https://www.linkedin.com/in/siddarthkumar/",
   },
   {
     quote: "I've leveled up here. GTM Council is the place where I can ask questions and learn from my peers in a safe, non-competitive space. I was looking for where to find people better than me I can look up to, and I found it.",
