@@ -24,7 +24,7 @@ const TESTIMONIALS = [
     quote: "GTM is changing faster than any playbook can keep up with. What's rare about GTM Council is the quality of the people and how they show up — senior operators who are actually doing the work. Running experiments, building with AI hands-on, figuring out what's landing in real-time. More signal here than from any conference or report.",
     name: "Sid Kumar",
     title: "Head of GTM Strategy & Planning @ Databricks",
-    photoUrl: "/photos/sid-kumar.png",
+    photoUrl: "/photos/sid-kumar.jpg",
     linkedin: "https://www.linkedin.com/in/siddarthkumar/",
   },
   {
