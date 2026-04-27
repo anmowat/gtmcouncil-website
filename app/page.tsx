@@ -83,7 +83,8 @@ const PILLARS = [
       </>
     ),
     actions: [
-      { label: "Subscribe", href: "https://gtmcouncil.substack.com/about", gold: false },
+      { label: "Our Podcast", href: "/podcast", gold: true },
+      { label: "Briefings", href: "/briefings", gold: false },
     ],
   },
   {
