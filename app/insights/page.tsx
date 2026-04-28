@@ -22,12 +22,19 @@ interface Insight {
   embedUrl?: string; // iframe src — leave undefined for password-protected placeholder
 }
 
-const TYPE_COLORS: Record<SessionType, string> = {
-  Huddle: "#15803d",
-  Podcast: "#1d4ed8",
-};
 
 const INSIGHTS: Insight[] = [
+  {
+    id: "7",
+    company: "GTM Council",
+    companyUrl: "https://www.gtmcouncil.com/",
+    month: "Apr 2026",
+    type: "Huddle",
+    speaker: "",
+    speakerUrl: "",
+    topic: "AI GTM Transformation (internal)",
+    embedUrl: "https://player.vimeo.com/video/1187133640?h=e227329851&title=0&byline=0&portrait=0",
+  },
   {
     id: "6",
     company: "Hyperbound",
@@ -37,7 +44,7 @@ const INSIGHTS: Insight[] = [
     speaker: "Sriharsha (Sai) Guduguntla (CEO)",
     speakerUrl: "https://www.linkedin.com/in/sguduguntla/",
     topic: "AI Roleplays",
-    embedUrl: undefined, // password-protected on Vimeo
+    embedUrl: "https://player.vimeo.com/video/1173456541?h=818730c556&title=0&byline=0&portrait=0",
   },
   {
     id: "4",
@@ -48,7 +55,7 @@ const INSIGHTS: Insight[] = [
     speaker: "Adam (VP Revenue)",
     speakerUrl: "https://www.linkedin.com/in/adamali1/",
     topic: "Revenue Agents",
-    embedUrl: undefined, // password-protected on Vimeo
+    embedUrl: "https://player.vimeo.com/video/1169211770?h=0d973691a5&title=0&byline=0&portrait=0",
   },
   {
     id: "1",
@@ -123,22 +130,18 @@ function InsightCard({ insight }: { insight: Insight }) {
               {insight.company}
             </a>
             <span className="text-sm text-gray-500">{insight.month}</span>
-            <span
-              className="text-xs font-semibold px-2 py-0.5 rounded-full text-white"
-              style={{ backgroundColor: TYPE_COLORS[insight.type] }}
-            >
-              {insight.type}
-            </span>
           </div>
-          <a
-            href={insight.speakerUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-medium underline"
-            style={{ color: "#1d4ed8" }}
-          >
-            {insight.speaker}
-          </a>
+          {insight.speaker && (
+            <a
+              href={insight.speakerUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-medium underline"
+              style={{ color: "#1d4ed8" }}
+            >
+              {insight.speaker}
+            </a>
+          )}
         </div>
         <p className="text-sm text-gray-600 mt-1">{insight.topic}</p>
       </div>
