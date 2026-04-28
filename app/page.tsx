@@ -8,14 +8,14 @@ import TestimonialCarousel from "@/components/TestimonialCarousel";
 const TESTIMONIALS = [
   {
     quote: "It's been awesome being part of this group. I've posted questions, gotten answers and had people jump on calls to pressure test ideas real-time. What I appreciate most is how everyone shows up. Zero ego, real operators, honest conversations, and a real willingness to help each other get better. With AI changing how we work so quickly, having a group like this to learn with, adapt with, and lean on is rare.",
-    name: "Noelle",
+    name: "Noelle Uglesic",
     title: "Global VP of RevOps @ Clio",
     photoUrl: "/photos/noelle-uglesic.jpg",
     linkedin: "https://www.linkedin.com/in/noelleuglesic/",
   },
   {
     quote: "GTM Council has personally been a great unlock for me and I'm super appreciative of the space. GTM Council gives me a forum to quickly vet and ideate with other operators who are in it every day. At the current pace of innovation, it's been incredibly valuable to cut through noise vs. signal and pressure test decisions with a trusted peer group",
-    name: "Matt",
+    name: "Matt Flotard",
     title: "VP of Revenue Operations @ Gong",
     photoUrl: "/photos/matt-flotard.jpg",
     linkedin: "https://www.linkedin.com/in/matthewflotard/",
@@ -29,7 +29,7 @@ const TESTIMONIALS = [
   },
   {
     quote: "I've leveled up here. GTM Council is the place where I can ask questions and learn from my peers in a safe, non-competitive space. I was looking for where to find people better than me I can look up to, and I found it.",
-    name: "Evan",
+    name: "Evan Quasney",
     title: "RevOps Leader",
     photoUrl: "/photos/evan-quasney.jpg",
     linkedin: "https://www.linkedin.com/in/evan-quasney/",
