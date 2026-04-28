@@ -182,7 +182,7 @@ export default function HuddlesPage() {
       <section className="px-4 pb-20">
         <div className="max-w-5xl mx-auto flex justify-center">
           <Link
-            href="/insights"
+            href="/members"
             className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white rounded transition-colors"
             style={{ backgroundColor: "#c4921a" }}
           >
