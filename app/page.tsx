@@ -64,7 +64,7 @@ const PILLARS = [
     ),
     title: "Vendor/Member Huddles",
     description: "We invite tech CEOs to share their vision and get feedback with our members in an informal / confidential setting.",
-    actions: [{ label: "View Format", href: "/huddles", gold: false }],
+    actions: [{ label: "View Format", href: "/huddles", gold: true }],
   },
   {
     icon: (
@@ -76,8 +76,7 @@ const PILLARS = [
     title: "Thought Leadership",
     description: "We deep-dive into how the GTM landscape is changing in our podcast series and online briefings.",
     actions: [
-      { label: "Our Podcast", href: "/podcast", gold: true },
-      { label: "Briefings", href: "/briefings", gold: false },
+      { label: "Stacked GTM Podcast", href: "/podcast", gold: true },
     ],
   },
   {
@@ -101,8 +100,7 @@ const PILLARS = [
     title: "Personal Brand",
     description: "We help members turn their experience into influence by introducing them to partner podcasts and featuring them on GTM Council briefings.",
     actions: [
-      { label: "Share Your Podcast", href: "https://airtable.com/appU94hAvQcQ6XTNO/pagU3D904PBGB8ZqM/form", gold: true },
-      { label: "View Briefings", href: "/briefings", gold: false },
+      { label: "GTM Council Briefings", href: "/briefings", gold: true },
     ],
   },
   {
