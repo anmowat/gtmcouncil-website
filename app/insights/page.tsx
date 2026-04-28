@@ -1,4 +1,8 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "GTM / AI Discussions | GTM Council",
@@ -165,7 +169,9 @@ function InsightCard({ insight }: { insight: Insight }) {
   );
 }
 
-export default function InsightsPage() {
+export default async function InsightsPage() {
+  const session = await getSession();
+  if (!session) redirect("/members/login?from=/insights");
   return (
     <div>
       {/* ── Header ────────────────────────────────────────────────── */}

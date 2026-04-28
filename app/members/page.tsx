@@ -108,7 +108,7 @@ const SECTIONS: {
 
 export default async function MembersPage() {
   const session = await getSession();
-  if (!session) redirect("/members/login");
+  if (!session) redirect("/members/login?from=/members");
 
   return (
     <div>
