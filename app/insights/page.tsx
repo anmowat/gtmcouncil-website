@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 
@@ -39,28 +38,6 @@ const INSIGHTS: Insight[] = [
     speakerUrl: "https://www.linkedin.com/in/sguduguntla/",
     topic: "AI Roleplays",
     embedUrl: undefined, // password-protected on Vimeo
-  },
-  {
-    id: "5",
-    company: "Clay",
-    companyUrl: "https://www.clay.com/",
-    month: "Mar 2026",
-    type: "Podcast",
-    speaker: "Everett (Head of GTM Engineering)",
-    speakerUrl: "https://www.linkedin.com/in/everettberry/",
-    topic: "GTM Engineering",
-    embedUrl: "https://player.vimeo.com/video/1172764939?h=5007e561ac&title=0&byline=0&portrait=0",
-  },
-  {
-    id: "3",
-    company: "11x",
-    companyUrl: "https://www.11x.ai/",
-    month: "Feb 2026",
-    type: "Podcast",
-    speaker: "Prabhav (CEO)",
-    speakerUrl: "https://www.linkedin.com/in/jainprabhav/",
-    topic: "Agentic SDR",
-    embedUrl: "https://player.vimeo.com/video/1168162461?h=9e6a32b65c&title=0&byline=0&portrait=0",
   },
   {
     id: "4",
@@ -178,21 +155,13 @@ export default async function InsightsPage() {
       <section className="py-16 px-4 text-center">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-5" style={{ color: "#011224" }}>
-            GTM / AI Discussions
+            GTM Council Huddles
           </h1>
           <p className="text-lg text-gray-600 mb-2">
-            Our members and vendors regularly come together to discuss how the GTM technology landscape is changing
+            See recordings of member huddles.
           </p>
-          <p className="text-gray-500 mb-2">
-            We have three formats, including our{" "}
-            <Link href="/podcast" className="underline hover:opacity-80" style={{ color: "#c4921a" }}>podcast</Link>
-            {", "}
-            <span className="underline cursor-default" style={{ color: "#c4921a" }}>huddles</span>
-            {" and "}
-            <Link href="/briefings" className="underline hover:opacity-80" style={{ color: "#c4921a" }}>briefings</Link>
-          </p>
-          <p className="text-gray-500 text-sm">
-            To encourage candid dialog, we only share conversations with the approval of members and companies.
+          <p className="text-gray-500 text-sm font-semibold">
+            Remember, all huddles are confidential. Do not share these recordings outside GTM Council.
           </p>
         </div>
       </section>
