@@ -176,7 +176,7 @@ export default async function HomePage() {
                   <h3 className="text-lg font-bold" style={{ color: "#011224" }}>{pillar.title}</h3>
                 </div>
                 <p className="text-sm text-gray-600 flex-1">{pillar.description}</p>
-                <div className="flex flex-wrap gap-2 pt-2">
+                <div className="flex flex-wrap gap-2 pt-2 justify-center">
                   {pillar.actions.map((action) =>
                     action.href.startsWith("http") ? (
                       <a
