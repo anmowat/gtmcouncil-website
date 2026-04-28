@@ -74,14 +74,7 @@ const PILLARS = [
       </svg>
     ),
     title: "Thought Leadership",
-    descriptionNode: (
-      <>
-        We deep-dive into how the GTM landscape is changing in our{" "}
-        <Link href="/podcast" className="underline hover:opacity-80" style={{ color: "#c4921a" }}>podcast series</Link>
-        {" "}and{" "}
-        <Link href="/briefings" className="underline hover:opacity-80" style={{ color: "#c4921a" }}>online briefings</Link>.
-      </>
-    ),
+    description: "We deep-dive into how the GTM landscape is changing in our podcast series and online briefings.",
     actions: [
       { label: "Our Podcast", href: "/podcast", gold: true },
       { label: "Briefings", href: "/briefings", gold: false },
