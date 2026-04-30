@@ -154,7 +154,10 @@ export default async function HomePage() {
           </h1>
           <p className="text-lg text-gray-600 mb-3">AI will fundamentally rewire the GTM motion.</p>
           <p className="text-lg text-gray-700">
-            The GTM Council is built to support the modern GTM Operational leader.
+            We unite leading GTM operators to shape the change
+          </p>
+          <p className="text-lg text-gray-700">
+            and turn that insight into real advantage for our members.
           </p>
         </div>
       </section>
