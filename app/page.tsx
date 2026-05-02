@@ -21,6 +21,13 @@ const TESTIMONIALS = [
     linkedin: "https://www.linkedin.com/in/matthewflotard/",
   },
   {
+    quote: "There are a lot of communities out there, but GTM Council is the most intentionally curated one I've been part of. You're trading notes with senior operators who've collectively built GTM at hundreds of companies - and when it comes to AI, it's been an invaluable network to separate signal from hype and hear what's actually happening on the ground. It's also become one of my go-to networks for finding and vetting exceptional talent.",
+    name: "Jessica Chiew",
+    title: "Global Head of GTM Strategy and Operations",
+    photoUrl: "/photos/jessica-chiew.png",
+    linkedin: "https://www.linkedin.com/in/jessicachiew/",
+  },
+  {
     quote: "GTM is changing faster than any playbook can keep up with. What's rare about GTM Council is the quality of the people and how they show up — senior operators who are actually doing the work. Running experiments, building with AI hands-on, figuring out what's landing in real-time. More signal here than from any conference or report.",
     name: "Sid Kumar",
     title: "Head of GTM Strategy & Planning @ Databricks",
