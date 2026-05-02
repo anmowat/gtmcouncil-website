@@ -114,7 +114,7 @@ const PILLARS = [
     ),
     title: "Events",
     description: "We bring our membership together for intimate events and also share select sponsored events with our community.",
-    actions: [{ label: "Share Event", href: "https://airtable.com/appU94hAvQcQ6XTNO/pagv90IY4XvvaNeLN/form", gold: true }],
+    actions: [{ label: "Share Event", href: "https://www.whisperedevents.com/", gold: true }],
   },
 ];
 
