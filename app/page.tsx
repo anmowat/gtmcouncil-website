@@ -81,7 +81,7 @@ const PILLARS = [
       </svg>
     ),
     title: "Thought Leadership",
-    description: "We deep-dive into how the GTM landscape is changing in our podcast series and online briefings.",
+    description: "Our \"Stacked GTM\" goes deep (7 episodes with top practitioners and vendors on each topic) to explore how AI is changing GTM landscape.",
     actions: [],
     iconLinks: [
       {
