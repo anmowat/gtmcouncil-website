@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "8",
+    company: "Relevance AI",
+    companyUrl: "https://relevanceai.com/",
+    month: "May 2026",
+    type: "Huddle",
+    speaker: "Daniel Vassilev (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/daniel-vassilev/",
+    topic: "Enterprise autonomous agents",
+    embedUrl: "https://player.vimeo.com/video/1190659184?h=dfd40a7a24&title=0&byline=0&portrait=0",
+  },
+  {
     id: "7",
     company: "GTM Council",
     companyUrl: "https://www.gtmcouncil.com/",
