@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { ReactNode } from "react";
 import QuoteCarousel, { Quote } from "@/components/QuoteCarousel";
 
@@ -142,6 +143,39 @@ export default function HuddlesPage() {
             <QuoteCarousel quotes={MEMBER_QUOTES} bg="#011224" light={true} />
             <QuoteCarousel quotes={COMPANY_QUOTES} bg="#c4921a" light={true} />
 
+          </div>
+        </div>
+      </section>
+
+      {/* ── Past Guests ─────────────────────────────────────────────── */}
+      <section className="px-4 pb-12">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-extrabold mb-6" style={{ color: "#011224" }}>
+            Past Guests
+          </h2>
+          <div className="overflow-hidden">
+            <div className="animate-marquee flex items-center gap-16 w-max">
+              {[
+                { src: "/logo-huddle-scalestack.jpg", alt: "Scalestack", h: 36 },
+                { src: "/logo-huddle-adamx.png",      alt: "AdamX",      h: 44 },
+                { src: "/logo-huddle-hyperbound.png", alt: "Hyperbound",  h: 36 },
+                { src: "/logo-huddle-relevanceai.jpg",alt: "Relevance AI",h: 72 },
+                { src: "/logo-huddle-scalestack.jpg", alt: "Scalestack",  h: 36 },
+                { src: "/logo-huddle-adamx.png",      alt: "AdamX",      h: 44 },
+                { src: "/logo-huddle-hyperbound.png", alt: "Hyperbound",  h: 36 },
+                { src: "/logo-huddle-relevanceai.jpg",alt: "Relevance AI",h: 72 },
+              ].map((logo, i) => (
+                <Image
+                  key={i}
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={200}
+                  height={logo.h}
+                  className="object-contain shrink-0"
+                  style={{ height: logo.h, width: "auto" }}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
