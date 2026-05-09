@@ -156,14 +156,14 @@ export default function HuddlesPage() {
           <div className="overflow-hidden">
             <div className="animate-marquee flex items-center gap-16 w-max">
               {[
-                { src: "/logo-huddle-scalestack.jpg", alt: "Scalestack", h: 36 },
-                { src: "/logo-huddle-adamx.png",      alt: "AdamX",      h: 44 },
-                { src: "/logo-huddle-hyperbound.png", alt: "Hyperbound",  h: 36 },
-                { src: "/logo-huddle-relevanceai.jpg",alt: "Relevance AI",h: 72 },
-                { src: "/logo-huddle-scalestack.jpg", alt: "Scalestack",  h: 36 },
-                { src: "/logo-huddle-adamx.png",      alt: "AdamX",      h: 44 },
-                { src: "/logo-huddle-hyperbound.png", alt: "Hyperbound",  h: 36 },
-                { src: "/logo-huddle-relevanceai.jpg",alt: "Relevance AI",h: 72 },
+                { src: "/logo-huddle-scalestack.jpg", alt: "Scalestack",  h: 52 },
+                { src: "/logo-huddle-adamx.png",      alt: "AdamX",       h: 48 },
+                { src: "/logo-huddle-hyperbound.png", alt: "Hyperbound",  h: 34 },
+                { src: "/logo-huddle-relevanceai.jpg",alt: "Relevance AI",h: 60 },
+                { src: "/logo-huddle-scalestack.jpg", alt: "Scalestack",  h: 52 },
+                { src: "/logo-huddle-adamx.png",      alt: "AdamX",       h: 48 },
+                { src: "/logo-huddle-hyperbound.png", alt: "Hyperbound",  h: 34 },
+                { src: "/logo-huddle-relevanceai.jpg",alt: "Relevance AI",h: 60 },
               ].map((logo, i) => (
                 <Image
                   key={i}
