@@ -74,7 +74,7 @@ export async function getMembers(): Promise<Member[]> {
 
 export async function getMemberByEmail(email: string): Promise<Member | null> {
   const tableName = process.env.AIRTABLE_MEMBERS_TABLE ?? "Members";
-  const formula = `LOWER({Email}) = "${email.toLowerCase().replace(/"/g, '\\"')}"`;
+  const formula = `TRIM(LOWER({Email})) = "${email.toLowerCase().trim().replace(/"/g, '\\"')}"`;
   // bypass cache for auth checks
   const params = new URLSearchParams({ filterByFormula: formula, maxRecords: "1" });
   const res = await fetch(`${BASE_URL}/${encodeURIComponent(tableName)}?${params}`, {
