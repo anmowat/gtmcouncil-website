@@ -14,7 +14,7 @@ const FORMAT_FEATURES = [
       </svg>
     ),
     title: "Look at topic from all angles",
-    description: "Each series will include 5–7 episodes featuring both practitioners and vendors.",
+    description: "Each series will include 7-10 episodes featuring both practitioners and vendors.",
   },
   {
     icon: (
@@ -44,18 +44,18 @@ const SERIES = [
     briefUrl: "https://www.gtmcouncil.com",
   },
   {
-    title: "Agentic SDR",
+    title: "Agentic Sales",
     description: "Personalized nurture and sequences is here. Innovative companies are increasingly automating inbound and outbound SDR. Learn from the best.",
     status: "inprogress" as const,
     briefUrl: "https://www.gtmcouncil.com",
   },
   {
-    title: "Agentic Analytics",
+    title: "GTM Agentic Data Foundation",
     description: "Agents change analytics. No more creating dashboards. Instead we will soon have agents monitoring us and coaching each GTM leader.",
     status: "soon" as const,
   },
   {
-    title: "AI Roleplay",
+    title: "AI Manager",
     description: "LMS is dying (about time) and the most innovative companies are blowing up enablement to allow their reps to learn by practicing. Learn what is working.",
     status: "soon" as const,
   },
