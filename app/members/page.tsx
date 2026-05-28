@@ -104,6 +104,20 @@ const SECTIONS: {
       },
     ],
   },
+  {
+    title: "Admin",
+    intro: "Resources for your GTM Council membership",
+    items: [
+      {
+        heading: <L href="https://billing.stripe.com/p/login/9B614p6O8edV4ghg334sE00">Subscription Portal</L>,
+        body: "Update your credit card, get a receipt.",
+      },
+      {
+        heading: "Update your directory listing",
+        body: "DM Andy.",
+      },
+    ],
+  },
 ];
 
 export default async function MembersPage() {
