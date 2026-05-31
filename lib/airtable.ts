@@ -38,7 +38,7 @@ function recordToMember(record: AirtableRecord): Member {
   };
 }
 
-async function fetchAllRecords(table: string, filterFormula?: string, view?: string): Promise<AirtableRecord[]> {
+async function fetchAllRecords(table: string, filterFormula?: string, view?: string, revalidate: number | false = 86400): Promise<AirtableRecord[]> {
   const records: AirtableRecord[] = [];
   let offset: string | undefined;
 
@@ -50,7 +50,7 @@ async function fetchAllRecords(table: string, filterFormula?: string, view?: str
 
     const res = await fetch(`${BASE_URL}/${encodeURIComponent(table)}?${params}`, {
       headers,
-      next: { revalidate: 86400 }, // 24-hour cache — call /api/revalidate to refresh sooner
+      next: { revalidate },
     });
 
     if (!res.ok) {
@@ -101,7 +101,7 @@ export interface FutureTopic {
 
 export async function getFutureTopics(): Promise<FutureTopic[]> {
   const tableName = process.env.AIRTABLE_TOPICS_TABLE ?? "Future Topics";
-  const records = await fetchAllRecords(tableName);
+  const records = await fetchAllRecords(tableName, undefined, undefined, false);
   return records.map((r) => ({
     id: r.id,
     title: String(r.fields["Topic"] ?? r.fields["Name"] ?? r.fields["Title"] ?? ""),
