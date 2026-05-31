@@ -23,7 +23,7 @@ const TESTIMONIALS = [
   {
     quote: "There are a lot of communities out there, but GTM Council is the most intentionally curated one I've been part of. You're trading notes with senior operators who've collectively built GTM at hundreds of companies - and when it comes to AI, it's been an invaluable network to separate signal from hype and hear what's actually happening on the ground. It's also become one of my go-to networks for finding and vetting exceptional talent.",
     name: "Jessica Chiew",
-    title: "Global Head of GTM Strategy and Operations",
+    title: "Global Head of GTM Strategy and Operations @ Canva",
     photoUrl: "/photos/jessica-chiew.png",
     linkedin: "https://www.linkedin.com/in/jessicachiew/",
   },
