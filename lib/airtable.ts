@@ -50,7 +50,7 @@ async function fetchAllRecords(table: string, filterFormula?: string, view?: str
 
     const res = await fetch(`${BASE_URL}/${encodeURIComponent(table)}?${params}`, {
       headers,
-      next: { revalidate: 3600 }, // 1-hour ISR — Airtable attachment URLs expire in ~4-6h
+      next: { revalidate: 86400 }, // 24-hour cache — call /api/revalidate to refresh sooner
     });
 
     if (!res.ok) {
