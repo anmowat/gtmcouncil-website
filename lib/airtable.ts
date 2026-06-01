@@ -68,7 +68,8 @@ async function fetchAllRecords(table: string, filterFormula?: string, view?: str
 
 export async function getMembers(): Promise<Member[]> {
   const tableName = process.env.AIRTABLE_MEMBERS_TABLE ?? "Members";
-  const records = await fetchAllRecords(tableName, undefined, "viwjhmKTzpPrPMx8C");
+  // Airtable attachment URLs expire in ~4-6h, so cap cache at 3h
+  const records = await fetchAllRecords(tableName, undefined, "viwjhmKTzpPrPMx8C", 10800);
   return records.map(recordToMember);
 }
 
