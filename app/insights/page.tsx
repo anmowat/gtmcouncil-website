@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "9",
+    company: "Nue",
+    companyUrl: "https://www.nue.io/",
+    month: "June 2026",
+    type: "Huddle",
+    speaker: "Mark Walker (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/markwalker/",
+    topic: "Top AI CPQ",
+    embedUrl: "https://player.vimeo.com/video/1199563719?h=b8ff995479&title=0&byline=0&portrait=0",
+  },
+  {
     id: "8",
     company: "Relevance AI",
     companyUrl: "https://relevanceai.com/",
