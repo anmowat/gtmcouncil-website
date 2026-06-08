@@ -161,11 +161,13 @@ export default function HuddlesPage() {
                 { src: "/logo-huddle-hyperbound.png",  alt: "Hyperbound",  h: 34 },
                 { src: "/logo-huddle-relevanceai.jpg", alt: "Relevance AI",h: 44 },
                 { src: "/logo-huddle-rox.png",         alt: "Rox",         h: 73 },
+                { src: "/logo-huddle-nue.jpg",         alt: "Nue",         h: 48 },
                 { src: "/logo-huddle-scalestack.jpg",  alt: "Scalestack",  h: 73 },
                 { src: "/logo-huddle-adamx.png",       alt: "AdamX",       h: 48 },
                 { src: "/logo-huddle-hyperbound.png",  alt: "Hyperbound",  h: 34 },
                 { src: "/logo-huddle-relevanceai.jpg", alt: "Relevance AI",h: 44 },
                 { src: "/logo-huddle-rox.png",         alt: "Rox",         h: 73 },
+                { src: "/logo-huddle-nue.jpg",         alt: "Nue",         h: 48 },
               ].map((logo, i) => (
                 <Image
                   key={i}
