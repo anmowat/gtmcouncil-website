@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "10",
+    company: "Upside",
+    companyUrl: "https://www.upside.tech/",
+    month: "June 2026",
+    type: "Huddle",
+    speaker: "Alex (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/alexdbauer/",
+    topic: "Data layer for GTM engineers",
+    embedUrl: "https://player.vimeo.com/video/1200942538?h=83a759562a&title=0&byline=0&portrait=0",
+  },
+  {
     id: "9",
     company: "Nue",
     companyUrl: "https://www.nue.io/",
