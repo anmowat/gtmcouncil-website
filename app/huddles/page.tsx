@@ -162,23 +162,30 @@ export default function HuddlesPage() {
                 { src: "/logo-huddle-relevanceai.jpg", alt: "Relevance AI",h: 44 },
                 { src: "/logo-huddle-rox.png",         alt: "Rox",         h: 73 },
                 { src: "/logo-huddle-nue.jpg",         alt: "Nue",         h: 48 },
+                { src: "/logo-huddle-sweep.jpg",       alt: "Sweep",       h: 44, href: "https://www.sweep.io/" },
                 { src: "/logo-huddle-scalestack.jpg",  alt: "Scalestack",  h: 73 },
                 { src: "/logo-huddle-adamx.png",       alt: "AdamX",       h: 48 },
                 { src: "/logo-huddle-hyperbound.png",  alt: "Hyperbound",  h: 34 },
                 { src: "/logo-huddle-relevanceai.jpg", alt: "Relevance AI",h: 44 },
                 { src: "/logo-huddle-rox.png",         alt: "Rox",         h: 73 },
                 { src: "/logo-huddle-nue.jpg",         alt: "Nue",         h: 48 },
-              ].map((logo, i) => (
-                <Image
-                  key={i}
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={200}
-                  height={logo.h}
-                  className="object-contain shrink-0"
-                  style={{ height: logo.h, width: "auto" }}
-                />
-              ))}
+                { src: "/logo-huddle-sweep.jpg",       alt: "Sweep",       h: 44, href: "https://www.sweep.io/" },
+              ].map((logo, i) => {
+                const img = (
+                  <Image
+                    key={i}
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={200}
+                    height={logo.h}
+                    className="object-contain shrink-0"
+                    style={{ height: logo.h, width: "auto" }}
+                  />
+                );
+                return logo.href ? (
+                  <a key={i} href={logo.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity">{img}</a>
+                ) : img;
+              })}
             </div>
           </div>
         </div>
