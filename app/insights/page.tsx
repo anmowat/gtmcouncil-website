@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "11",
+    company: "Sweep",
+    companyUrl: "https://www.sweep.io/",
+    month: "June 2026",
+    type: "Huddle",
+    speaker: "Ido (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/idogaver/",
+    topic: "Agentic layer for enterprise systems",
+    embedUrl: "https://player.vimeo.com/video/1203643149?h=073895df84&title=0&byline=0&portrait=0",
+  },
+  {
     id: "10",
     company: "Upside",
     companyUrl: "https://www.upside.tech/",
