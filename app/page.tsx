@@ -43,7 +43,7 @@ const TESTIMONIALS = [
   },
 ];
 
-export const revalidate = 86400; // rebuild member list once per day
+export const revalidate = 10800; // 3h — must stay under Airtable attachment URL expiry (~4-6h)
 
 const PILLARS = [
   {
