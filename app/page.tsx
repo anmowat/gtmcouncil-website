@@ -137,6 +137,7 @@ const PILLARS = [
 
 const SPONSORS_FEATURED = [
   { name: "Fullcast", logo: "/logo-fullcast.webp", href: "https://www.fullcast.com/", width: 280, height: 77 },
+  { name: "Nooks", logo: "/logo-nooks.webp", href: "https://www.nooks.ai/", width: 280, height: 77 },
 ];
 const SPONSORS_SECONDARY = [
   { name: "Whispered", logo: "/logo-whispered.png", href: "https://www.whispered.com/", width: 254, height: 61 },
