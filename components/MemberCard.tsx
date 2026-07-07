@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 
 export interface Member {
@@ -36,12 +35,11 @@ export default function MemberCard({ member }: { member: Member }) {
       {/* Photo */}
       <div className="relative aspect-square bg-gray-100">
         {member.photoUrl && !imgError ? (
-          <Image
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             src={member.photoUrl}
             alt={member.name}
-            fill
-            className="object-cover object-top"
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
+            className="absolute inset-0 w-full h-full object-cover object-top"
             onError={() => setImgError(true)}
           />
         ) : (
