@@ -43,7 +43,7 @@ const TESTIMONIALS = [
   },
 ];
 
-export const revalidate = 10800; // 3h — must stay under Airtable attachment URL expiry (~4-6h)
+export const dynamic = "force-dynamic"; // always render fresh so Airtable photo URLs are never stale
 
 const PILLARS = [
   {
