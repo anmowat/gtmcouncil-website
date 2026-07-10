@@ -50,7 +50,8 @@ async function fetchAllRecords(table: string, filterFormula?: string, view?: str
 
     const res = await fetch(`${BASE_URL}/${encodeURIComponent(table)}?${params}`, {
       headers,
-      next: { revalidate },
+      // Offset tokens expire in ~5 min — never cache paginated requests
+      ...(offset ? { cache: "no-store" } : { next: { revalidate } }),
     });
 
     if (!res.ok) {
@@ -69,8 +70,7 @@ async function fetchAllRecords(table: string, filterFormula?: string, view?: str
 export async function getMembers(): Promise<Member[]> {
   const tableName = process.env.AIRTABLE_MEMBERS_TABLE ?? "Members";
   // Airtable attachment URLs expire in ~4-6h, so cap cache at 3h
-  const view = process.env.AIRTABLE_MEMBERS_VIEW;
-  const records = await fetchAllRecords(tableName, undefined, view, 10800);
+  const records = await fetchAllRecords(tableName, undefined, "viwjhmKTzpPrPMx8C", 10800);
   return records.map(recordToMember);
 }
 
