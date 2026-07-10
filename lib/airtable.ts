@@ -38,7 +38,13 @@ function recordToMember(record: AirtableRecord): Member {
   };
 }
 
-async function fetchAllRecords(table: string, filterFormula?: string, view?: string, revalidate: number | false = 86400): Promise<AirtableRecord[]> {
+async function fetchAllRecords(
+  table: string,
+  filterFormula?: string,
+  view?: string,
+  revalidate: number | false = 86400,
+  noStore = false,
+): Promise<AirtableRecord[]> {
   const records: AirtableRecord[] = [];
   let offset: string | undefined;
 
@@ -48,14 +54,23 @@ async function fetchAllRecords(table: string, filterFormula?: string, view?: str
     if (view) params.set("view", view);
     if (offset) params.set("offset", offset);
 
+    // Always bypass cache for offset pages (tokens expire in ~5 min).
+    // When noStore=true we bypass cache for ALL pages (used on retry after stale-offset 422).
+    const cacheOpt: RequestInit = noStore || offset
+      ? { cache: "no-store" }
+      : { next: { revalidate } };
+
     const res = await fetch(`${BASE_URL}/${encodeURIComponent(table)}?${params}`, {
       headers,
-      // Offset tokens expire in ~5 min — never cache paginated requests
-      ...(offset ? { cache: "no-store" } : { next: { revalidate } }),
+      ...cacheOpt,
     });
 
     if (!res.ok) {
       const body = await res.text();
+      // Cached page-1 offset token was stale — retry everything bypassing cache
+      if (res.status === 422 && !noStore) {
+        return fetchAllRecords(table, filterFormula, view, revalidate, true);
+      }
       throw new Error(`Airtable ${res.status}: ${body}`);
     }
 
