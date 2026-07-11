@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "12",
+    company: "Airspeed",
+    companyUrl: "https://www.goairspeed.com/",
+    month: "July 2026",
+    type: "Huddle",
+    speaker: "Adam Liska (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/adliska/",
+    topic: "Commercial brain for revenue teams",
+    embedUrl: "https://player.vimeo.com/video/1208967775?h=3dafb99131&title=0&byline=0&portrait=0",
+  },
+  {
     id: "11",
     company: "Sweep",
     companyUrl: "https://www.sweep.io/",
