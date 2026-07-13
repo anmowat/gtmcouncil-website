@@ -142,6 +142,7 @@ const SPONSORS_FEATURED = [
 const SPONSORS_SECONDARY = [
   { name: "Whispered", logo: "/logo-whispered.png", href: "https://www.whispered.com/", width: 254, height: 61 },
   { name: "Upside", logo: "/logo-upside.svg", href: "https://upside.tech/", width: 171, height: 74 },
+  { name: "Ampersand", logo: "/logo-ampersand.svg", href: "https://www.withampersand.com/", width: 254, height: 61 },
 ];
 
 export default async function HomePage() {
