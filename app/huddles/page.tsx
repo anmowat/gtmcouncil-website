@@ -163,7 +163,8 @@ export default function HuddlesPage() {
                 { src: "/logo-huddle-rox.png",         alt: "Rox",         h: 73 },
                 { src: "/logo-huddle-nue.jpg",         alt: "Nue",         h: 48 },
                 { src: "/logo-huddle-sweep.jpg",       alt: "Sweep",       h: 44, href: "https://www.sweep.io/" },
-                { src: "/logo-huddle-airspeed.svg",   alt: "Airspeed",    h: 36, href: "https://www.goairspeed.com/" },
+                { src: "/logo-huddle-airspeed.svg",    alt: "Airspeed",    h: 36, href: "https://www.goairspeed.com/" },
+                { src: "/logo-huddle-von.svg",         alt: "Von",         h: 44, href: "https://vonlabs.ai/" },
                 { src: "/logo-huddle-scalestack.jpg",  alt: "Scalestack",  h: 73 },
                 { src: "/logo-huddle-adamx.png",       alt: "AdamX",       h: 48 },
                 { src: "/logo-huddle-hyperbound.png",  alt: "Hyperbound",  h: 34 },
@@ -171,7 +172,8 @@ export default function HuddlesPage() {
                 { src: "/logo-huddle-rox.png",         alt: "Rox",         h: 73 },
                 { src: "/logo-huddle-nue.jpg",         alt: "Nue",         h: 48 },
                 { src: "/logo-huddle-sweep.jpg",       alt: "Sweep",       h: 44, href: "https://www.sweep.io/" },
-                { src: "/logo-huddle-airspeed.svg",   alt: "Airspeed",    h: 36, href: "https://www.goairspeed.com/" },
+                { src: "/logo-huddle-airspeed.svg",    alt: "Airspeed",    h: 36, href: "https://www.goairspeed.com/" },
+                { src: "/logo-huddle-von.svg",         alt: "Von",         h: 44, href: "https://vonlabs.ai/" },
               ].map((logo, i) => {
                 const img = (
                   <Image
