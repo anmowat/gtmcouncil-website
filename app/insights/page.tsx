@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "13",
+    company: "Von",
+    companyUrl: "https://vonlabs.ai/",
+    month: "July 2026",
+    type: "Huddle",
+    speaker: "Sahil Aggarwal (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/saggarwal2/",
+    topic: "Semantic Layer + Agents",
+    embedUrl: "https://player.vimeo.com/video/1213474805?h=217bad5d35&title=0&byline=0&portrait=0",
+  },
+  {
     id: "12",
     company: "Airspeed",
     companyUrl: "https://www.goairspeed.com/",
