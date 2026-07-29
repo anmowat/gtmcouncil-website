@@ -150,9 +150,23 @@ export default function HuddlesPage() {
       {/* ── Past Guests ─────────────────────────────────────────────── */}
       <section className="px-4 pb-12">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-extrabold mb-6" style={{ color: "#011224" }}>
-            Past Guests
-          </h2>
+          <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+            <h2 className="text-2xl font-extrabold" style={{ color: "#011224" }}>
+              Past Guests
+            </h2>
+            <Link
+              href="/insights"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white rounded transition-colors"
+              style={{ backgroundColor: "#c4921a" }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="7.5" cy="15.5" r="5.5"/>
+                <path d="M21 2l-9.6 9.6"/>
+                <path d="M15.5 7.5l3 3L22 7l-3-3"/>
+              </svg>
+              View Huddle Recordings
+            </Link>
+          </div>
           <div className="overflow-hidden">
             <div className="animate-marquee flex items-center gap-16 w-max">
               {[
@@ -227,21 +241,33 @@ export default function HuddlesPage() {
           </div>
         </div>
       </section>
-      {/* ── View Huddles CTA ────────────────────────────────────────── */}
+      {/* ── Upcoming Guests ─────────────────────────────────────────── */}
       <section className="px-4 pb-20">
-        <div className="max-w-5xl mx-auto flex justify-center">
-          <Link
-            href="/insights"
-            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white rounded transition-colors"
-            style={{ backgroundColor: "#c4921a" }}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="7.5" cy="15.5" r="5.5"/>
-              <path d="M21 2l-9.6 9.6"/>
-              <path d="M15.5 7.5l3 3L22 7l-3-3"/>
-            </svg>
-            View Huddles
-          </Link>
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-extrabold mb-4" style={{ color: "#011224" }}>
+            Upcoming Guests
+          </h2>
+          <ul className="space-y-3">
+            {[
+              { date: "8/14 @ 10am", company: "Dust",       href: "https://dust.tt/" },
+              { date: "8/24 @ 1pm",  company: "Nooks",      href: "https://www.nooks.ai/" },
+              { date: "9/11 @ 10am", company: "1Mind",      href: "https://www.1mind.com/" },
+              { date: "9/28 @ 1pm",  company: "to be announced", href: null },
+              { date: "10/9 @ 10am", company: "Fullcast",   href: "https://www.fullcast.com/" },
+            ].map((item) => (
+              <li key={item.date} className="flex items-center gap-2 text-sm">
+                <span className="font-bold" style={{ color: "#011224" }}>{item.date}</span>
+                <span className="text-gray-300">·</span>
+                {item.href ? (
+                  <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:underline">
+                    {item.company}
+                  </a>
+                ) : (
+                  <span className="text-gray-400 italic">{item.company}</span>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </div>
