@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" fill="none">
+  <!-- D: green rectangle (left spine) -->
+  <rect x="4" y="4" width="88" height="110" fill="#22C55E"/>
+  <!-- D: teal arc (bow) -->
+  <path d="M92,4 Q164,4 164,59 Q164,114 92,114 L92,4Z" fill="#2DD4BF"/>
+
+  <!-- U: coral rectangle (right side, top) -->
+  <rect x="108" y="4" width="88" height="110" fill="#F87171"/>
+  <!-- U: pink arc at bottom connecting the two strokes -->
+  <path d="M108,70 Q108,114 152,114 Q196,114 196,70 L196,114 L108,114Z" fill="#FBCFE8"/>
+
+  <!-- S: blue bar (full width middle) -->
+  <rect x="4" y="126" width="192" height="46" fill="#3B82F6"/>
+
+  <!-- T bottom-left: sky blue reversed-D arc -->
+  <path d="M4,184 Q4,236 48,236 Q92,236 92,184 L4,184Z" fill="#93C5FD"/>
+
+  <!-- T bottom-right: yellow square -->
+  <rect x="108" y="184" width="88" height="52" fill="#FCD34D"/>
+</svg>

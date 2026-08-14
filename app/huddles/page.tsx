@@ -179,6 +179,7 @@ export default function HuddlesPage() {
                 { src: "/logo-huddle-sweep.jpg",       alt: "Sweep",       h: 44, href: "https://www.sweep.io/" },
                 { src: "/logo-huddle-airspeed.svg",    alt: "Airspeed",    h: 36, href: "https://www.goairspeed.com/" },
                 { src: "/logo-huddle-von.svg",         alt: "Von",         h: 44, href: "https://vonlabs.ai/" },
+                { src: "/logo-huddle-dust.svg",        alt: "Dust",        h: 48, href: "https://dust.tt/" },
                 { src: "/logo-huddle-scalestack.jpg",  alt: "Scalestack",  h: 73 },
                 { src: "/logo-huddle-adamx.png",       alt: "AdamX",       h: 48 },
                 { src: "/logo-huddle-hyperbound.png",  alt: "Hyperbound",  h: 34 },
@@ -188,6 +189,7 @@ export default function HuddlesPage() {
                 { src: "/logo-huddle-sweep.jpg",       alt: "Sweep",       h: 44, href: "https://www.sweep.io/" },
                 { src: "/logo-huddle-airspeed.svg",    alt: "Airspeed",    h: 36, href: "https://www.goairspeed.com/" },
                 { src: "/logo-huddle-von.svg",         alt: "Von",         h: 44, href: "https://vonlabs.ai/" },
+                { src: "/logo-huddle-dust.svg",        alt: "Dust",        h: 48, href: "https://dust.tt/" },
               ].map((logo, i) => {
                 const img = (
                   <Image
@@ -249,7 +251,6 @@ export default function HuddlesPage() {
           </h2>
           <ul className="space-y-3">
             {[
-              { date: "8/14 @ 10am", company: "Dust",       href: "https://dust.tt/" },
               { date: "8/24 @ 1pm",  company: "Nooks",      href: "https://www.nooks.ai/" },
               { date: "9/11 @ 10am", company: "1Mind",      href: "https://www.1mind.com/" },
               { date: "9/28 @ 1pm",  company: "to be announced", href: null },
