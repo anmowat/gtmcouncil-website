@@ -166,7 +166,7 @@ export default async function HomePage() {
           }}
         />
         <div className="relative z-10 max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6" style={{ color: "#011224" }}>
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-6" style={{ color: "#011224" }}>
             Our Mission
           </h1>
           <p className="text-lg text-gray-600 mb-3">AI will fundamentally rewire the GTM motion.</p>
@@ -182,7 +182,7 @@ export default async function HomePage() {
       {/* ── Community Pillars ─────────────────────────────────────── */}
       <section className="pt-4 pb-4 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4" style={{ color: "#011224" }}>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4" style={{ color: "#011224" }}>
             Community Pillars
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -247,7 +247,7 @@ export default async function HomePage() {
       {/* ── Our Membership ────────────────────────────────────────── */}
       <section className="pt-4 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-3" style={{ color: "#011224" }}>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3" style={{ color: "#011224" }}>
             Our Membership
           </h2>
           <p className="text-center text-lg text-gray-600 mb-1">
@@ -271,7 +271,7 @@ export default async function HomePage() {
       {/* ── Sponsors ──────────────────────────────────────────────── */}
       <section className="pt-3 pb-3 px-4 bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-0.5" style={{ color: "#011224" }}>Our Sponsors</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-0.5" style={{ color: "#011224" }}>Our Sponsors</h2>
           <p className="text-lg text-gray-600 mb-2">We collaborate with great partners to grow together.</p>
           <div className="overflow-hidden">
             <div className="animate-marquee flex items-center gap-16 w-max">

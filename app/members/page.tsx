@@ -131,7 +131,7 @@ export default async function MembersPage() {
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <p className="text-white/50 text-xs mb-1">Logged in as {session.email}</p>
-            <h1 className="text-4xl md:text-5xl font-extrabold">Member Resources</h1>
+            <h1 className="text-3xl md:text-4xl font-extrabold">Member Resources</h1>
           </div>
           <LogoutButton />
         </div>

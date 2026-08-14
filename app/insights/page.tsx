@@ -234,7 +234,7 @@ export default async function InsightsPage() {
       {/* ── Header ────────────────────────────────────────────────── */}
       <section className="py-16 px-4 text-center">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-5" style={{ color: "#011224" }}>
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-5" style={{ color: "#011224" }}>
             GTM Council Huddles
           </h1>
           <p className="text-lg text-gray-600 mb-2">

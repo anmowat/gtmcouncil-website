@@ -85,7 +85,7 @@ export default function HuddlesPage() {
       {/* ── Header ──────────────────────────────────────────────────── */}
       <section className="py-16 px-4 text-center">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-5" style={{ color: "#011224" }}>
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-5" style={{ color: "#011224" }}>
             Tech Huddles
           </h1>
           <p className="text-lg text-gray-600">

@@ -83,7 +83,7 @@ export default function PodcastPage() {
       <section className="py-16 px-4 text-center">
         <div className="max-w-3xl mx-auto">
           <div className="relative inline-block mb-2">
-            <h1 className="text-4xl md:text-5xl font-extrabold" style={{ color: "#011224" }}>
+            <h1 className="text-3xl md:text-4xl font-extrabold" style={{ color: "#011224" }}>
               Stacked GTM
             </h1>
             <span
