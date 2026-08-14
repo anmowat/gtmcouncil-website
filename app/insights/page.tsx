@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "14",
+    company: "Dust",
+    companyUrl: "https://dust.tt/",
+    month: "August 2026",
+    type: "Huddle",
+    speaker: "Nico (co-founder)",
+    speakerUrl: "https://www.linkedin.com/in/nicolaschinot/",
+    topic: "Multi-player AI harness",
+    embedUrl: "https://player.vimeo.com/video/1218383829?h=80cf7235be&title=0&byline=0&portrait=0",
+  },
+  {
     id: "13",
     company: "Von",
     companyUrl: "https://vonlabs.ai/",
