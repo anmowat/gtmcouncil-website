@@ -136,11 +136,11 @@ const PILLARS = [
 ];
 
 const SPONSORS = [
-  { name: "Fullcast",  logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",      h: 65 },
-  { name: "Nooks",     logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",          h: 65 },
-  { name: "Whispered", logo: "/logo-whispered.png",  href: "https://www.whispered.com/",     h: 52 },
-  { name: "Upside",    logo: "/logo-upside.svg",     href: "https://upside.tech/",           h: 60 },
-  { name: "Ampersand", logo: "/logo-ampersand.svg",  href: "https://www.withampersand.com/", h: 52 },
+  { name: "Fullcast",  logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",      h: 48 },
+  { name: "Nooks",     logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",          h: 48 },
+  { name: "Whispered", logo: "/logo-whispered.png",  href: "https://www.whispered.com/",     h: 48 },
+  { name: "Upside",    logo: "/logo-upside.svg",     href: "https://upside.tech/",           h: 48 },
+  { name: "Ampersand", logo: "/logo-ampersand.svg",  href: "https://www.withampersand.com/", h: 48 },
 ];
 
 export default async function HomePage() {
