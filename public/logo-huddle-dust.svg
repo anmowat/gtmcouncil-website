@@ -1,20 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" fill="none">
-  <!-- D: green rectangle (left spine) -->
-  <rect x="4" y="4" width="88" height="110" fill="#22C55E"/>
-  <!-- D: teal arc (bow) -->
-  <path d="M92,4 Q164,4 164,59 Q164,114 92,114 L92,4Z" fill="#2DD4BF"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 200">
+  <!-- D: green spine + lime-yellow right bow -->
+  <rect x="10" y="10" width="45" height="180" rx="4" fill="#3A7A50"/>
+  <path d="M55,10 A80,80 0 0,1 55,190 Z" fill="#C9E054"/>
 
-  <!-- U: coral rectangle (right side, top) -->
-  <rect x="108" y="4" width="88" height="110" fill="#F87171"/>
-  <!-- U: pink arc at bottom connecting the two strokes -->
-  <path d="M108,70 Q108,114 152,114 Q196,114 196,70 L196,114 L108,114Z" fill="#FBCFE8"/>
+  <!-- U: tomato rect (top) + pink arc (bottom curve) -->
+  <rect x="150" y="10" width="160" height="100" rx="4" fill="#D34D31"/>
+  <path d="M150,110 A80,80 0 0,0 310,110 Z" fill="#F2A2BF"/>
 
-  <!-- S: blue bar (full width middle) -->
-  <rect x="4" y="126" width="192" height="46" fill="#3B82F6"/>
+  <!-- S: blue right-D (top) + sky-blue left-D (bottom) -->
+  <path d="M325,10 L385,10 A45,45 0 0,1 385,100 L325,100 Z" fill="#4A80EE"/>
+  <path d="M395,105 L455,105 L455,185 L395,185 A40,40 0 0,0 395,105 Z" fill="#90C4F2"/>
 
-  <!-- T bottom-left: sky blue reversed-D arc -->
-  <path d="M4,184 Q4,236 48,236 Q92,236 92,184 L4,184Z" fill="#93C5FD"/>
-
-  <!-- T bottom-right: yellow square -->
-  <rect x="108" y="184" width="88" height="52" fill="#FCD34D"/>
+  <!-- T: blue wide bar (flat left, rounded right) + orange square (stem) -->
+  <path d="M465,10 L588,10 A55,55 0 0,1 588,120 L465,120 Z" fill="#4A80EE"/>
+  <rect x="519" y="128" width="72" height="62" rx="4" fill="#F5A820"/>
 </svg>
