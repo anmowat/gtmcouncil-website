@@ -135,14 +135,12 @@ const PILLARS = [
   },
 ];
 
-const SPONSORS_FEATURED = [
-  { name: "Fullcast", logo: "/logo-fullcast.webp", href: "https://www.fullcast.com/", width: 280, height: 77 },
-  { name: "Nooks", logo: "/logo-nooks.webp", href: "https://www.nooks.ai/", width: 280, height: 77 },
-];
-const SPONSORS_SECONDARY = [
-  { name: "Whispered", logo: "/logo-whispered.png", href: "https://www.whispered.com/", width: 254, height: 61 },
-  { name: "Upside", logo: "/logo-upside.svg", href: "https://upside.tech/", width: 171, height: 74 },
-  { name: "Ampersand", logo: "/logo-ampersand.svg", href: "https://www.withampersand.com/", width: 254, height: 61 },
+const SPONSORS = [
+  { name: "Fullcast",  logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",      h: 65 },
+  { name: "Nooks",     logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",          h: 65 },
+  { name: "Whispered", logo: "/logo-whispered.png",  href: "https://www.whispered.com/",     h: 52 },
+  { name: "Upside",    logo: "/logo-upside.svg",     href: "https://upside.tech/",           h: 60 },
+  { name: "Ampersand", logo: "/logo-ampersand.svg",  href: "https://www.withampersand.com/", h: 52 },
 ];
 
 export default async function HomePage() {
@@ -275,18 +273,11 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-0.5" style={{ color: "#011224" }}>Our Sponsors</h2>
           <p className="text-lg text-gray-600 mb-2">Our community is proudly supported by a select group of trusted partners</p>
-          <div className="flex flex-col items-center gap-0">
-            <div className="flex items-center justify-center gap-16 flex-wrap">
-              {SPONSORS_FEATURED.map((s) => (
-                <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
-                  <Image src={s.logo} alt={s.name} width={s.width} height={s.height} className="object-contain" style={{ marginTop: "-12px", marginBottom: "-12px" }} />
-                </a>
-              ))}
-            </div>
-            <div className="flex items-center justify-center gap-12 flex-wrap">
-              {SPONSORS_SECONDARY.map((s) => (
-                <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
-                  <Image src={s.logo} alt={s.name} width={s.width} height={s.height} className="object-contain" style={{ marginTop: "-10px", marginBottom: "-10px" }} />
+          <div className="overflow-hidden">
+            <div className="animate-marquee flex items-center gap-16 w-max">
+              {[...SPONSORS, ...SPONSORS].map((s, i) => (
+                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity shrink-0">
+                  <Image src={s.logo} alt={s.name} width={300} height={s.h} className="object-contain" style={{ height: s.h, width: "auto" }} />
                 </a>
               ))}
             </div>
