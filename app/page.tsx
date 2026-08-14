@@ -272,7 +272,7 @@ export default async function HomePage() {
       <section className="pt-3 pb-3 px-4 bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-0.5" style={{ color: "#011224" }}>Our Sponsors</h2>
-          <p className="text-lg text-gray-600 mb-2">Our community is proudly supported by a select group of trusted partners</p>
+          <p className="text-lg text-gray-600 mb-2">We collaborate with great partners to grow together.</p>
           <div className="overflow-hidden">
             <div className="animate-marquee flex items-center gap-16 w-max">
               {[...SPONSORS, ...SPONSORS].map((s, i) => (
