@@ -1,17 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 190">
   <!-- D: green spine + lime-yellow right bow -->
-  <rect x="10" y="10" width="45" height="180" rx="4" fill="#3A7A50"/>
-  <path d="M55,10 A80,80 0 0,1 55,190 Z" fill="#C9E054"/>
+  <rect x="5" y="10" width="72" height="170" rx="4" fill="#3B7B50"/>
+  <path d="M77,10 A72,72 0 0,1 77,180 Z" fill="#C9E054"/>
 
-  <!-- U: tomato rect (top) + pink arc (bottom curve) -->
-  <rect x="150" y="10" width="160" height="100" rx="4" fill="#D34D31"/>
-  <path d="M150,110 A80,80 0 0,0 310,110 Z" fill="#F2A2BF"/>
+  <!-- U: tomato rect (top) + pink bottom arc -->
+  <rect x="175" y="10" width="160" height="90" rx="4" fill="#D54E31"/>
+  <path d="M175,100 A80,80 0 0,0 335,100 Z" fill="#F3A3C0"/>
 
-  <!-- S: blue right-D (top) + sky-blue left-D (bottom) -->
-  <path d="M325,10 L385,10 A45,45 0 0,1 385,100 L325,100 Z" fill="#4A80EE"/>
-  <path d="M395,105 L455,105 L455,185 L395,185 A40,40 0 0,0 395,105 Z" fill="#90C4F2"/>
+  <!-- S top: blue right-facing D shape -->
+  <path d="M345,10 L463,10 A42,42 0 0,1 463,94 L345,94 Z" fill="#4A80EE"/>
+  <!-- S bottom: light-blue left-facing D shape -->
+  <path d="M465,100 L505,100 L505,180 L465,180 A40,40 0 0,0 465,100 Z" fill="#90C4F2"/>
 
-  <!-- T: blue wide bar (flat left, rounded right) + orange square (stem) -->
-  <path d="M465,10 L588,10 A55,55 0 0,1 588,120 L465,120 Z" fill="#4A80EE"/>
-  <rect x="519" y="128" width="72" height="62" rx="4" fill="#F5A820"/>
+  <!-- T: blue wide bar (flat left, round right) + orange square stem -->
+  <path d="M515,10 L630,10 A45,45 0 0,1 630,100 L515,100 Z" fill="#4A80EE"/>
+  <rect x="557" y="108" width="72" height="72" rx="4" fill="#F5A820"/>
 </svg>
