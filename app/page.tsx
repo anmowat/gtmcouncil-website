@@ -141,6 +141,7 @@ const SPONSORS = [
   { name: "Whispered", logo: "/logo-whispered.png",  href: "https://www.whispered.com/",     h: 44 },
   { name: "Upside",    logo: "/logo-upside.svg",     href: "https://upside.tech/",           h: 72 },
   { name: "Ampersand", logo: "/logo-ampersand.svg",  href: "https://www.withampersand.com/", h: 22 },
+  { name: "Dust",      logo: "/logo-huddle-dust.svg", href: "https://dust.tt/",              h: 52 },
 ];
 
 export default async function HomePage() {
