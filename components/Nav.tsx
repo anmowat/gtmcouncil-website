@@ -11,9 +11,9 @@ export default function Nav() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="https://www.gtmcouncil.com" target="_blank" rel="noopener noreferrer" className="shrink-0">
+          <Link href="/" className="shrink-0">
             <Image src="/logo-gtmcouncil.png" alt="GTM Council" width={90} height={90} priority />
-          </a>
+          </Link>
 
           {/* CTA buttons */}
           <div className="flex items-center gap-2">
