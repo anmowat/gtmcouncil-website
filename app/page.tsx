@@ -136,7 +136,7 @@ const PILLARS = [
 ];
 
 const SPONSORS = [
-  { name: "Fullcast",  logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",      h: 90 },
+  { name: "Fullcast",  logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",      h: 104 },
   { name: "Nooks",     logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",          h: 48 },
   { name: "Whispered", logo: "/logo-whispered.png",  href: "https://www.whispered.com/",     h: 44 },
   { name: "Upside",    logo: "/logo-upside.svg",     href: "https://upside.tech/",           h: 72 },
@@ -247,7 +247,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Sponsors ──────────────────────────────────────────────── */}
-      <section className="pt-3 pb-3 px-4 bg-gray-50 border-t border-gray-200">
+      <section className="pt-3 pb-3 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-0.5" style={{ color: "#011224" }}>Our Sponsors</h2>
           <p className="text-lg text-gray-600 mb-2">We collaborate with great partners to grow together.</p>
