@@ -136,7 +136,7 @@ const PILLARS = [
 ];
 
 const SPONSORS = [
-  { name: "Fullcast",  logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",      h: 64 },
+  { name: "Fullcast",  logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",      h: 76 },
   { name: "Nooks",     logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",          h: 48 },
   { name: "Whispered", logo: "/logo-whispered.png",  href: "https://www.whispered.com/",     h: 44 },
   { name: "Upside",    logo: "/logo-upside.svg",     href: "https://upside.tech/",           h: 72 },
@@ -276,9 +276,9 @@ export default async function HomePage() {
           <h2 className="text-3xl md:text-4xl font-extrabold mb-0.5" style={{ color: "#011224" }}>Our Sponsors</h2>
           <p className="text-lg text-gray-600 mb-2">We collaborate with great partners to grow together.</p>
           <div className="overflow-hidden">
-            <div className="animate-marquee flex items-center gap-16 w-max">
+            <div className="animate-marquee flex items-center w-max">
               {[...SPONSORS, ...SPONSORS].map((s, i) => (
-                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity shrink-0">
+                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity shrink-0 pr-16">
                   <Image src={s.logo} alt={s.name} width={300} height={s.h} className="object-contain" style={{ height: s.h, width: "auto" }} />
                 </a>
               ))}
