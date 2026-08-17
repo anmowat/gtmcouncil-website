@@ -80,7 +80,7 @@ const PILLARS = [
         <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>
       </svg>
     ),
-    title: "Thought Leadership",
+    title: "Podcast",
     description: "Our \"Stacked GTM\" podcast goes deep (~7-10 episodes with top practitioners and vendors on each topic) to explore how AI is changing GTM landscape - new episodes each week!",
     actions: [],
     iconLinks: [
@@ -103,9 +103,9 @@ const PILLARS = [
         <rect width="20" height="14" x="2" y="6" rx="2"/>
       </svg>
     ),
-    title: "Career Support",
-    description: "We help each other with our careers and share high-potential rising stars to nurture the next generation of operational GTM leaders.",
-    actions: [{ label: "Submit Role", href: "https://airtable.com/appU94hAvQcQ6XTNO/pagpeSRflmGRDpFBB/form", gold: true }],
+    title: "Thought Leadership",
+    description: "We work with our members and partners to write in-depth reports about trends in GTM + AI",
+    actions: [{ label: "See Articles", href: "/content", gold: true }],
   },
   {
     icon: (
