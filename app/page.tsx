@@ -136,7 +136,7 @@ const PILLARS = [
 ];
 
 const SPONSORS = [
-  { name: "Fullcast",  logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",      h: 76 },
+  { name: "Fullcast",  logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",      h: 90 },
   { name: "Nooks",     logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",          h: 48 },
   { name: "Whispered", logo: "/logo-whispered.png",  href: "https://www.whispered.com/",     h: 44 },
   { name: "Upside",    logo: "/logo-upside.svg",     href: "https://upside.tech/",           h: 72 },
@@ -246,6 +246,24 @@ export default async function HomePage() {
         <TestimonialCarousel testimonials={TESTIMONIALS} />
       </section>
 
+      {/* ── Sponsors ──────────────────────────────────────────────── */}
+      <section className="pt-3 pb-3 px-4 bg-gray-50 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-0.5" style={{ color: "#011224" }}>Our Sponsors</h2>
+          <p className="text-lg text-gray-600 mb-2">We collaborate with great partners to grow together.</p>
+          <div className="overflow-hidden">
+            <div className="animate-marquee flex items-center w-max">
+              {[...SPONSORS, ...SPONSORS].map((s, i) => (
+                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity shrink-0 pr-16">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={s.logo} alt={s.name} style={{ height: s.h, width: "auto", display: "block" }} />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Our Membership ────────────────────────────────────────── */}
       <section className="pt-4 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
@@ -267,23 +285,6 @@ export default async function HomePage() {
               Member directory coming soon — connect your Airtable to populate this section.
             </p>
           )}
-        </div>
-      </section>
-
-      {/* ── Sponsors ──────────────────────────────────────────────── */}
-      <section className="pt-3 pb-3 px-4 bg-gray-50 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-0.5" style={{ color: "#011224" }}>Our Sponsors</h2>
-          <p className="text-lg text-gray-600 mb-2">We collaborate with great partners to grow together.</p>
-          <div className="overflow-hidden">
-            <div className="animate-marquee flex items-center w-max">
-              {[...SPONSORS, ...SPONSORS].map((s, i) => (
-                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity shrink-0 pr-16">
-                  <Image src={s.logo} alt={s.name} width={300} height={s.h} className="object-contain" style={{ height: s.h, width: "auto" }} />
-                </a>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
     </div>
