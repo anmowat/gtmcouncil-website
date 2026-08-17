@@ -51,7 +51,7 @@ export default function ContentPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group block rounded-xl p-6 border border-blue-100 hover:border-blue-400 hover:shadow-md transition-all"
-                style={{ backgroundColor: "#1d4ed8" }}
+                style={{ backgroundColor: "#011224" }}
               >
                 <div className="flex items-start justify-between gap-3">
                   <h2 className="text-base font-semibold text-white leading-snug">
