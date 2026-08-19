@@ -255,7 +255,7 @@ export default async function HomePage() {
           <div className="overflow-hidden">
             <div className="animate-marquee flex items-center w-max">
               {[...SPONSORS, ...SPONSORS].map((s, i) => (
-                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity shrink-0 pr-16">
+                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity shrink-0 pr-10">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={s.logo} alt={s.name} style={{ height: s.h, width: "auto", display: "block" }} />
                 </a>
