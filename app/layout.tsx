@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "GTM Council",
     description:
-      "AI will rewire the GTM motion. GTM Council is an exclusive community of the top 100+ GTM operators sharing insights and helping shape how GTM will evolve.",
+      "AI will rewire the GTM motion. GTM Council is an exclusive community of the top 150+ GTM operators sharing insights and helping shape how GTM will evolve.",
     siteName: "GTM Council",
   },
 };
