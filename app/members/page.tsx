@@ -47,7 +47,7 @@ const SECTIONS: {
       },
       {
         heading: "Events",
-        body: <>We share events from vendors and also love members to organize meetups locally. If you see a good senior event, add it in #community-events. <L href="https://airtable.com/appU94hAvQcQ6XTNO/shrG1RAcQbQDNiJ4i">Find upcoming events here</L></>,
+        body: <>We share events from vendors and also love members to organize meetups locally. If you see a good senior event, add it in #community-events. <L href="https://www.whisperedevents.com/">Find upcoming events here</L></>,
       },
     ],
   },
