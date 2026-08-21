@@ -20,7 +20,7 @@ const MEMBER_QUOTES: Quote[] = [
     name: "Chris Fuller",
     title: "VP RevOps",
     quote: "Absolutely love the huddles as a way to both stay on top of trends in GTM systems and technology and have a place to discuss with other Rev Ops leaders implications for how we shape and run our GTM motions, teams, and processes.",
-    photoUrl: "/photos/chris-fuller.jpg",
+    photoUrl: "/photos/chris-fuller.png",
     linkedin: "https://www.linkedin.com/in/chris-fuller-ab435510/",
   },
   {
