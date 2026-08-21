@@ -17,6 +17,13 @@ const MEMBER_QUOTES: Quote[] = [
     linkedin: "https://www.linkedin.com/in/evan-quasney/",
   },
   {
+    name: "Chris Fuller",
+    title: "VP RevOps",
+    quote: "Absolutely love the huddles as a way to both stay on top of trends in GTM systems and technology and have a place to discuss with other Rev Ops leaders implications for how we shape and run our GTM motions, teams, and processes.",
+    photoUrl: "/photos/chris-fuller.jpg",
+    linkedin: "https://www.linkedin.com/in/chris-fuller-ab435510/",
+  },
+  {
     name: "Andy Mowat",
     title: "VP RevOps @ 4 Unicorns",
     quote: "We've been quietly running these huddles for 9 years. The unique format to bring in CEOs who know the tech and space creates such great discussion and learning with our members.",
