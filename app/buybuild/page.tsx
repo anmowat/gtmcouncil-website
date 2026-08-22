@@ -564,7 +564,7 @@ function P({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Bullets({ items }: { items: [string, string][] }) {
+function Bullets({ items }: { items: [string, React.ReactNode][] }) {
   return (
     <ul className="space-y-2 mb-5 ml-1">
       {items.map(([label, detail]) => (
@@ -655,8 +655,8 @@ export default function BuyBuildPage() {
         <P>Functions with simple recursive loops like coding and customer support have been quickly automated with AI:</P>
 
         <Bullets items={[
-          ["Software", "80%+ of code is written with AI, up from 20% just over a year ago."],
-          ["Support", "Companies are now resolving 60%+ of support tickets with AI, delivering better experiences faster and cheaper."],
+          ["Software", <><a href="https://techcrunch.com/2026/05/08/airbnb-says-ai-now-writes-60-of-its-new-code/" target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>60%+ of code is written with AI</a>, up from 20% just over a year ago.</>],
+          ["Support", <>Companies are now resolving <a href="https://fin.ai/" target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>76%+ of support tickets with AI</a>, delivering better experiences faster and cheaper.</>],
         ]} />
 
         <P>There are early signs that these returns are achievable in GTM as well:</P>
