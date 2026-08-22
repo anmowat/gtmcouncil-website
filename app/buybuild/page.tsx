@@ -419,79 +419,27 @@ function DonutChart() {
 
 function AutomationComic() {
   return (
-    <div
-      className="my-8 rounded-xl p-5 sm:p-6"
-      style={{ backgroundColor: "#f8fafc", border: "1px solid #e2e8f0" }}
-    >
-      <p className="text-center text-sm font-semibold mb-5" style={{ color: NAVY, fontStyle: "italic" }}>
-        &ldquo;I spend a lot of time on this task. I should write a program automating it!&rdquo;
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* Theory panel */}
-        <div className="rounded-lg p-4" style={{ border: "1px solid #cbd5e1", backgroundColor: "#fff" }}>
-          <p className="text-xs font-bold tracking-widest uppercase mb-3 text-center" style={{ color: NAV_MD }}>Theory</p>
-          <svg viewBox="0 0 220 130" className="w-full" style={{ fontFamily: "monospace" }}>
-            {/* Axes */}
-            <line x1="30" y1="10" x2="30" y2="110" stroke="#334155" strokeWidth="1.5" />
-            <line x1="30" y1="110" x2="210" y2="110" stroke="#334155" strokeWidth="1.5" />
-            <text x="10" y="60" textAnchor="middle" style={{ fontSize: 8, fill: "#64748b" }} transform="rotate(-90,10,60)">WORK</text>
-            <text x="120" y="124" textAnchor="middle" style={{ fontSize: 8, fill: "#64748b" }}>TIME</text>
-            {/* Writing code curve — rises then falls */}
-            <path d="M30,100 C50,95 60,40 80,35 C90,32 95,50 100,70" fill="none" stroke={NAVY} strokeWidth="1.5" />
-            <text x="55" y="28" textAnchor="middle" style={{ fontSize: 7, fill: NAVY }}>WRITING</text>
-            <text x="55" y="36" textAnchor="middle" style={{ fontSize: 7, fill: NAVY }}>CODE</text>
-            {/* Work on original task — starts at mid, dips */}
-            <path d="M30,75 C50,73 70,70 100,68 C115,50 130,20 145,15" fill="none" stroke={GOLD} strokeWidth="1.5" strokeDasharray="4,2" />
-            <text x="38" y="68" textAnchor="start" style={{ fontSize: 6.5, fill: GOLD }}>WORK ON</text>
-            <text x="38" y="76" textAnchor="start" style={{ fontSize: 6.5, fill: GOLD }}>ORIGINAL TASK</text>
-            {/* Automation takes over label */}
-            <line x1="108" y1="15" x2="108" y2="105" stroke="#94a3b8" strokeWidth="0.8" strokeDasharray="3,2" />
-            <text x="110" y="55" style={{ fontSize: 6, fill: "#64748b" }}>AUTOMATION</text>
-            <text x="110" y="63" style={{ fontSize: 6, fill: "#64748b" }}>TAKES OVER</text>
-            {/* Free time — flat low */}
-            <path d="M108,95 C140,92 170,90 205,88" fill="none" stroke="#22c55e" strokeWidth="1.5" />
-            <text x="165" y="84" textAnchor="middle" style={{ fontSize: 7, fill: "#22c55e" }}>FREE TIME</text>
-          </svg>
-        </div>
-
-        {/* Reality panel */}
-        <div className="rounded-lg p-4" style={{ border: "1px solid #cbd5e1", backgroundColor: "#fff" }}>
-          <p className="text-xs font-bold tracking-widest uppercase mb-3 text-center" style={{ color: "#b91c1c" }}>Reality</p>
-          <svg viewBox="0 0 220 130" className="w-full" style={{ fontFamily: "monospace" }}>
-            {/* Axes */}
-            <line x1="30" y1="10" x2="30" y2="110" stroke="#334155" strokeWidth="1.5" />
-            <line x1="30" y1="110" x2="210" y2="110" stroke="#334155" strokeWidth="1.5" />
-            <text x="10" y="60" textAnchor="middle" style={{ fontSize: 8, fill: "#64748b" }} transform="rotate(-90,10,60)">WORK</text>
-            <text x="120" y="124" textAnchor="middle" style={{ fontSize: 8, fill: "#64748b" }}>TIME</text>
-            {/* Writing code — rises */}
-            <path d="M30,100 C50,95 60,55 80,45" fill="none" stroke={NAVY} strokeWidth="1.5" />
-            <text x="42" y="60" textAnchor="start" style={{ fontSize: 6.5, fill: NAVY }}>WRITING</text>
-            <text x="42" y="68" textAnchor="start" style={{ fontSize: 6.5, fill: NAVY }}>CODE</text>
-            {/* Debugging — bumpy high */}
-            <path d="M80,45 C90,30 95,50 105,35 C112,25 118,40 125,30" fill="none" stroke={GOLD} strokeWidth="1.5" />
-            <text x="100" y="20" textAnchor="middle" style={{ fontSize: 6.5, fill: GOLD }}>DEBUGGING</text>
-            {/* Rethinking */}
-            <path d="M125,30 C135,38 140,32 150,28 C158,24 162,30 168,25" fill="none" stroke={GOLD_LT} strokeWidth="1.5" />
-            <text x="148" y="18" textAnchor="middle" style={{ fontSize: 6.5, fill: "#92400e" }}>RETHINKING</text>
-            {/* Ongoing development — keeps climbing */}
-            <path d="M168,25 C180,20 195,16 205,12" fill="none" stroke="#b91c1c" strokeWidth="1.5" />
-            <text x="185" y="9" textAnchor="middle" style={{ fontSize: 5.5, fill: "#b91c1c" }}>ONGOING</text>
-            <text x="185" y="15.5" textAnchor="middle" style={{ fontSize: 5.5, fill: "#b91c1c" }}>DEVELOPMENT</text>
-            {/* No time for original task — flat low dashed */}
-            <path d="M30,107 C80,107 140,107 205,107" fill="none" stroke="#64748b" strokeWidth="1.2" strokeDasharray="4,2" />
-            <text x="118" y="104" textAnchor="middle" style={{ fontSize: 5.5, fill: "#64748b" }}>NO TIME FOR ORIGINAL TASK ANYMORE</text>
-          </svg>
-        </div>
-      </div>
+    <div className="my-8">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/buybuild-comic.png"
+        alt='"I spend a lot of time on this task. I should write a program automating it!" — Theory vs Reality'
+        className="w-full rounded-xl"
+        style={{ border: "1px solid #e2e8f0", maxWidth: 560, display: "block", margin: "0 auto" }}
+      />
     </div>
   );
 }
+
+// ── Shared link style ─────────────────────────────────────────────────────
+
+const LINK_STYLE: React.CSSProperties = { color: GOLD, textDecoration: "none" };
 
 // ── Podcast link helper ───────────────────────────────────────────────────
 
 function PodcastLink({ href }: { href?: string }) {
   return (
-    <a href={href || PODCAST_URL} target="_blank" rel="noopener noreferrer" style={{ color: GOLD }}>
+    <a href={href || PODCAST_URL} target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>
       Stacked GTM Podcast
     </a>
   );
@@ -516,7 +464,7 @@ function Quote({ text, name, nameHref, role }: {
       <footer className="text-sm" style={{ color: NAVY }}>
         <strong>
           {nameHref ? (
-            <a href={nameHref} target="_blank" rel="noopener noreferrer" style={{ color: NAVY }}>
+            <a href={nameHref} target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>
               {name}
             </a>
           ) : name}
@@ -581,13 +529,17 @@ export default function BuyBuildPage() {
             <p className="text-xs font-bold tracking-widest uppercase" style={{ color: GOLD }}>
               GTM Council Research Report
             </p>
-            <p className="text-xs flex items-center gap-1.5" style={{ color: GRAY }}>
-              in Partnership with{" "}
-              <a href="https://www.fullcast.com/" target="_blank" rel="noopener noreferrer">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/logo-fullcast.webp" alt="Fullcast" style={{ height: 16, display: "inline-block", verticalAlign: "middle", opacity: 0.75 }} />
-              </a>
-            </p>
+            <a
+              href="https://www.fullcast.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2"
+              style={{ textDecoration: "none" }}
+            >
+              <span className="text-xs font-medium" style={{ color: GRAY }}>in Partnership with</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-fullcast.webp" alt="Fullcast" style={{ height: 20, display: "block", opacity: 0.85 }} />
+            </a>
           </div>
           <h1
             className="text-3xl md:text-4xl font-extrabold leading-tight mb-4"
@@ -600,8 +552,8 @@ export default function BuyBuildPage() {
           </p>
           <p className="text-sm" style={{ color: GRAY }}>
             Based on interviews and surveys with 150+ RevOps leaders in GTM Council,{" "}
-            <a href="https://www.fullcast.com/" target="_blank" rel="noopener noreferrer" style={{ color: GRAY, textDecoration: "underline" }}>Fullcast</a>, and{" "}
-            <a href="https://www.scalevp.com/" target="_blank" rel="noopener noreferrer" style={{ color: GRAY, textDecoration: "underline" }}>Scale Ventures</a>
+            <a href="https://www.fullcast.com/" target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>Fullcast</a>, and{" "}
+            <a href="https://www.scalevp.com/" target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>Scale Ventures</a>
           </p>
         </div>
       </div>
@@ -665,8 +617,8 @@ export default function BuyBuildPage() {
               className="rounded-lg px-4 py-3"
               style={{ backgroundColor: "#f1f5f9", borderLeft: `3px solid ${BLUE}` }}
             >
-              <p className="text-sm font-semibold mb-0.5" style={{ color: NAVY }}>
-                <a href={href} target="_blank" rel="noopener noreferrer" style={{ color: NAVY }}>{who}</a>
+              <p className="text-sm font-semibold mb-0.5">
+                <a href={href} target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>{who}</a>
               </p>
               <p className="text-sm" style={{ color: "#475569" }}>{result}</p>
             </div>
@@ -697,7 +649,7 @@ export default function BuyBuildPage() {
             &ldquo;5–15% lift comes from optimizing tasks; 50%+ requires rethinking the role.&rdquo;
           </p>
           <p className="text-sm mt-1" style={{ color: "#64748b" }}>
-            <a href="https://www.linkedin.com/in/jeremeydonovan/" target="_blank" rel="noopener noreferrer" style={{ color: "#64748b" }}>Jeremy Donovan</a>, Insight Partners
+            <a href="https://www.linkedin.com/in/jeremeydonovan/" target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>Jeremy Donovan</a>, Insight Partners
           </p>
         </div>
 
@@ -1052,7 +1004,10 @@ export default function BuyBuildPage() {
           className="mt-12 p-8 rounded-xl text-center"
           style={{ backgroundColor: NAVY }}
         >
-          <h3 className="text-xl font-bold text-white mb-6">We share insights from our community in a few areas</h3>
+          <h3 className="text-xl font-bold text-white mb-2">Want to dig deeper?</h3>
+          <p className="text-sm mb-6" style={{ color: "#94a3b8" }}>
+            We share insights from our community in a few areas
+          </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <a
               href="https://gtmcouncil.substack.com"
