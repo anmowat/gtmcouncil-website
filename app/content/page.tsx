@@ -1,8 +1,18 @@
+import Link from "next/link";
+
 export const revalidate = 86400;
 
 export const metadata = {
   title: "Thought Leadership | GTM Council",
   description: "In-depth reports and articles from GTM Council members on AI and the future of GTM.",
+};
+
+const FEATURED = {
+  title: "Buy vs. Build — The Defining Question for Your GTM Stack",
+  description:
+    "A framework for CEOs and CROs on what to build, what to buy, and how to win with AI in GTM. Based on surveys with 150+ RevOps leaders.",
+  href: "/buybuild",
+  internal: true,
 };
 
 const ARTICLES = [
@@ -37,6 +47,41 @@ export default function ContentPage() {
             Our members think deeply about how AI is impacting GTM, and we love to share insights
             from the group, our podcast, and key articles from our substack here as resources for everybody.
           </p>
+        </div>
+      </section>
+
+      {/* ── Featured article ───────────────────────────────────── */}
+      <section className="px-4 pb-6">
+        <div className="max-w-3xl mx-auto">
+          <Link
+            href={FEATURED.href}
+            className="group block rounded-xl p-7 hover:shadow-md transition-all"
+            style={{ backgroundColor: "#011224", border: "1px solid #1a3a6c" }}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-xs font-bold tracking-widest uppercase mb-2" style={{ color: "#c4921a" }}>
+                  Research Report · New
+                </p>
+                <h2 className="text-lg font-bold text-white leading-snug mb-2">
+                  {FEATURED.title}
+                </h2>
+                <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
+                  {FEATURED.description}
+                </p>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5 shrink-0 text-white/40 group-hover:text-white transition-colors mt-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
         </div>
       </section>
 
