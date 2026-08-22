@@ -1,441 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 
 // ── Brand tokens ──────────────────────────────────────────────────────────
 const NAVY    = "#011224";
-const NAV_MD  = "#1a3a6c";
 const GOLD    = "#c4921a";
-const GOLD_LT = "#e4b84a";
 const GRAY    = "#94a3b8";
-const GRAY_LT = "#d1dae6";
-const BLUE    = "#1d4ed8";
-
-const PODCAST_URL = "https://open.spotify.com/show/6CR6uDvyVyS2x3BK0vNOqd";
-
-// ── Chart data ────────────────────────────────────────────────────────────
-
-const GOVERNANCE = {
-  title: "Build-vs-buy governance maturity by company size",
-  subtitle: '"Does your org have a formal framework or governance process?" — by company size',
-  cats: ["No framework", "Informal", "Formal or in development"],
-  colors: [GRAY, GOLD_LT, NAVY],
-  rows: [
-    { label: "Less than 200",  n: 13, vals: [31, 38, 31] },
-    { label: "200 – 1,000",    n: 31, vals: [39, 42, 19] },
-    { label: "1,001 – 5,000",  n: 23, vals: [13, 65, 22] },
-    { label: "5,000 +",        n: 13, vals: [23, 15, 62] },
-  ],
-};
-
-const TOOL_PREF = {
-  subtitle: '"When evaluating a new tool, what is your general preference?" — by company size',
-  cats: ["Lean buy", "It depends", "Lean build"],
-  colors: [NAVY, GRAY, GOLD],
-  rows: [
-    { label: "Less than 200",  n: 13, vals: [15, 54, 31] },
-    { label: "200 – 1,000",    n: 31, vals: [39, 48, 13] },
-    { label: "1,001 – 5,000",  n: 24, vals: [42, 58,  0] },
-    { label: "5,000 +",        n: 13, vals: [54, 38,  8] },
-  ],
-};
-
-const POSTPONED = {
-  subtitle: '"Have you postponed a software purchase in the last 6 months because you believe you can \'build it faster\' with AI?" — by company size',
-  cats: ["Never", "Rarely", "Occasionally", "Frequently"],
-  colors: [GRAY_LT, GRAY, GOLD_LT, GOLD],
-  rows: [
-    { label: "Less than 200",  n: 13, vals: [0,  15, 38, 46] },
-    { label: "200 – 1,000",    n: 31, vals: [10, 26, 42, 23] },
-    { label: "1,001 – 5,000",  n: 24, vals: [4,  21, 42, 33] },
-    { label: "5,000 +",        n: 13, vals: [15, 31, 46,  8] },
-  ],
-};
-
-const BUILD_SYS = {
-  cats: ["Never", "Long way out", "Next 1–2 years", "Already done"],
-  colors: [NAVY, NAV_MD, GOLD_LT, GOLD],
-  rows: [
-    { name: "CRM",                   vals: [62, 28,  1,  9] },
-    { name: "MAP",                   vals: [35, 32, 24,  8] },
-    { name: "Commissions",           vals: [26, 25, 26, 23] },
-    { name: "Lead Routing",          vals: [16, 29, 35, 20] },
-    { name: "CSM",                   vals: [16, 27, 38, 19] },
-    { name: "Support Operations",    vals: [20, 19, 38, 23] },
-    { name: "Forecasting",           vals: [10, 14, 49, 27] },
-    { name: "Territories & Quotas",  vals: [ 6, 17, 42, 35] },
-  ],
-};
-
-const BLOCKERS = [
-  { label: "Fragmented / messy data",                   pct: 56.9 },
-  { label: "AI competes with keeping business running", pct: 40.4 },
-  { label: "Security / compliance restrictions",        pct: 36.7 },
-  { label: "No clear AI owner in GTM",                  pct: 29.8 },
-  { label: "Too many stakeholders to align",            pct: 21.3 },
-  { label: "No clarity on AI priorities",               pct: 21.3 },
-  { label: "Fear of LLM obsolescence",                  pct: 18.1 },
-  { label: "GTM teams not engaged / aligned",           pct: 17.6 },
-  { label: "Budget tied to headcount cuts",             pct: 11.7 },
-  { label: "No impact from AI pilots",                  pct:  8.5 },
-];
-
-const OWNERSHIP = {
-  areas: ["GTM Systems", "Rep Productivity", "Data Enrichment", "Data Tooling", "AI Agents"],
-  owners: ["RevOps", "Product/Eng", "IT", "Other", "Unclear"],
-  data: [
-    [73,  2, 22, 11,  0],
-    [88,  1,  6, 17,  0],
-    [78,  7, 15, 10,  2],
-    [32, 37, 44, 20,  2],
-    [51, 39, 52, 26, 11],
-  ],
-};
-
-const ROI_DATA = [
-  { label: "Productivity",                 pct: 33.5, color: GOLD    },
-  { label: "Both Productivity & Outcomes", pct: 21.8, color: GOLD_LT },
-  { label: "Outcomes",                     pct: 14.9, color: NAVY    },
-  { label: "Not Measuring",               pct: 29.8, color: GRAY    },
-];
-
-// ── Reusable chart block wrapper ──────────────────────────────────────────
-
-function ChartCard({ subtitle, legend, children }: {
-  subtitle: string;
-  legend?: { label: string; color: string }[];
-  children: React.ReactNode;
-}) {
-  return (
-    <div
-      className="my-8 rounded-xl p-5 sm:p-6"
-      style={{ backgroundColor: "#f8fafc", border: "1px solid #e2e8f0" }}
-    >
-      <p className="text-sm mb-4 leading-snug" style={{ color: "#64748b", fontStyle: "italic" }}>
-        {subtitle}
-      </p>
-      {legend && (
-        <div className="flex flex-wrap gap-x-5 gap-y-1.5 mb-4">
-          {legend.map(({ label, color }) => (
-            <div key={label} className="flex items-center gap-1.5">
-              <span className="inline-block w-3 h-3 rounded-sm shrink-0" style={{ backgroundColor: color }} />
-              <span className="text-xs" style={{ color: "#475569" }}>{label}</span>
-            </div>
-          ))}
-        </div>
-      )}
-      {children}
-    </div>
-  );
-}
-
-// ── Stacked horizontal bar chart ──────────────────────────────────────────
-
-function StackedBars({ cats, colors, rows }: {
-  cats: string[];
-  colors: string[];
-  rows: { label: string; n: number; vals: number[] }[];
-}) {
-  const [tip, setTip] = useState<string | null>(null);
-  const [tipPos, setTipPos] = useState({ x: 0, y: 0 });
-
-  return (
-    <div className="space-y-3 relative">
-      {rows.map((row) => (
-        <div key={row.label}>
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-sm font-semibold" style={{ color: NAVY }}>{row.label}</span>
-            <span className="text-xs tabular-nums" style={{ color: GRAY }}>n = {row.n}</span>
-          </div>
-          <div className="flex h-10 overflow-hidden rounded-sm" style={{ gap: "2px" }}>
-            {row.vals.map((val, i) => (
-              val > 0 && (
-                <div
-                  key={i}
-                  style={{ width: `${val}%`, backgroundColor: colors[i], flexShrink: 0 }}
-                  className="flex items-center justify-center relative"
-                  onMouseEnter={(e) => {
-                    setTip(`${cats[i]}: ${val}%`);
-                    setTipPos({ x: e.clientX, y: e.clientY });
-                  }}
-                  onMouseMove={(e) => setTipPos({ x: e.clientX, y: e.clientY })}
-                  onMouseLeave={() => setTip(null)}
-                >
-                  {val >= 11 && (
-                    <span className="text-white font-bold select-none" style={{ fontSize: 11 }}>
-                      {val}%
-                    </span>
-                  )}
-                </div>
-              )
-            ))}
-          </div>
-        </div>
-      ))}
-      {tip && (
-        <div
-          className="fixed z-50 text-white text-xs font-medium px-2.5 py-1.5 rounded shadow-lg pointer-events-none"
-          style={{
-            backgroundColor: "#0f172a",
-            top: tipPos.y - 36,
-            left: tipPos.x,
-            transform: "translateX(-50%)",
-          }}
-        >
-          {tip}
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ── Build-by-system diverging bar chart ───────────────────────────────────
-
-function BuildSysChart() {
-  const [tip, setTip] = useState<string | null>(null);
-  const [tipPos, setTipPos] = useState({ x: 0, y: 0 });
-
-  return (
-    <ChartCard
-      subtitle='"How likely is your org to build internally rather than buy?" — by system'
-      legend={BUILD_SYS.cats.map((c, i) => ({ label: c, color: BUILD_SYS.colors[i] }))}
-    >
-      <div className="flex justify-between text-xs font-bold mb-3" style={{ color: GRAY, letterSpacing: "0.06em" }}>
-        <span>◀ PREFER TO BUY</span>
-        <span>BUILDING IN-HOUSE ▶</span>
-      </div>
-      <div className="space-y-3 relative">
-        {BUILD_SYS.rows.map((row) => (
-          <div key={row.name}>
-            <p className="text-sm font-semibold mb-1" style={{ color: NAVY }}>{row.name}</p>
-            <div className="flex h-10 overflow-hidden rounded-sm" style={{ gap: "2px" }}>
-              {row.vals.map((val, i) => (
-                val > 0 && (
-                  <div
-                    key={i}
-                    style={{ width: `${val}%`, backgroundColor: BUILD_SYS.colors[i], flexShrink: 0 }}
-                    className="flex items-center justify-center"
-                    onMouseEnter={(e) => {
-                      setTip(`${BUILD_SYS.cats[i]}: ${val}%`);
-                      setTipPos({ x: e.clientX, y: e.clientY });
-                    }}
-                    onMouseMove={(e) => setTipPos({ x: e.clientX, y: e.clientY })}
-                    onMouseLeave={() => setTip(null)}
-                  >
-                    {val >= 10 && (
-                      <span className="text-white font-bold select-none" style={{ fontSize: 11 }}>{val}</span>
-                    )}
-                  </div>
-                )
-              ))}
-            </div>
-          </div>
-        ))}
-        {tip && (
-          <div
-            className="fixed z-50 text-white text-xs font-medium px-2.5 py-1.5 rounded shadow-lg pointer-events-none"
-            style={{
-              backgroundColor: "#0f172a",
-              top: tipPos.y - 36,
-              left: tipPos.x,
-              transform: "translateX(-50%)",
-            }}
-          >
-            {tip}
-          </div>
-        )}
-      </div>
-    </ChartCard>
-  );
-}
-
-// ── AI blockers horizontal bar chart ─────────────────────────────────────
-
-function BlockersChart() {
-  return (
-    <ChartCard subtitle="Top barriers to AI adoption · multi-select, % of respondents · n = 188">
-      <div className="space-y-3">
-        {BLOCKERS.map((item) => (
-          <div key={item.label}>
-            <div className="flex items-baseline justify-between gap-2 mb-1">
-              <span className="text-sm leading-snug" style={{ color: NAVY }}>{item.label}</span>
-              <span className="text-sm font-bold tabular-nums shrink-0" style={{ color: NAVY }}>{item.pct}%</span>
-            </div>
-            <div className="h-7 rounded-sm overflow-hidden" style={{ backgroundColor: "#e2e8f0" }}>
-              <div
-                style={{
-                  width: `${(item.pct / BLOCKERS[0].pct) * 100}%`,
-                  height: "100%",
-                  backgroundColor: NAVY,
-                  transition: "width 0.3s ease",
-                }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-    </ChartCard>
-  );
-}
-
-// ── Ownership matrix table ────────────────────────────────────────────────
-
-function OwnershipChart() {
-  const { areas, owners, data } = OWNERSHIP;
-  const ownerColors: Record<string, string> = {
-    "RevOps": NAVY, "Product/Eng": NAV_MD, "IT": GRAY, "Other": GOLD_LT, "Unclear": GRAY_LT,
-  };
-
-  return (
-    <div
-      className="my-8 rounded-xl overflow-x-auto"
-      style={{ backgroundColor: "#f8fafc", border: "1px solid #e2e8f0" }}
-    >
-      <div className="p-5 sm:p-6">
-        <p className="text-sm mb-4 leading-snug" style={{ color: "#64748b", fontStyle: "italic" }}>
-          &ldquo;Who owns the following in your company?&rdquo; — % of respondents naming each owner · multiple selections allowed
-        </p>
-        <table className="w-full" style={{ minWidth: 540 }}>
-          <thead>
-            <tr>
-              <th className="text-left pb-3 pr-4 w-36" style={{ color: NAVY, fontSize: 12 }} />
-              {owners.map((o) => (
-                <th
-                  key={o}
-                  className="text-center pb-3 px-2 font-bold"
-                  style={{ color: ownerColors[o] || NAVY, fontSize: 12 }}
-                >
-                  {o}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {areas.map((area, ai) => (
-              <tr key={area} style={{ borderTop: "1px solid #e2e8f0" }}>
-                <td className="py-3 pr-4 font-semibold text-sm" style={{ color: NAVY }}>{area}</td>
-                {owners.map((o, oi) => {
-                  const pct = data[ai][oi];
-                  const col = ownerColors[o] || NAVY;
-                  return (
-                    <td key={o} className="py-3 px-2 text-center">
-                      <span className="block font-bold tabular-nums text-sm mb-1" style={{ color: pct >= 50 ? col : "#94a3b8" }}>
-                        {pct}%
-                      </span>
-                      <div className="mx-auto h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "#e2e8f0", width: 56 }}>
-                        <div style={{ width: `${pct}%`, height: "100%", backgroundColor: col }} />
-                      </div>
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
-// ── Donut chart (SVG) ─────────────────────────────────────────────────────
-
-function DonutChart() {
-  const [hovered, setHovered] = useState<number | null>(null);
-
-  let angle = -Math.PI / 2;
-  const R = 80;
-  const segs = ROI_DATA.map((item, i) => {
-    const sweep = (item.pct / 100) * Math.PI * 2;
-    const a0 = angle;
-    angle += sweep;
-    const x1 = Math.cos(a0) * R;
-    const y1 = Math.sin(a0) * R;
-    const x2 = Math.cos(angle) * R;
-    const y2 = Math.sin(angle) * R;
-    const large = sweep > Math.PI ? 1 : 0;
-    return { ...item, i, x1, y1, x2, y2, large };
-  });
-
-  const active = hovered !== null ? ROI_DATA[hovered] : null;
-
-  return (
-    <ChartCard subtitle="How teams measure return on AI investment · n = 188">
-      <div className="flex flex-wrap items-center gap-8">
-        <svg viewBox="-110 -110 220 220" className="w-44 h-44 shrink-0">
-          {segs.map((seg) => (
-            <path
-              key={seg.i}
-              d={`M 0 0 L ${seg.x1} ${seg.y1} A ${R} ${R} 0 ${seg.large} 1 ${seg.x2} ${seg.y2} Z`}
-              fill={seg.color}
-              stroke="#f8fafc"
-              strokeWidth="3"
-              style={{
-                cursor: "default",
-                opacity: hovered === null || hovered === seg.i ? 1 : 0.5,
-                transition: "opacity 0.15s",
-              }}
-              onMouseEnter={() => setHovered(seg.i)}
-              onMouseLeave={() => setHovered(null)}
-            />
-          ))}
-          <circle cx="0" cy="0" r="44" fill="#f8fafc" />
-          {active ? (
-            <>
-              <text x="0" y="-8" textAnchor="middle" style={{ fontSize: 20, fontWeight: 700, fill: NAVY }}>
-                {active.pct}%
-              </text>
-              <text x="0" y="12" textAnchor="middle" style={{ fontSize: 7, fill: "#64748b" }}>
-                {active.label}
-              </text>
-            </>
-          ) : (
-            <text x="0" y="4" textAnchor="middle" style={{ fontSize: 8, fill: "#94a3b8" }}>
-              Hover to explore
-            </text>
-          )}
-        </svg>
-        <div className="space-y-3 flex-1">
-          {ROI_DATA.map((item, i) => (
-            <div
-              key={item.label}
-              className="flex items-center gap-2.5"
-              style={{ cursor: "default", opacity: hovered === null || hovered === i ? 1 : 0.5, transition: "opacity 0.15s" }}
-              onMouseEnter={() => setHovered(i)}
-              onMouseLeave={() => setHovered(null)}
-            >
-              <span className="w-3 h-3 rounded-sm shrink-0" style={{ backgroundColor: item.color, display: "inline-block" }} />
-              <span className="text-sm" style={{ color: NAVY }}>{item.label}</span>
-              <span className="text-sm font-bold ml-auto tabular-nums" style={{ color: NAVY }}>{item.pct}%</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </ChartCard>
-  );
-}
-
-// ── Theory vs Reality comic ───────────────────────────────────────────────
-
-function AutomationComic() {
-  return (
-    <div className="my-8">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/buybuild-comic.png"
-        alt='"I spend a lot of time on this task. I should write a program automating it!" — Theory vs Reality'
-        className="w-full rounded-xl"
-        style={{ border: "1px solid #e2e8f0", maxWidth: 560, display: "block", margin: "0 auto" }}
-      />
-    </div>
-  );
-}
-
-// ── Shared link style ─────────────────────────────────────────────────────
 
 const LINK_STYLE: React.CSSProperties = { color: GOLD, textDecoration: "none" };
 
-// ── Podcast link helper ───────────────────────────────────────────────────
+const PODCAST_URL = "https://open.spotify.com/show/6CR6uDvyVyS2x3BK0vNOqd";
+
+// ── Helpers ───────────────────────────────────────────────────────────────
 
 function PodcastLink({ href }: { href?: string }) {
   return (
@@ -445,8 +21,6 @@ function PodcastLink({ href }: { href?: string }) {
   );
 }
 
-// ── Quote block ───────────────────────────────────────────────────────────
-
 function Quote({ text, name, nameHref, role }: {
   text: string;
   name: string;
@@ -454,10 +28,7 @@ function Quote({ text, name, nameHref, role }: {
   role?: React.ReactNode;
 }) {
   return (
-    <blockquote
-      className="my-7 pl-5"
-      style={{ borderLeft: `4px solid ${GOLD}` }}
-    >
+    <blockquote className="my-7 pl-5" style={{ borderLeft: `4px solid ${GOLD}` }}>
       <p className="text-base italic leading-relaxed mb-2.5" style={{ color: "#1e3a5c" }}>
         &ldquo;{text}&rdquo;
       </p>
@@ -475,8 +46,6 @@ function Quote({ text, name, nameHref, role }: {
   );
 }
 
-// ── Section header ────────────────────────────────────────────────────────
-
 function Section({ n, title }: { n: number; title: string }) {
   return (
     <div className="mt-14 mb-6">
@@ -487,8 +56,6 @@ function Section({ n, title }: { n: number; title: string }) {
     </div>
   );
 }
-
-// ── Body text helpers ─────────────────────────────────────────────────────
 
 function P({ children }: { children: React.ReactNode }) {
   return (
@@ -503,14 +70,20 @@ function Bullets({ items }: { items: [string, string][] }) {
     <ul className="space-y-2 mb-5 ml-1">
       {items.map(([label, detail]) => (
         <li key={label} className="flex gap-2.5 text-base leading-relaxed" style={{ color: "#334155" }}>
-          <span
-            className="mt-2 shrink-0 w-1.5 h-1.5 rounded-full"
-            style={{ backgroundColor: GOLD }}
-          />
+          <span className="mt-2 shrink-0 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: GOLD }} />
           <span><strong>{label}:</strong> {detail}</span>
         </li>
       ))}
     </ul>
+  );
+}
+
+function ChartImg({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="my-8">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt={alt} className="w-full rounded-xl" style={{ border: "1px solid #e2e8f0" }} />
+    </div>
   );
 }
 
@@ -520,10 +93,7 @@ export default function BuyBuildPage() {
   return (
     <div style={{ backgroundColor: "#fff" }}>
       {/* ── Hero ─────────────────────────────────────────────────── */}
-      <div
-        className="px-4 pt-10 pb-9"
-        style={{ borderBottom: "1px solid #e2e8f0" }}
-      >
+      <div className="px-4 pt-10 pb-9" style={{ borderBottom: "1px solid #e2e8f0" }}>
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center justify-between mb-4">
             <p className="text-xs font-bold tracking-widest uppercase" style={{ color: GOLD }}>
@@ -536,15 +106,12 @@ export default function BuyBuildPage() {
               className="flex items-center gap-2"
               style={{ textDecoration: "none" }}
             >
-              <span className="text-xs font-medium" style={{ color: GRAY }}>in Partnership with</span>
+              <span className="text-sm font-medium" style={{ color: GRAY }}>in Partnership with</span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-fullcast.webp" alt="Fullcast" style={{ height: 20, display: "block", opacity: 0.85 }} />
+              <img src="/logo-fullcast.webp" alt="Fullcast" style={{ height: 32, display: "block" }} />
             </a>
           </div>
-          <h1
-            className="text-3xl md:text-4xl font-extrabold leading-tight mb-4"
-            style={{ color: NAVY }}
-          >
+          <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4" style={{ color: NAVY }}>
             Buy vs. Build — The Defining Question for Your GTM Stack
           </h1>
           <p className="text-lg mb-3" style={{ color: "#475569" }}>
@@ -569,12 +136,10 @@ export default function BuyBuildPage() {
           We have written this to <strong>give CEO/CROs a framework to guide their GTM tech roadmap — in partnership with their RevOps teams</strong>. Large enterprises have formalized this — 62% have a framework. Everyone else is running on informal process or nothing at all.
         </P>
 
-        <ChartCard
-          subtitle={GOVERNANCE.subtitle}
-          legend={GOVERNANCE.cats.map((c, i) => ({ label: c, color: GOVERNANCE.colors[i] }))}
-        >
-          <StackedBars cats={GOVERNANCE.cats} colors={GOVERNANCE.colors} rows={GOVERNANCE.rows} />
-        </ChartCard>
+        <ChartImg
+          src="/buybuild-chart-0.jpeg"
+          alt="Governance gets formal only at scale — build-vs-buy governance maturity by company size"
+        />
 
         {/* Section 1 */}
         <Section n={1} title="Why this decision matters — the stakes and the gap" />
@@ -615,7 +180,7 @@ export default function BuyBuildPage() {
             <div
               key={who}
               className="rounded-lg px-4 py-3"
-              style={{ backgroundColor: "#f1f5f9", borderLeft: `3px solid ${BLUE}` }}
+              style={{ backgroundColor: "#f1f5f9", borderLeft: "3px solid #1d4ed8" }}
             >
               <p className="text-sm font-semibold mb-0.5">
                 <a href={href} target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>{who}</a>
@@ -667,29 +232,28 @@ export default function BuyBuildPage() {
           In just two years, GTM teams have shifted from buying most tools to considering build as a viable option. The smaller you are, the more you lean build. The bigger you are, the more you lean buy — and the more likely you are to have a framework.
         </P>
 
-        <ChartCard
-          subtitle={TOOL_PREF.subtitle}
-          legend={TOOL_PREF.cats.map((c, i) => ({ label: c, color: TOOL_PREF.colors[i] }))}
-        >
-          <StackedBars cats={TOOL_PREF.cats} colors={TOOL_PREF.colors} rows={TOOL_PREF.rows} />
-        </ChartCard>
+        <ChartImg
+          src="/buybuild-chart-1.png"
+          alt="Buy bias rises with company size — tool preference by company size"
+        />
 
         <P>This rapid shift has been driven by four factors: fiscal discipline from CFOs cutting tool budgets, ease of building with tools like Claude Code, security hesitancy around unproven vendors, and the low cost of tokens encouraging experimentation.</P>
 
         <P>This shows up in the stats. Many companies are postponing at least some software decisions to consider building internally.</P>
 
-        <ChartCard
-          subtitle={POSTPONED.subtitle}
-          legend={POSTPONED.cats.map((c, i) => ({ label: c, color: POSTPONED.colors[i] }))}
-        >
-          <StackedBars cats={POSTPONED.cats} colors={POSTPONED.colors} rows={POSTPONED.rows} />
-        </ChartCard>
+        <ChartImg
+          src="/buybuild-chart-2.png"
+          alt="Small teams stall deals to build with AI — postponed purchase decisions by company size"
+        />
 
         <P>
           But just because you <em>can</em> build doesn&apos;t mean you <em>should</em>. There are costs of building that companies don&apos;t consider.
         </P>
 
-        <AutomationComic />
+        <ChartImg
+          src="/buybuild-comic.png"
+          alt='"I spend a lot of time on this task. I should write a program automating it!" — Theory vs Reality'
+        />
 
         <Quote
           text="Six months later, a RevOps leader is going to say: hey, I built 17 different tools over the last six months. I'm having a hard time keeping track of all of them, and they're all breaking, and my board's pissed."
@@ -752,13 +316,7 @@ export default function BuyBuildPage() {
                 ["Roadmap", "Vendor controlled", "You control"],
                 ["Key Man Risk", "Low", "High"],
               ].map(([attr, buy, build], i) => (
-                <tr
-                  key={attr}
-                  style={{
-                    borderBottom: "1px solid #e2e8f0",
-                    backgroundColor: i % 2 === 0 ? "#fff" : "#fafbfc",
-                  }}
-                >
+                <tr key={attr} style={{ borderBottom: "1px solid #e2e8f0", backgroundColor: i % 2 === 0 ? "#fff" : "#fafbfc" }}>
                   <td className="py-3 px-5 font-semibold" style={{ color: NAVY }}>{attr}</td>
                   <td className="py-3 px-5 text-center" style={{ color: "#475569" }}>{buy}</td>
                   <td className="py-3 px-5 text-center" style={{ color: "#475569" }}>{build}</td>
@@ -850,18 +408,12 @@ export default function BuyBuildPage() {
                 return (
                   <tr
                     key={crit}
-                    style={{
-                      borderBottom: "1px solid #e2e8f0",
-                      backgroundColor: isConclusion ? NAVY : i % 2 === 0 ? "#fff" : "#fafbfc",
-                    }}
+                    style={{ borderBottom: "1px solid #e2e8f0", backgroundColor: isConclusion ? NAVY : i % 2 === 0 ? "#fff" : "#fafbfc" }}
                   >
                     <td className="py-3 px-5 font-semibold" style={{ color: isConclusion ? "#fff" : NAVY }}>{crit}</td>
                     {[crm, comm, fore].map((val, vi) => (
-                      <td
-                        key={vi}
-                        className="py-3 px-5 text-center font-medium"
-                        style={{ color: isConclusion ? GOLD : val === "Yes" ? NAVY : val === "No" ? GRAY : "#d1dae6" }}
-                      >
+                      <td key={vi} className="py-3 px-5 text-center font-medium"
+                        style={{ color: isConclusion ? GOLD : val === "Yes" ? NAVY : val === "No" ? GRAY : "#d1dae6" }}>
                         {val}
                       </td>
                     ))}
@@ -874,7 +426,10 @@ export default function BuyBuildPage() {
 
         <P>We see this play out in the data with companies choosing to buy core infrastructure and build the intelligence on top of it.</P>
 
-        <BuildSysChart />
+        <ChartImg
+          src="/buybuild-chart-4.png"
+          alt="CRM stays bought; ops systems get built — likelihood to build internally by system"
+        />
 
         <Quote
           text="Buy your infrastructure, build your intelligence — and where the intelligence itself is core enough to matter but too costly to build alone, co-innovate: let a partner own the rails while you own the judgment."
@@ -895,10 +450,10 @@ export default function BuyBuildPage() {
 
         <P>Regardless of whether you decide to buy or build, there are some foundations you need in place to succeed:</P>
 
-        <h3 className="text-2xl font-extrabold mb-1 mt-2" style={{ color: NAVY }}>
-          Messy data is the #1 AI blocker
-        </h3>
-        <BlockersChart />
+        <ChartImg
+          src="/buybuild-chart-5.png"
+          alt="Messy data is the #1 AI blocker — top barriers to AI adoption"
+        />
 
         <Quote
           text="If you give bad data to AI, it just weaponizes it."
@@ -938,7 +493,10 @@ export default function BuyBuildPage() {
           In most companies, there is no single owner across systems, rep productivity, data, and agents. This means accountability for change is lacking and initiatives slip. We suggest you empower RevOps to drive this change.
         </P>
 
-        <OwnershipChart />
+        <ChartImg
+          src="/buybuild-chart-6.jpeg"
+          alt="RevOps owns GTM — but AI is up for grabs: ownership matrix by function"
+        />
 
         <P>AI Agents sit at a current ownership crossroads — shared (and sometimes contested) between RevOps, IT, and Product. Actionable moves to clarify accountability:</P>
 
@@ -974,10 +532,10 @@ export default function BuyBuildPage() {
 
         <P>If you can&apos;t measure ROI, you shouldn&apos;t invest in it. Yet, many companies struggle to measure the impact of their AI GTM investment.</P>
 
-        <h3 className="text-2xl font-extrabold mb-1 mt-2" style={{ color: NAVY }}>
-          Almost a third aren&apos;t measuring AI ROI
-        </h3>
-        <DonutChart />
+        <ChartImg
+          src="/buybuild-chart-7.png"
+          alt="Almost a third aren't measuring AI ROI — how teams measure return on AI investment"
+        />
 
         <Bullets items={[
           ["Productivity (Revenue per Head)", "Easier to measure as you already track these as core financial metrics and have benchmarks."],
@@ -1000,10 +558,7 @@ export default function BuyBuildPage() {
         </div>
 
         {/* CTA */}
-        <div
-          className="mt-12 p-8 rounded-xl text-center"
-          style={{ backgroundColor: NAVY }}
-        >
+        <div className="mt-12 p-8 rounded-xl text-center" style={{ backgroundColor: NAVY }}>
           <h3 className="text-xl font-bold text-white mb-2">Want to dig deeper?</h3>
           <p className="text-sm mb-6" style={{ color: "#94a3b8" }}>
             We share insights from our community in a few areas
