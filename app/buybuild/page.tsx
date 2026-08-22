@@ -1,15 +1,362 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 
 // ── Brand tokens ──────────────────────────────────────────────────────────
 const NAVY    = "#011224";
 const GOLD    = "#c4921a";
+const GOLD_LT = "#e4b84a";
+const NAV_MD  = "#1a3a6c";
 const GRAY    = "#94a3b8";
+const GRAY_LT = "#d1dae6";
 
 const LINK_STYLE: React.CSSProperties = { color: GOLD, textDecoration: "none" };
 
 const PODCAST_URL = "https://open.spotify.com/show/6CR6uDvyVyS2x3BK0vNOqd";
+
+// ── Survey data ───────────────────────────────────────────────────────────
+
+const GOVERNANCE = {
+  subtitle: '"Does your org have a formal framework or governance process?" — by company size',
+  cats: ["No framework", "Informal", "Formal or in development"],
+  colors: [GRAY, GOLD_LT, NAVY],
+  rows: [
+    { label: "Less than 200",  n: 13, vals: [31, 38, 31] },
+    { label: "200 – 1,000",    n: 31, vals: [39, 42, 19] },
+    { label: "1,001 – 5,000",  n: 23, vals: [13, 65, 22] },
+    { label: "5,000 +",        n: 13, vals: [23, 15, 62] },
+  ],
+};
+
+const TOOL_PREF = {
+  subtitle: '"When evaluating a new tool, what is your general preference?" — by company size',
+  cats: ["Lean buy", "It depends", "Lean build"],
+  colors: [NAVY, GRAY, GOLD],
+  rows: [
+    { label: "Less than 200",  n: 13, vals: [15, 54, 31] },
+    { label: "200 – 1,000",    n: 31, vals: [39, 48, 13] },
+    { label: "1,001 – 5,000",  n: 24, vals: [42, 58,  0] },
+    { label: "5,000 +",        n: 13, vals: [54, 38,  8] },
+  ],
+};
+
+const POSTPONED = {
+  subtitle: '"Have you postponed a software purchase in the last 6 months because you believe you can \'build it faster\' with AI?" — by company size',
+  cats: ["Never", "Rarely", "Occasionally", "Frequently"],
+  colors: [GRAY_LT, GRAY, GOLD_LT, GOLD],
+  rows: [
+    { label: "Less than 200",  n: 13, vals: [0,  15, 38, 46] },
+    { label: "200 – 1,000",    n: 31, vals: [10, 26, 42, 23] },
+    { label: "1,001 – 5,000",  n: 24, vals: [4,  21, 42, 33] },
+    { label: "5,000 +",        n: 13, vals: [15, 31, 46,  8] },
+  ],
+};
+
+const BUILD_SYS = {
+  subtitle: '"How likely are you to build the following systems internally in the next few years?" — by system',
+  cats: ["Never", "Long way out", "Next 1–2 years", "Already done"],
+  colors: [NAVY, NAV_MD, GOLD_LT, GOLD],
+  rows: [
+    { label: "CRM",                  vals: [62, 28,  1,  9] },
+    { label: "MAP",                  vals: [35, 32, 24,  8] },
+    { label: "Commissions",          vals: [26, 25, 26, 23] },
+    { label: "Lead Routing",         vals: [16, 29, 35, 20] },
+    { label: "CSM",                  vals: [16, 27, 38, 19] },
+    { label: "Support Operations",   vals: [20, 19, 38, 23] },
+    { label: "Forecasting",          vals: [10, 14, 49, 27] },
+    { label: "Territories & Quotas", vals: [ 6, 17, 42, 35] },
+  ],
+};
+
+const BLOCKERS = {
+  subtitle: '"What are the biggest barriers to AI adoption in your GTM org?" — % of respondents selecting each',
+  items: [
+    { label: "Fragmented / messy data",                   pct: 56.9 },
+    { label: "AI competes with keeping business running", pct: 40.4 },
+    { label: "Security / compliance restrictions",        pct: 36.7 },
+    { label: "No clear AI owner in GTM",                  pct: 29.8 },
+    { label: "Too many stakeholders to align",            pct: 21.3 },
+    { label: "No clarity on AI priorities",               pct: 21.3 },
+    { label: "Fear of LLM obsolescence",                  pct: 18.1 },
+    { label: "GTM teams not engaged / aligned",           pct: 17.6 },
+    { label: "Budget tied to headcount cuts",             pct: 11.7 },
+    { label: "No impact from AI pilots",                  pct:  8.5 },
+  ],
+};
+
+const OWNERSHIP = {
+  subtitle: '"Who owns each of the following in your org?" — % saying each team owns it',
+  areas: ["GTM Systems", "Rep Productivity", "Data Enrichment", "Data Tooling", "AI Agents"],
+  owners: ["RevOps", "Product/Eng", "IT", "Other", "Unclear"],
+  data: [
+    [73,  2, 22, 11,  0],
+    [88,  1,  6, 17,  0],
+    [78,  7, 15, 10,  2],
+    [32, 37, 44, 20,  2],
+    [51, 39, 52, 26, 11],
+  ],
+};
+
+const ROI_DATA = {
+  subtitle: '"How do you measure return on AI investment?" — % of respondents',
+  items: [
+    { label: "Productivity",                  pct: 33.5, color: GOLD    },
+    { label: "Both Productivity & Outcomes",  pct: 21.8, color: GOLD_LT },
+    { label: "Outcomes",                      pct: 14.9, color: NAVY    },
+    { label: "Not Measuring",                 pct: 29.8, color: GRAY    },
+  ],
+};
+
+// ── Chart components ──────────────────────────────────────────────────────
+
+function ChartCard({ subtitle, legend, children }: {
+  subtitle: string;
+  legend?: { label: string; color: string }[];
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="my-8 rounded-xl p-5 sm:p-6"
+      style={{ backgroundColor: "#f8fafc", border: "1px solid #e2e8f0" }}>
+      <p className="text-xs mb-4 leading-snug" style={{ color: "#64748b", fontStyle: "italic" }}>
+        {subtitle}
+      </p>
+      {legend && (
+        <div className="flex flex-wrap gap-x-5 gap-y-1.5 mb-4">
+          {legend.map(({ label, color }) => (
+            <div key={label} className="flex items-center gap-1.5">
+              <span className="inline-block w-3 h-3 rounded-sm shrink-0" style={{ backgroundColor: color }} />
+              <span className="text-xs" style={{ color: "#475569" }}>{label}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {children}
+    </div>
+  );
+}
+
+function StackedBars({ cats, colors, rows }: {
+  cats: string[];
+  colors: string[];
+  rows: { label: string; n?: number; vals: number[] }[];
+}) {
+  const [tip, setTip] = useState<string | null>(null);
+  const [tipPos, setTipPos] = useState({ x: 0, y: 0 });
+  return (
+    <div className="space-y-3 relative">
+      {rows.map((row) => (
+        <div key={row.label}>
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-sm font-semibold" style={{ color: NAVY }}>{row.label}</span>
+            {row.n !== undefined && (
+              <span className="text-xs tabular-nums" style={{ color: GRAY }}>n = {row.n}</span>
+            )}
+          </div>
+          <div className="flex h-10 overflow-hidden rounded-sm" style={{ gap: "2px" }}>
+            {row.vals.map((val, i) => (
+              val > 0 && (
+                <div key={i}
+                  style={{ width: `${val}%`, backgroundColor: colors[i], flexShrink: 0 }}
+                  className="flex items-center justify-center relative"
+                  onMouseEnter={(e) => { setTip(`${cats[i]}: ${val}%`); setTipPos({ x: e.clientX, y: e.clientY }); }}
+                  onMouseMove={(e) => setTipPos({ x: e.clientX, y: e.clientY })}
+                  onMouseLeave={() => setTip(null)}>
+                  {val >= 11 && (
+                    <span className="text-white font-bold select-none" style={{ fontSize: 11 }}>{val}%</span>
+                  )}
+                </div>
+              )
+            ))}
+          </div>
+        </div>
+      ))}
+      {tip && (
+        <div className="fixed z-50 text-white text-xs font-medium px-2.5 py-1.5 rounded shadow-lg pointer-events-none"
+          style={{ backgroundColor: "#0f172a", top: tipPos.y - 36, left: tipPos.x, transform: "translateX(-50%)" }}>
+          {tip}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function BlockersChart({ items }: { items: { label: string; pct: number }[] }) {
+  const max = Math.max(...items.map((d) => d.pct));
+  return (
+    <div className="space-y-2.5">
+      {items.map(({ label, pct }) => (
+        <div key={label}>
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-xs leading-snug" style={{ color: "#334155", maxWidth: "72%" }}>{label}</span>
+            <span className="text-xs font-bold tabular-nums" style={{ color: NAVY }}>{pct}%</span>
+          </div>
+          <div className="h-6 rounded-sm overflow-hidden" style={{ backgroundColor: "#e2e8f0" }}>
+            <div
+              className="h-full rounded-sm flex items-center"
+              style={{ width: `${(pct / max) * 100}%`, backgroundColor: GOLD }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function OwnershipHeatMap({ areas, owners, data }: {
+  areas: string[];
+  owners: string[];
+  data: number[][];
+}) {
+  const allVals = data.flat();
+  const max = Math.max(...allVals);
+
+  function cellBg(val: number) {
+    const intensity = val / max;
+    if (intensity > 0.75) return NAVY;
+    if (intensity > 0.5)  return NAV_MD;
+    if (intensity > 0.25) return GOLD_LT;
+    if (intensity > 0.1)  return "#f1f5f9";
+    return "#fff";
+  }
+
+  function cellColor(val: number) {
+    const intensity = val / max;
+    return intensity > 0.4 ? "#fff" : NAVY;
+  }
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-xs" style={{ borderCollapse: "collapse" }}>
+        <thead>
+          <tr>
+            <th className="text-left py-2 pr-3 font-semibold" style={{ color: GRAY, minWidth: 130 }}>Function</th>
+            {owners.map((o) => (
+              <th key={o} className="text-center py-2 px-2 font-semibold" style={{ color: NAVY }}>{o}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {areas.map((area, ai) => (
+            <tr key={area}>
+              <td className="py-2 pr-3 font-medium" style={{ color: "#334155", borderTop: "1px solid #e2e8f0" }}>{area}</td>
+              {owners.map((_, oi) => {
+                const val = data[ai][oi];
+                return (
+                  <td key={oi}
+                    className="text-center py-2 px-2 font-bold tabular-nums"
+                    style={{
+                      borderTop: "1px solid #e2e8f0",
+                      backgroundColor: cellBg(val),
+                      color: cellColor(val),
+                      borderRadius: 4,
+                    }}>
+                    {val}%
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="flex items-center gap-3 mt-3 flex-wrap">
+        <span className="text-xs" style={{ color: GRAY }}>Ownership intensity:</span>
+        {[
+          { label: "Low", bg: "#f1f5f9", color: NAVY },
+          { label: "Medium", bg: GOLD_LT, color: NAVY },
+          { label: "High", bg: NAV_MD, color: "#fff" },
+          { label: "Dominant", bg: NAVY, color: "#fff" },
+        ].map(({ label, bg, color }) => (
+          <div key={label} className="flex items-center gap-1">
+            <span className="inline-block w-4 h-4 rounded-sm" style={{ backgroundColor: bg, border: "1px solid #e2e8f0" }} />
+            <span className="text-xs" style={{ color: "#475569" }}>{label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PieChart({ items }: { items: { label: string; pct: number; color: string }[] }) {
+  const [hovered, setHovered] = useState<string | null>(null);
+  const total = items.reduce((s, d) => s + d.pct, 0);
+  const cx = 100, cy = 100, r = 90;
+
+  let cumAngle = -90;
+  const slices = items.map((item) => {
+    const angle = (item.pct / total) * 360;
+    const startAngle = cumAngle;
+    cumAngle += angle;
+    return { ...item, startAngle, angle };
+  });
+
+  function polarToXY(angleDeg: number, radius: number) {
+    const rad = (angleDeg * Math.PI) / 180;
+    return { x: cx + radius * Math.cos(rad), y: cy + radius * Math.sin(rad) };
+  }
+
+  function describeSlice(startAngle: number, angle: number, radius: number) {
+    if (angle >= 360) {
+      return `M ${cx - radius} ${cy} A ${radius} ${radius} 0 1 1 ${cx + radius} ${cy} A ${radius} ${radius} 0 1 1 ${cx - radius} ${cy} Z`;
+    }
+    const start = polarToXY(startAngle, radius);
+    const end = polarToXY(startAngle + angle, radius);
+    const largeArc = angle > 180 ? 1 : 0;
+    return `M ${cx} ${cy} L ${start.x} ${start.y} A ${radius} ${radius} 0 ${largeArc} 1 ${end.x} ${end.y} Z`;
+  }
+
+  return (
+    <div className="flex flex-col sm:flex-row items-center gap-6">
+      <svg viewBox="0 0 200 200" className="shrink-0" style={{ width: 200, height: 200 }}>
+        {slices.map((s) => {
+          const isHovered = hovered === s.label;
+          const midAngle = s.startAngle + s.angle / 2;
+          const labelR = r * 0.62;
+          const lp = polarToXY(midAngle, labelR);
+          return (
+            <g key={s.label}
+              onMouseEnter={() => setHovered(s.label)}
+              onMouseLeave={() => setHovered(null)}
+              style={{ cursor: "default", transition: "opacity 0.15s" }}
+              opacity={hovered && !isHovered ? 0.65 : 1}>
+              <path
+                d={describeSlice(s.startAngle, s.angle, r)}
+                fill={s.color}
+                stroke="#fff"
+                strokeWidth={2}
+              />
+              {s.angle >= 20 && (
+                <text
+                  x={lp.x} y={lp.y}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill="#fff"
+                  fontSize={11}
+                  fontWeight="bold">
+                  {s.pct}%
+                </text>
+              )}
+            </g>
+          );
+        })}
+      </svg>
+      <div className="space-y-2.5">
+        {slices.map((s) => (
+          <div key={s.label}
+            className="flex items-center gap-2.5"
+            onMouseEnter={() => setHovered(s.label)}
+            onMouseLeave={() => setHovered(null)}
+            style={{ opacity: hovered && hovered !== s.label ? 0.5 : 1, transition: "opacity 0.15s", cursor: "default" }}>
+            <span className="shrink-0 w-4 h-4 rounded-sm" style={{ backgroundColor: s.color }} />
+            <span className="text-sm" style={{ color: "#334155" }}>
+              <strong>{s.pct}%</strong> — {s.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 
@@ -78,15 +425,6 @@ function Bullets({ items }: { items: [string, string][] }) {
   );
 }
 
-function ChartImg({ src, alt }: { src: string; alt: string }) {
-  return (
-    <div className="my-8">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} className="w-full rounded-xl" style={{ border: "1px solid #e2e8f0" }} />
-    </div>
-  );
-}
-
 // ── Page ──────────────────────────────────────────────────────────────────
 
 export default function BuyBuildPage() {
@@ -136,10 +474,9 @@ export default function BuyBuildPage() {
           We have written this to <strong>give CEO/CROs a framework to guide their GTM tech roadmap — in partnership with their RevOps teams</strong>. Large enterprises have formalized this — 62% have a framework. Everyone else is running on informal process or nothing at all.
         </P>
 
-        <ChartImg
-          src="/buybuild-chart-0.jpeg"
-          alt="Governance gets formal only at scale — build-vs-buy governance maturity by company size"
-        />
+        <ChartCard subtitle={GOVERNANCE.subtitle} legend={GOVERNANCE.cats.map((c, i) => ({ label: c, color: GOVERNANCE.colors[i] }))}>
+          <StackedBars cats={GOVERNANCE.cats} colors={GOVERNANCE.colors} rows={GOVERNANCE.rows} />
+        </ChartCard>
 
         {/* Section 1 */}
         <Section n={1} title="Why this decision matters — the stakes and the gap" />
@@ -232,27 +569,28 @@ export default function BuyBuildPage() {
           In just two years, GTM teams have shifted from buying most tools to considering build as a viable option. The smaller you are, the more you lean build. The bigger you are, the more you lean buy — and the more likely you are to have a framework.
         </P>
 
-        <ChartImg
-          src="/buybuild-chart-1.png"
-          alt="Buy bias rises with company size — tool preference by company size"
-        />
+        <ChartCard subtitle={TOOL_PREF.subtitle} legend={TOOL_PREF.cats.map((c, i) => ({ label: c, color: TOOL_PREF.colors[i] }))}>
+          <StackedBars cats={TOOL_PREF.cats} colors={TOOL_PREF.colors} rows={TOOL_PREF.rows} />
+        </ChartCard>
 
         <P>This rapid shift has been driven by four factors: fiscal discipline from CFOs cutting tool budgets, ease of building with tools like Claude Code, security hesitancy around unproven vendors, and the low cost of tokens encouraging experimentation.</P>
 
         <P>This shows up in the stats. Many companies are postponing at least some software decisions to consider building internally.</P>
 
-        <ChartImg
-          src="/buybuild-chart-2.png"
-          alt="Small teams stall deals to build with AI — postponed purchase decisions by company size"
-        />
+        <ChartCard subtitle={POSTPONED.subtitle} legend={POSTPONED.cats.map((c, i) => ({ label: c, color: POSTPONED.colors[i] }))}>
+          <StackedBars cats={POSTPONED.cats} colors={POSTPONED.colors} rows={POSTPONED.rows} />
+        </ChartCard>
 
         <P>
           But just because you <em>can</em> build doesn&apos;t mean you <em>should</em>. There are costs of building that companies don&apos;t consider.
         </P>
 
-        <ChartImg
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src="/photos/buybuildcomic.jpeg"
           alt='"I spend a lot of time on this task. I should write a program automating it!" — Theory vs Reality'
+          className="w-full rounded-xl my-8"
+          style={{ border: "1px solid #e2e8f0" }}
         />
 
         <Quote
@@ -426,10 +764,9 @@ export default function BuyBuildPage() {
 
         <P>We see this play out in the data with companies choosing to buy core infrastructure and build the intelligence on top of it.</P>
 
-        <ChartImg
-          src="/buybuild-chart-4.png"
-          alt="CRM stays bought; ops systems get built — likelihood to build internally by system"
-        />
+        <ChartCard subtitle={BUILD_SYS.subtitle} legend={BUILD_SYS.cats.map((c, i) => ({ label: c, color: BUILD_SYS.colors[i] }))}>
+          <StackedBars cats={BUILD_SYS.cats} colors={BUILD_SYS.colors} rows={BUILD_SYS.rows} />
+        </ChartCard>
 
         <Quote
           text="Buy your infrastructure, build your intelligence — and where the intelligence itself is core enough to matter but too costly to build alone, co-innovate: let a partner own the rails while you own the judgment."
@@ -450,10 +787,9 @@ export default function BuyBuildPage() {
 
         <P>Regardless of whether you decide to buy or build, there are some foundations you need in place to succeed:</P>
 
-        <ChartImg
-          src="/buybuild-chart-5.png"
-          alt="Messy data is the #1 AI blocker — top barriers to AI adoption"
-        />
+        <ChartCard subtitle={BLOCKERS.subtitle}>
+          <BlockersChart items={BLOCKERS.items} />
+        </ChartCard>
 
         <Quote
           text="If you give bad data to AI, it just weaponizes it."
@@ -493,10 +829,9 @@ export default function BuyBuildPage() {
           In most companies, there is no single owner across systems, rep productivity, data, and agents. This means accountability for change is lacking and initiatives slip. We suggest you empower RevOps to drive this change.
         </P>
 
-        <ChartImg
-          src="/buybuild-chart-6.jpeg"
-          alt="RevOps owns GTM — but AI is up for grabs: ownership matrix by function"
-        />
+        <ChartCard subtitle={OWNERSHIP.subtitle}>
+          <OwnershipHeatMap areas={OWNERSHIP.areas} owners={OWNERSHIP.owners} data={OWNERSHIP.data} />
+        </ChartCard>
 
         <P>AI Agents sit at a current ownership crossroads — shared (and sometimes contested) between RevOps, IT, and Product. Actionable moves to clarify accountability:</P>
 
@@ -532,10 +867,9 @@ export default function BuyBuildPage() {
 
         <P>If you can&apos;t measure ROI, you shouldn&apos;t invest in it. Yet, many companies struggle to measure the impact of their AI GTM investment.</P>
 
-        <ChartImg
-          src="/buybuild-chart-7.png"
-          alt="Almost a third aren't measuring AI ROI — how teams measure return on AI investment"
-        />
+        <ChartCard subtitle={ROI_DATA.subtitle} legend={ROI_DATA.items.map((d) => ({ label: d.label, color: d.color }))}>
+          <PieChart items={ROI_DATA.items} />
+        </ChartCard>
 
         <Bullets items={[
           ["Productivity (Revenue per Head)", "Easier to measure as you already track these as core financial metrics and have benchmarks."],
