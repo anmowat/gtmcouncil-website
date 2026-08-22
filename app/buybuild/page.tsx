@@ -18,6 +18,7 @@ const PODCAST_URL = "https://open.spotify.com/show/6CR6uDvyVyS2x3BK0vNOqd";
 // ── Survey data ───────────────────────────────────────────────────────────
 
 const GOVERNANCE = {
+  keyInsight: "Governance gets formal only at scale",
   subtitle: '"Does your org have a formal framework or governance process?" — by company size',
   cats: ["No framework", "Informal", "Formal or in development"],
   colors: [GRAY, GOLD_LT, NAVY],
@@ -30,6 +31,7 @@ const GOVERNANCE = {
 };
 
 const TOOL_PREF = {
+  keyInsight: "Buy bias rises with company size",
   subtitle: '"When evaluating a new tool, what is your general preference?" — by company size',
   cats: ["Lean buy", "It depends", "Lean build"],
   colors: [NAVY, GRAY, GOLD],
@@ -42,6 +44,7 @@ const TOOL_PREF = {
 };
 
 const POSTPONED = {
+  keyInsight: "Small teams stall deals to build with AI",
   subtitle: '"Have you postponed a software purchase in the last 6 months because you believe you can \'build it faster\' with AI?" — by company size',
   cats: ["Never", "Rarely", "Occasionally", "Frequently"],
   colors: [GRAY_LT, GRAY, GOLD_LT, GOLD],
@@ -54,9 +57,11 @@ const POSTPONED = {
 };
 
 const BUILD_SYS = {
+  keyInsight: "CRM stays bought; ops systems get built",
   subtitle: '"How likely are you to build the following systems internally in the next few years?" — by system',
   cats: ["Never", "Long way out", "Next 1–2 years", "Already done"],
   colors: [NAVY, NAV_MD, GOLD_LT, GOLD],
+  splitAt: 2,
   rows: [
     { label: "CRM",                  vals: [62, 28,  1,  9] },
     { label: "MAP",                  vals: [35, 32, 24,  8] },
@@ -70,6 +75,7 @@ const BUILD_SYS = {
 };
 
 const BLOCKERS = {
+  keyInsight: "Messy data is the #1 AI blocker",
   subtitle: '"What are the biggest barriers to AI adoption in your GTM org?" — % of respondents selecting each',
   items: [
     { label: "Fragmented / messy data",                   pct: 56.9 },
@@ -86,6 +92,7 @@ const BLOCKERS = {
 };
 
 const OWNERSHIP = {
+  keyInsight: "RevOps owns GTM — but AI is up for grabs",
   subtitle: '"Who owns each of the following in your org?" — % saying each team owns it',
   areas: ["GTM Systems", "Rep Productivity", "Data Enrichment", "Data Tooling", "AI Agents"],
   owners: ["RevOps", "Product/Eng", "IT", "Other", "Unclear"],
@@ -99,26 +106,33 @@ const OWNERSHIP = {
 };
 
 const ROI_DATA = {
+  keyInsight: "Almost a third aren't measuring AI ROI",
   subtitle: '"How do you measure return on AI investment?" — % of respondents',
   items: [
-    { label: "Productivity",                  pct: 33.5, color: GOLD    },
-    { label: "Both Productivity & Outcomes",  pct: 21.8, color: GOLD_LT },
-    { label: "Outcomes",                      pct: 14.9, color: NAVY    },
-    { label: "Not Measuring",                 pct: 29.8, color: GRAY    },
+    { label: "Productivity",                  pct: 33.5, color: GOLD,    hatch: false },
+    { label: "Both Productivity & Outcomes",  pct: 21.8, color: NAV_MD,  hatch: true  },
+    { label: "Outcomes",                      pct: 14.9, color: NAVY,    hatch: false },
+    { label: "Not Measuring",                 pct: 29.8, color: GRAY,    hatch: false },
   ],
 };
 
 // ── Chart components ──────────────────────────────────────────────────────
 
-function ChartCard({ subtitle, legend, children }: {
+function ChartCard({ subtitle, keyInsight, legend, children }: {
   subtitle: string;
+  keyInsight?: string;
   legend?: { label: string; color: string }[];
   children: React.ReactNode;
 }) {
   return (
     <div className="my-8 rounded-xl p-5 sm:p-6"
       style={{ backgroundColor: "#f8fafc", border: "1px solid #e2e8f0" }}>
-      <p className="text-xs mb-4 leading-snug" style={{ color: "#64748b", fontStyle: "italic" }}>
+      {keyInsight && (
+        <p className="text-xl font-extrabold mb-1 leading-tight" style={{ color: NAVY }}>
+          {keyInsight}
+        </p>
+      )}
+      <p className="text-sm font-medium mb-4 leading-snug" style={{ color: NAVY }}>
         {subtitle}
       </p>
       {legend && (
@@ -181,24 +195,144 @@ function StackedBars({ cats, colors, rows }: {
   );
 }
 
+function DivergingBarsChart({ cats, colors, rows, splitAt }: {
+  cats: string[];
+  colors: string[];
+  rows: { label: string; vals: number[] }[];
+  splitAt: number;
+}) {
+  const [tip, setTip] = useState<string | null>(null);
+  const [tipPos, setTipPos] = useState({ x: 0, y: 0 });
+
+  const leftCats   = cats.slice(0, splitAt);
+  const rightCats  = cats.slice(splitAt);
+  const leftColors = colors.slice(0, splitAt);
+  const rightColors = colors.slice(splitAt);
+
+  const scale = Math.max(
+    ...rows.map(r => r.vals.slice(0, splitAt).reduce((a, b) => a + b, 0)),
+    ...rows.map(r => r.vals.slice(splitAt).reduce((a, b) => a + b, 0))
+  );
+
+  const BAR_H   = 36;
+  const LABEL_W = 152;
+
+  return (
+    <div className="relative">
+      {/* Direction labels */}
+      <div className="flex items-center mb-2" style={{ paddingLeft: LABEL_W }}>
+        <div className="flex-1 flex justify-end pr-3">
+          <span className="text-xs font-bold" style={{ color: NAVY }}>◄ PREFER TO BUY</span>
+        </div>
+        <div style={{ width: 2 }} />
+        <div className="flex-1 flex justify-start pl-3">
+          <span className="text-xs font-bold" style={{ color: GOLD }}>BUILDING IN-HOUSE ►</span>
+        </div>
+      </div>
+
+      {rows.map((row) => {
+        const leftVals  = row.vals.slice(0, splitAt);
+        const rightVals = row.vals.slice(splitAt);
+        return (
+          <div key={row.label} className="flex items-center mb-2">
+            {/* Row label */}
+            <div className="text-sm font-semibold text-right shrink-0 pr-3 leading-tight"
+              style={{ width: LABEL_W, color: NAVY }}>
+              {row.label}
+            </div>
+
+            {/* Left bars – right-aligned (grow leftward from center) */}
+            <div className="flex-1 flex items-center justify-end" style={{ height: BAR_H, gap: 1 }}>
+              {leftVals.map((val, i) =>
+                val > 0 ? (
+                  <div key={i}
+                    className="flex items-center justify-center shrink-0"
+                    style={{ width: `${(val / scale) * 100}%`, height: BAR_H, backgroundColor: leftColors[i] }}
+                    onMouseEnter={e => { setTip(`${leftCats[i]}: ${val}%`); setTipPos({ x: e.clientX, y: e.clientY }); }}
+                    onMouseMove={e => setTipPos({ x: e.clientX, y: e.clientY })}
+                    onMouseLeave={() => setTip(null)}>
+                    {val >= 8 && (
+                      <span className="text-white font-bold select-none" style={{ fontSize: 11 }}>{val}</span>
+                    )}
+                  </div>
+                ) : null
+              )}
+            </div>
+
+            {/* Center divider */}
+            <div className="shrink-0" style={{ width: 2, height: BAR_H + 6, backgroundColor: "#94a3b8" }} />
+
+            {/* Right bars – left-aligned (grow rightward from center) */}
+            <div className="flex-1 flex items-center justify-start" style={{ height: BAR_H, gap: 1 }}>
+              {rightVals.map((val, i) =>
+                val > 0 ? (
+                  <div key={i}
+                    className="flex items-center justify-center shrink-0"
+                    style={{ width: `${(val / scale) * 100}%`, height: BAR_H, backgroundColor: rightColors[i] }}
+                    onMouseEnter={e => { setTip(`${rightCats[i]}: ${val}%`); setTipPos({ x: e.clientX, y: e.clientY }); }}
+                    onMouseMove={e => setTipPos({ x: e.clientX, y: e.clientY })}
+                    onMouseLeave={() => setTip(null)}>
+                    {val >= 8 && (
+                      <span className="text-white font-bold select-none" style={{ fontSize: 11 }}>{val}</span>
+                    )}
+                  </div>
+                ) : null
+              )}
+            </div>
+          </div>
+        );
+      })}
+
+      {tip && (
+        <div className="fixed z-50 text-white text-xs font-medium px-2.5 py-1.5 rounded shadow-lg pointer-events-none"
+          style={{ backgroundColor: "#0f172a", top: tipPos.y - 36, left: tipPos.x, transform: "translateX(-50%)" }}>
+          {tip}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function BlockersChart({ items }: { items: { label: string; pct: number }[] }) {
-  const max = Math.max(...items.map((d) => d.pct));
+  const max = Math.max(...items.map(d => d.pct));
+
+  function barColor(pct: number): string {
+    const ratio = pct / max;
+    // NAVY rgb(1,18,36) → light steel rgb(203,213,225)
+    const r = Math.round(1   + (203 - 1)   * (1 - ratio));
+    const g = Math.round(18  + (213 - 18)  * (1 - ratio));
+    const b = Math.round(36  + (225 - 36)  * (1 - ratio));
+    return `rgb(${r},${g},${b})`;
+  }
+
   return (
     <div className="space-y-2.5">
       {items.map(({ label, pct }) => (
         <div key={label}>
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs leading-snug" style={{ color: "#334155", maxWidth: "72%" }}>{label}</span>
-            <span className="text-xs font-bold tabular-nums" style={{ color: NAVY }}>{pct}%</span>
+            <span className="text-sm font-semibold leading-snug" style={{ color: NAVY }}>{label}</span>
+            <span className="text-xs font-bold tabular-nums ml-2 shrink-0" style={{ color: GRAY }}>{pct}%</span>
           </div>
-          <div className="h-6 rounded-sm overflow-hidden" style={{ backgroundColor: "#e2e8f0" }}>
-            <div
-              className="h-full rounded-sm flex items-center"
-              style={{ width: `${(pct / max) * 100}%`, backgroundColor: GOLD }}
-            />
+          <div className="h-7 rounded-sm overflow-hidden" style={{ backgroundColor: "#e8eef4" }}>
+            <div className="h-full rounded-sm"
+              style={{ width: `${(pct / max) * 100}%`, backgroundColor: barColor(pct) }} />
           </div>
         </div>
       ))}
+      {/* Gradient legend */}
+      <div className="flex items-center gap-2 pt-2">
+        <span className="text-xs" style={{ color: GRAY }}>Less common</span>
+        <svg width="100" height="10" style={{ borderRadius: 2 }}>
+          <defs>
+            <linearGradient id="blockers-grad" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0%" stopColor="rgb(203,213,225)" />
+              <stop offset="100%" stopColor={NAVY} />
+            </linearGradient>
+          </defs>
+          <rect width="100" height="10" fill="url(#blockers-grad)" rx="2" />
+        </svg>
+        <span className="text-xs" style={{ color: GRAY }}>Most common</span>
+      </div>
     </div>
   );
 }
@@ -211,18 +345,17 @@ function OwnershipHeatMap({ areas, owners, data }: {
   const allVals = data.flat();
   const max = Math.max(...allVals);
 
-  function cellBg(val: number) {
-    const intensity = val / max;
-    if (intensity > 0.75) return NAVY;
-    if (intensity > 0.5)  return NAV_MD;
-    if (intensity > 0.25) return GOLD_LT;
-    if (intensity > 0.1)  return "#f1f5f9";
-    return "#fff";
+  function cellBg(val: number): string {
+    const ratio = val / max;
+    // light blue-gray rgb(220,229,239) → NAVY rgb(1,18,36)
+    const r = Math.round(220 + (1   - 220) * ratio);
+    const g = Math.round(229 + (18  - 229) * ratio);
+    const b = Math.round(239 + (36  - 239) * ratio);
+    return `rgb(${r},${g},${b})`;
   }
 
-  function cellColor(val: number) {
-    const intensity = val / max;
-    return intensity > 0.4 ? "#fff" : NAVY;
+  function cellTextColor(val: number): string {
+    return (val / max) > 0.4 ? "#fff" : NAVY;
   }
 
   return (
@@ -239,7 +372,7 @@ function OwnershipHeatMap({ areas, owners, data }: {
         <tbody>
           {areas.map((area, ai) => (
             <tr key={area}>
-              <td className="py-2 pr-3 font-medium" style={{ color: "#334155", borderTop: "1px solid #e2e8f0" }}>{area}</td>
+              <td className="py-2 pr-3 font-semibold" style={{ color: NAVY, borderTop: "1px solid #e2e8f0" }}>{area}</td>
               {owners.map((_, oi) => {
                 const val = data[ai][oi];
                 return (
@@ -248,8 +381,7 @@ function OwnershipHeatMap({ areas, owners, data }: {
                     style={{
                       borderTop: "1px solid #e2e8f0",
                       backgroundColor: cellBg(val),
-                      color: cellColor(val),
-                      borderRadius: 4,
+                      color: cellTextColor(val),
                     }}>
                     {val}%
                   </td>
@@ -259,25 +391,26 @@ function OwnershipHeatMap({ areas, owners, data }: {
           ))}
         </tbody>
       </table>
-      <div className="flex items-center gap-3 mt-3 flex-wrap">
-        <span className="text-xs" style={{ color: GRAY }}>Ownership intensity:</span>
-        {[
-          { label: "Low", bg: "#f1f5f9", color: NAVY },
-          { label: "Medium", bg: GOLD_LT, color: NAVY },
-          { label: "High", bg: NAV_MD, color: "#fff" },
-          { label: "Dominant", bg: NAVY, color: "#fff" },
-        ].map(({ label, bg, color }) => (
-          <div key={label} className="flex items-center gap-1">
-            <span className="inline-block w-4 h-4 rounded-sm" style={{ backgroundColor: bg, border: "1px solid #e2e8f0" }} />
-            <span className="text-xs" style={{ color: "#475569" }}>{label}</span>
-          </div>
-        ))}
+      {/* Gradient legend */}
+      <div className="flex items-center gap-2 mt-4">
+        <span className="text-xs" style={{ color: GRAY }}>0%</span>
+        <svg width="140" height="12" style={{ borderRadius: 2 }}>
+          <defs>
+            <linearGradient id="hm-grad" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0%"   stopColor="rgb(220,229,239)" />
+              <stop offset="100%" stopColor={NAVY} />
+            </linearGradient>
+          </defs>
+          <rect width="140" height="12" fill="url(#hm-grad)" rx="2" />
+        </svg>
+        <span className="text-xs" style={{ color: GRAY }}>{max}%</span>
+        <span className="text-xs ml-1" style={{ color: GRAY }}>share of respondents</span>
       </div>
     </div>
   );
 }
 
-function PieChart({ items }: { items: { label: string; pct: number; color: string }[] }) {
+function PieChart({ items }: { items: { label: string; pct: number; color: string; hatch: boolean }[] }) {
   const [hovered, setHovered] = useState<string | null>(null);
   const total = items.reduce((s, d) => s + d.pct, 0);
   const cx = 100, cy = 100, r = 90;
@@ -308,11 +441,19 @@ function PieChart({ items }: { items: { label: string; pct: number; color: strin
   return (
     <div className="flex flex-col sm:flex-row items-center gap-6">
       <svg viewBox="0 0 200 200" className="shrink-0" style={{ width: 200, height: 200 }}>
+        <defs>
+          {/* Diagonal hatch: gold stripes on NAV_MD background */}
+          <pattern id="pie-hatch" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+            <rect width="8" height="8" fill={NAV_MD} />
+            <line x1="0" y1="0" x2="0" y2="8" stroke={GOLD} strokeWidth="3.5" />
+          </pattern>
+        </defs>
         {slices.map((s) => {
           const isHovered = hovered === s.label;
           const midAngle = s.startAngle + s.angle / 2;
           const labelR = r * 0.62;
           const lp = polarToXY(midAngle, labelR);
+          const fillAttr = s.hatch ? "url(#pie-hatch)" : s.color;
           return (
             <g key={s.label}
               onMouseEnter={() => setHovered(s.label)}
@@ -321,7 +462,7 @@ function PieChart({ items }: { items: { label: string; pct: number; color: strin
               opacity={hovered && !isHovered ? 0.65 : 1}>
               <path
                 d={describeSlice(s.startAngle, s.angle, r)}
-                fill={s.color}
+                fill={fillAttr}
                 stroke="#fff"
                 strokeWidth={2}
               />
@@ -340,17 +481,28 @@ function PieChart({ items }: { items: { label: string; pct: number; color: strin
           );
         })}
       </svg>
-      <div className="space-y-2.5">
+      {/* Legend lives inside PieChart — do NOT also pass legend= to ChartCard */}
+      <div className="space-y-3">
         {slices.map((s) => (
           <div key={s.label}
             className="flex items-center gap-2.5"
             onMouseEnter={() => setHovered(s.label)}
             onMouseLeave={() => setHovered(null)}
             style={{ opacity: hovered && hovered !== s.label ? 0.5 : 1, transition: "opacity 0.15s", cursor: "default" }}>
-            <span className="shrink-0 w-4 h-4 rounded-sm" style={{ backgroundColor: s.color }} />
-            <span className="text-sm" style={{ color: "#334155" }}>
-              <strong>{s.pct}%</strong> — {s.label}
-            </span>
+            {s.hatch ? (
+              <svg width="16" height="16" className="shrink-0" style={{ borderRadius: 2 }}>
+                <defs>
+                  <pattern id="swatch-hatch" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+                    <rect width="8" height="8" fill={NAV_MD} />
+                    <line x1="0" y1="0" x2="0" y2="8" stroke={GOLD} strokeWidth="3.5" />
+                  </pattern>
+                </defs>
+                <rect width="16" height="16" fill="url(#swatch-hatch)" rx="2" />
+              </svg>
+            ) : (
+              <span className="shrink-0 w-4 h-4 rounded-sm" style={{ backgroundColor: s.color }} />
+            )}
+            <span className="text-sm" style={{ color: "#334155" }}>{s.label}</span>
           </div>
         ))}
       </div>
@@ -474,7 +626,10 @@ export default function BuyBuildPage() {
           We have written this to <strong>give CEO/CROs a framework to guide their GTM tech roadmap — in partnership with their RevOps teams</strong>. Large enterprises have formalized this — 62% have a framework. Everyone else is running on informal process or nothing at all.
         </P>
 
-        <ChartCard subtitle={GOVERNANCE.subtitle} legend={GOVERNANCE.cats.map((c, i) => ({ label: c, color: GOVERNANCE.colors[i] }))}>
+        <ChartCard
+          keyInsight={GOVERNANCE.keyInsight}
+          subtitle={GOVERNANCE.subtitle}
+          legend={GOVERNANCE.cats.map((c, i) => ({ label: c, color: GOVERNANCE.colors[i] }))}>
           <StackedBars cats={GOVERNANCE.cats} colors={GOVERNANCE.colors} rows={GOVERNANCE.rows} />
         </ChartCard>
 
@@ -569,7 +724,10 @@ export default function BuyBuildPage() {
           In just two years, GTM teams have shifted from buying most tools to considering build as a viable option. The smaller you are, the more you lean build. The bigger you are, the more you lean buy — and the more likely you are to have a framework.
         </P>
 
-        <ChartCard subtitle={TOOL_PREF.subtitle} legend={TOOL_PREF.cats.map((c, i) => ({ label: c, color: TOOL_PREF.colors[i] }))}>
+        <ChartCard
+          keyInsight={TOOL_PREF.keyInsight}
+          subtitle={TOOL_PREF.subtitle}
+          legend={TOOL_PREF.cats.map((c, i) => ({ label: c, color: TOOL_PREF.colors[i] }))}>
           <StackedBars cats={TOOL_PREF.cats} colors={TOOL_PREF.colors} rows={TOOL_PREF.rows} />
         </ChartCard>
 
@@ -577,7 +735,10 @@ export default function BuyBuildPage() {
 
         <P>This shows up in the stats. Many companies are postponing at least some software decisions to consider building internally.</P>
 
-        <ChartCard subtitle={POSTPONED.subtitle} legend={POSTPONED.cats.map((c, i) => ({ label: c, color: POSTPONED.colors[i] }))}>
+        <ChartCard
+          keyInsight={POSTPONED.keyInsight}
+          subtitle={POSTPONED.subtitle}
+          legend={POSTPONED.cats.map((c, i) => ({ label: c, color: POSTPONED.colors[i] }))}>
           <StackedBars cats={POSTPONED.cats} colors={POSTPONED.colors} rows={POSTPONED.rows} />
         </ChartCard>
 
@@ -764,8 +925,16 @@ export default function BuyBuildPage() {
 
         <P>We see this play out in the data with companies choosing to buy core infrastructure and build the intelligence on top of it.</P>
 
-        <ChartCard subtitle={BUILD_SYS.subtitle} legend={BUILD_SYS.cats.map((c, i) => ({ label: c, color: BUILD_SYS.colors[i] }))}>
-          <StackedBars cats={BUILD_SYS.cats} colors={BUILD_SYS.colors} rows={BUILD_SYS.rows} />
+        <ChartCard
+          keyInsight={BUILD_SYS.keyInsight}
+          subtitle={BUILD_SYS.subtitle}
+          legend={BUILD_SYS.cats.map((c, i) => ({ label: c, color: BUILD_SYS.colors[i] }))}>
+          <DivergingBarsChart
+            cats={BUILD_SYS.cats}
+            colors={BUILD_SYS.colors}
+            rows={BUILD_SYS.rows}
+            splitAt={BUILD_SYS.splitAt}
+          />
         </ChartCard>
 
         <Quote
@@ -787,7 +956,7 @@ export default function BuyBuildPage() {
 
         <P>Regardless of whether you decide to buy or build, there are some foundations you need in place to succeed:</P>
 
-        <ChartCard subtitle={BLOCKERS.subtitle}>
+        <ChartCard keyInsight={BLOCKERS.keyInsight} subtitle={BLOCKERS.subtitle}>
           <BlockersChart items={BLOCKERS.items} />
         </ChartCard>
 
@@ -829,7 +998,7 @@ export default function BuyBuildPage() {
           In most companies, there is no single owner across systems, rep productivity, data, and agents. This means accountability for change is lacking and initiatives slip. We suggest you empower RevOps to drive this change.
         </P>
 
-        <ChartCard subtitle={OWNERSHIP.subtitle}>
+        <ChartCard keyInsight={OWNERSHIP.keyInsight} subtitle={OWNERSHIP.subtitle}>
           <OwnershipHeatMap areas={OWNERSHIP.areas} owners={OWNERSHIP.owners} data={OWNERSHIP.data} />
         </ChartCard>
 
@@ -867,7 +1036,7 @@ export default function BuyBuildPage() {
 
         <P>If you can&apos;t measure ROI, you shouldn&apos;t invest in it. Yet, many companies struggle to measure the impact of their AI GTM investment.</P>
 
-        <ChartCard subtitle={ROI_DATA.subtitle} legend={ROI_DATA.items.map((d) => ({ label: d.label, color: d.color }))}>
+        <ChartCard keyInsight={ROI_DATA.keyInsight} subtitle={ROI_DATA.subtitle}>
           <PieChart items={ROI_DATA.items} />
         </ChartCard>
 
