@@ -106,9 +106,9 @@ export default function BuyBuildPage() {
               className="flex items-center gap-2"
               style={{ textDecoration: "none" }}
             >
-              <span className="text-sm font-medium" style={{ color: GRAY }}>in Partnership with</span>
+              <span className="text-base font-semibold" style={{ color: GRAY }}>in Partnership with</span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-fullcast.webp" alt="Fullcast" style={{ height: 32, display: "block" }} />
+              <img src="/logo-fullcast.webp" alt="Fullcast" style={{ height: 64, display: "block" }} />
             </a>
           </div>
           <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4" style={{ color: NAVY }}>
@@ -251,7 +251,7 @@ export default function BuyBuildPage() {
         </P>
 
         <ChartImg
-          src="/buybuild-comic.png"
+          src="/photos/buybuildcomic.jpeg"
           alt='"I spend a lot of time on this task. I should write a program automating it!" — Theory vs Reality'
         />
 
