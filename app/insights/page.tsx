@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "15",
+    company: "Nooks",
+    companyUrl: "https://www.nooks.ai/",
+    month: "August 2026",
+    type: "Huddle",
+    speaker: "Dan Lee (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/dan9lee/",
+    topic: "AI-powered sales development",
+    embedUrl: "https://player.vimeo.com/video/1220967555?h=62879ea947&title=0&byline=0&portrait=0",
+  },
+  {
     id: "14",
     company: "Dust",
     companyUrl: "https://dust.tt/",
