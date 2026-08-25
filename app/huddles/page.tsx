@@ -260,10 +260,10 @@ export default function HuddlesPage() {
           </h2>
           <ul className="space-y-3">
             {[
-              { date: "8/24 @ 1pm",  company: "Nooks",      href: "https://www.nooks.ai/" },
               { date: "9/11 @ 10am", company: "1Mind",      href: "https://www.1mind.com/" },
               { date: "9/28 @ 1pm",  company: "to be announced", href: null },
               { date: "10/9 @ 10am", company: "Fullcast",   href: "https://www.fullcast.com/" },
+              { date: "10/26 @ 1pm", company: "Actively",   href: null },
             ].map((item) => (
               <li key={item.date} className="flex items-center gap-2 text-sm">
                 <span className="font-bold" style={{ color: "#011224" }}>{item.date}</span>
