@@ -263,7 +263,7 @@ export default function HuddlesPage() {
               { date: "9/11 @ 10am", company: "1Mind",      href: "https://www.1mind.com/" },
               { date: "9/28 @ 1pm",  company: "to be announced", href: null },
               { date: "10/9 @ 10am", company: "Fullcast",   href: "https://www.fullcast.com/" },
-              { date: "10/26 @ 1pm", company: "Actively",   href: null },
+              { date: "10/26 @ 1pm", company: "Actively",   href: "https://www.actively.com/" },
             ].map((item) => (
               <li key={item.date} className="flex items-center gap-2 text-sm">
                 <span className="font-bold" style={{ color: "#011224" }}>{item.date}</span>
