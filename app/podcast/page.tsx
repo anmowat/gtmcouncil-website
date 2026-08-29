@@ -131,6 +131,12 @@ const SERIES: Series[] = [
         apple: "https://podcasts.apple.com/us/podcast/agentic-sales-philip-salesforce/id1896338897?i=1000779898739",
         youtube: "https://youtu.be/he2kQXNCVLE",
       },
+      {
+        coverImage: "/podcast-ep-agenticsales-7.jpg",
+        spotify: "https://open.spotify.com/episode/6b8Z9ReNKahWGzGzUWVfdx?si=xRLa8AejRzaU0OgBmlS5Vw",
+        apple: "https://podcasts.apple.com/us/podcast/agentic-sales-amanda-1mind/id1896338897?i=1000782803145",
+        youtube: "https://youtu.be/2zBkpDJ-QYE",
+      },
     ],
   },
 ];
