@@ -33,6 +33,13 @@ const SERIES: Series[] = [
         apple: "https://podcasts.apple.com/us/podcast/agentic-sdr-prabhav-ceo-11x/id1896338897?i=1000766463777",
         youtube: "https://youtu.be/gjrF4iIUm5A",
       },
+      {
+        coverImage: "/podcast-ep-gtmeng-2.jpg",
+        substack: "https://gtmcouncil.substack.com/p/everett-berry-head-of-gtm-eng-clay",
+        spotify: "https://open.spotify.com/episode/7LcESEQFy8dUakWjTEzijf?si=C-DBH6kcTbiuIRLFMzdIsg",
+        apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-everett-clay/id1896338897?i=1000767433244",
+        youtube: "https://youtu.be/HBwLFuIR0NM",
+      },
     ],
   },
 ];
