@@ -54,6 +54,13 @@ const SERIES: Series[] = [
         apple: "https://podcasts.apple.com/us/podcast/agentic-sdr-prabhav-ceo-11x/id1896338897?i=1000766463777",
         youtube: "https://youtu.be/gjrF4iIUm5A",
       },
+      {
+        coverImage: "/podcast-ep-agenticsales-2.jpg",
+        substack: "https://gtmcouncil.substack.com/p/matt-millen-regie-automation-vs-augmentation",
+        spotify: "https://open.spotify.com/episode/6dFC6Qk1117BWwnck9mDfl?si=VoOwr9DlSjy7Mzv65PkktA",
+        apple: "https://podcasts.apple.com/us/podcast/agentic-sales-matt-president-regie/id1896338897?i=1000769674206",
+        youtube: "https://youtu.be/YBZueUaKVWU",
+      },
     ],
   },
 ];
