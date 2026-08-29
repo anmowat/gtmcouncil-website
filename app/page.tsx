@@ -82,17 +82,15 @@ const PILLARS = [
     ),
     title: "Podcast",
     description: "Our \"Stacked GTM\" podcast goes deep (~7-10 episodes with top practitioners and vendors on each topic) to explore how AI is changing GTM landscape - new episodes each week!",
-    actions: [{ label: "View Podcast", href: "/podcast", gold: true }],
-    iconLinks: [
-      {
-        ariaLabel: "Spotify",
-        icon: <Image src="/logo-spotify.png" alt="Spotify" width={36} height={36} className="rounded-full" />,
-      },
-      {
-        ariaLabel: "Apple Podcasts",
-        icon: <Image src="/logo-apple-podcasts.png" alt="Apple Podcasts" width={36} height={36} className="rounded-xl" />,
-      },
-    ],
+    actions: [{
+      label: "View Podcast",
+      href: "/podcast",
+      gold: true,
+      icons: [
+        <Image key="spotify" src="/logo-spotify.png" alt="Spotify" width={24} height={24} className="rounded-full" />,
+        <Image key="apple" src="/logo-apple-podcasts.png" alt="Apple Podcasts" width={24} height={24} className="rounded-lg" />,
+      ],
+    }],
   },
   {
     icon: (
@@ -199,8 +197,14 @@ export default async function HomePage() {
                 </div>
                 <p className="text-sm text-gray-600 flex-1">{pillar.description}</p>
                 <div className="flex flex-wrap gap-2 pt-2 justify-center">
-                  {pillar.actions.map((action) =>
-                    action.href.startsWith("http") ? (
+                  {pillar.actions.map((action) => {
+                    const inner = (
+                      <span className="flex items-center gap-2">
+                        {action.label}
+                        {"icons" in action && action.icons?.map((ic) => ic)}
+                      </span>
+                    );
+                    return action.href.startsWith("http") ? (
                       <a
                         key={action.label}
                         href={action.href}
@@ -209,7 +213,7 @@ export default async function HomePage() {
                         className="px-4 py-2 text-sm font-semibold rounded text-white transition-colors"
                         style={{ backgroundColor: action.gold ? "#c4921a" : "#011224" }}
                       >
-                        {action.label}
+                        {inner}
                       </a>
                     ) : (
                       <Link
@@ -218,26 +222,10 @@ export default async function HomePage() {
                         className="px-4 py-2 text-sm font-semibold rounded text-white transition-colors"
                         style={{ backgroundColor: action.gold ? "#c4921a" : "#011224" }}
                       >
-                        {action.label}
+                        {inner}
                       </Link>
-                    )
-                  )}
-                  {"iconLinks" in pillar && pillar.iconLinks?.map((link) => (
-                    "href" in link && link.href ? (
-                      <a
-                        key={link.ariaLabel}
-                        href={link.href as string}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={link.ariaLabel}
-                        className="hover:opacity-80 transition-opacity"
-                      >
-                        {link.icon}
-                      </a>
-                    ) : (
-                      <span key={link.ariaLabel} aria-label={link.ariaLabel}>{link.icon}</span>
-                    )
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             ))}
