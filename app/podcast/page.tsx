@@ -36,45 +36,6 @@ const FORMAT_FEATURES = [
   },
 ];
 
-const SERIES = [
-  {
-    title: "GTM Engineering",
-    description: "Companies are building teams dedicated to leveraging AI across their GTM motion. How can they set themselves up for success.",
-    status: "inprogress" as const,
-    briefUrl: "https://www.gtmcouncil.com",
-  },
-  {
-    title: "Agentic Sales",
-    description: "Personalized nurture and sequences is here. Innovative companies are increasingly automating inbound and outbound SDR. Learn from the best.",
-    status: "inprogress" as const,
-    briefUrl: "https://www.gtmcouncil.com",
-  },
-  {
-    title: "GTM Agentic Data Foundation",
-    description: "Agents change analytics. No more creating dashboards. Instead we will soon have agents monitoring us and coaching each GTM leader.",
-    status: "soon" as const,
-  },
-  {
-    title: "AI Manager",
-    description: "LMS is dying (about time) and the most innovative companies are blowing up enablement to allow their reps to learn by practicing. Learn what is working.",
-    status: "soon" as const,
-  },
-  {
-    title: "CRM 2.0",
-    description: "Your data warehouse will be your next CRM. There is a new wave of companies rebuilding CRM on top of AI and Data. Learn about the innovation that is coming.",
-    status: "future" as const,
-  },
-  {
-    title: "Consumption Pricing",
-    description: "AI is changing how companies charge. And when they do your sales and finance team need to have the systems to forecast, close and bill in this new era.",
-    status: "future" as const,
-  },
-  {
-    title: "Marketing Automation 2.0",
-    description: "We all hate Marketo. And we have 5+ systems sending email. Learn about the innovation some amazing vendors are bringing.",
-    status: "future" as const,
-  },
-];
 
 export default function PodcastPage() {
   return (
@@ -129,65 +90,6 @@ export default function PodcastPage() {
         </div>
       </section>
 
-      {/* ── Series Briefs ─────────────────────────────────────────── */}
-      <section className="py-16 px-4">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-center mb-3" style={{ color: "#c4921a" }}>
-            Series Briefs
-          </h2>
-          <p className="text-center text-gray-500 mb-10">
-            If you are an expert, we&apos;d love to explore having you on an episode
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {SERIES.map((s) => (
-              <div
-                key={s.title}
-                className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start justify-between gap-3 mb-2">
-                  <h3 className="font-bold text-gray-900">{s.title}</h3>
-                  {s.status === "inprogress" ? (
-                    <span
-                      className="shrink-0 text-xs font-bold px-3 py-1 rounded text-white"
-                      style={{ backgroundColor: "#16a34a" }}
-                    >
-                      In Progress
-                    </span>
-                  ) : s.status === "soon" ? (
-                    <span
-                      className="shrink-0 text-xs font-bold px-3 py-1 rounded text-white"
-                      style={{ backgroundColor: "#ea580c" }}
-                    >
-                      Coming Soon
-                    </span>
-                  ) : (
-                    <span
-                      className="shrink-0 text-xs font-bold px-3 py-1 rounded text-white"
-                      style={{ backgroundColor: "#011224" }}
-                    >
-                      Future
-                    </span>
-                  )}
-                </div>
-                <p className="text-sm text-gray-600 leading-relaxed">{s.description}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div className="text-center mt-10">
-            <a
-              href="https://www.gtmcouncil.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-8 py-3 text-sm font-semibold rounded text-white transition-colors"
-              style={{ backgroundColor: "#c4921a" }}
-            >
-              Suggest a Series
-            </a>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
