@@ -40,6 +40,13 @@ const SERIES: Series[] = [
         apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-everett-clay/id1896338897?i=1000767433244",
         youtube: "https://youtu.be/HBwLFuIR0NM",
       },
+      {
+        coverImage: "/podcast-ep-gtmeng-3.jpg",
+        substack: "https://gtmcouncil.substack.com/p/shantanu-personio-ai-gtm-bottlenecks",
+        spotify: "https://open.spotify.com/episode/0biiXt54AYRywap67sJYfh",
+        apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-shantanu-personio/id1896338897?i=1000768588439",
+        youtube: "https://youtu.be/AQ_TD8e833w",
+      },
     ],
   },
 ];
