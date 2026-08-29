@@ -47,6 +47,13 @@ const SERIES: Series[] = [
         apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-elio-scalestack/id1896338897?i=1000770786188",
         youtube: "https://youtu.be/j0pSwBbyywg",
       },
+      {
+        coverImage: "/podcast-ep-gtmeng-5.jpg",
+        substack: "https://gtmcouncil.substack.com/p/ryan-milligan-cro-quotapath-nailing",
+        spotify: "https://open.spotify.com/episode/5hOXwya7rWsMiMeUW2RCzr",
+        apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-ryan-cro-quotapath/id1896338897?i=1000772975761",
+        youtube: "https://youtu.be/VvsthkkOabg",
+      },
     ],
   },
   {
