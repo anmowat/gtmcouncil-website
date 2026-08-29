@@ -82,7 +82,7 @@ function SeriesCard({ series }: { series: Series }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="rounded-2xl overflow-hidden shadow-md" style={{ backgroundColor: "#011224", border: "1px solid #1a3a6c" }}>
+    <div className="rounded-2xl overflow-hidden shadow-md" style={{ backgroundColor: "#011224" }}>
       {/* Header */}
       <div className="p-6 flex gap-6 items-start">
         <div className="flex-1">
