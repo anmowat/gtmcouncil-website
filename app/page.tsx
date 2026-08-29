@@ -143,7 +143,8 @@ const SPONSORS = [
   { name: "Ampersand", logo: "/logo-ampersand.svg",  href: "https://www.withampersand.com/", h: 22 },
   { name: "Dust",      logo: "/logo-huddle-dust.svg", href: "https://dust.tt/",              h: 52 },
   { name: "Vasco",     logo: "/logo-vasco.svg",       href: "https://vasco.app/",            h: 48 },
-  { name: "TGTC",      logo: "/logo-tgtc.svg",        href: "http://tgtc.io/GTMCouncil",     h: 72 },
+  { name: "TGTC",       logo: "/logo-tgtc.svg",        href: "http://tgtc.io/GTMCouncil",       h: 72 },
+  { name: "Inflection", logo: "/logo-inflection.svg",  href: "https://www.inflection.io/",      h: 44 },
 ];
 
 export default async function HomePage() {
