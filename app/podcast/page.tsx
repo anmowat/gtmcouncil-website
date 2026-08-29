@@ -180,7 +180,8 @@ export default function PodcastPage() {
               Series, not episodes.
             </h2>
             <p className="text-gray-600 text-base leading-relaxed">
-              We spend 7-10 episodes per topic — interviewing vendors and practitioners, real depth, not hot takes.
+              We dive deep on a topic (over 7-10 episodes)<br />
+              We interview vendors and practitioners to learn how they are innovating
             </p>
           </div>
         </div>
