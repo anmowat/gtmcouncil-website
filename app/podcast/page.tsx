@@ -68,6 +68,13 @@ const SERIES: Series[] = [
         apple: "https://podcasts.apple.com/us/podcast/agentic-sales-matt-president-regie/id1896338897?i=1000769674206",
         youtube: "https://youtu.be/YBZueUaKVWU",
       },
+      {
+        coverImage: "/podcast-ep-agenticsales-3.jpg",
+        substack: "https://gtmcouncil.substack.com/p/mark-deacon-croo-canibuild-the-ai",
+        spotify: "https://open.spotify.com/episode/3VkuKDpDTem7fHCWjlTVgE?si=bpdDEU00QMK16w0jWMOTIw",
+        apple: "https://podcasts.apple.com/us/podcast/agentic-sales-mark-canibuild/id1896338897?i=1000771887977",
+        youtube: "https://youtu.be/1xivr_1s9jI",
+      },
     ],
   },
 ];
