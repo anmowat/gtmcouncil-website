@@ -199,8 +199,8 @@ function SeriesCard({ series }: { series: Series }) {
           <h2 className="text-xl font-extrabold mb-1 text-white">{series.title}</h2>
           <p className="text-sm leading-relaxed max-w-sm" style={{ color: "#94a3b8" }}>{series.subtitle}</p>
         </div>
-        <div className="shrink-0">
-          {series.ebookUrl ? (
+        {series.ebookUrl && (
+          <div className="shrink-0">
             <a
               href={series.ebookUrl}
               target="_blank"
@@ -210,35 +210,37 @@ function SeriesCard({ series }: { series: Series }) {
             >
               Download eBook
             </a>
-          ) : (
-            <div
-              className="flex items-center justify-center w-20 h-20 rounded-xl text-xs font-semibold text-center leading-snug"
-              style={{ backgroundColor: "#0d2844", color: "#64748b" }}
-            >
-              eBook<br />coming soon
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Toggle — gold to match brand */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-center gap-2 py-3 text-sm font-semibold transition-colors"
-        style={{ color: "#c4921a" }}
-      >
-        {open ? "Hide episodes" : `See episodes (${series.episodes.length})`}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
+      {series.episodes.length === 0 ? (
+        <div
+          className="w-full flex items-center justify-center py-3 text-sm font-semibold"
+          style={{ color: "#94a3b8" }}
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
+          Episodes dropping soon
+        </div>
+      ) : (
+        <button
+          onClick={() => setOpen(!open)}
+          className="w-full flex items-center justify-center gap-2 py-3 text-sm font-semibold transition-colors"
+          style={{ color: "#c4921a" }}
+        >
+          {open ? "Hide episodes" : `See episodes (${series.episodes.length})`}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      )}
 
       {/* Episodes — white background with subtle inset shadow */}
       {open && (
