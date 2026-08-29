@@ -82,6 +82,13 @@ const SERIES: Series[] = [
         apple: "https://podcasts.apple.com/us/podcast/agentic-sales-mark-canibuild/id1896338897?i=1000771887977",
         youtube: "https://youtu.be/1xivr_1s9jI",
       },
+      {
+        coverImage: "/podcast-ep-agenticsales-4.jpg",
+        substack: "https://gtmcouncil.substack.com/p/seth-marrs-cso-sandler-agentic-sales",
+        spotify: "https://open.spotify.com/episode/1ZAYL8SfyxgBPgUC8sMifr",
+        apple: "https://podcasts.apple.com/us/podcast/agentic-sales-seth-sandler/id1896338897?i=1000773889085",
+        youtube: "https://youtu.be/jyEqS0gmm6E",
+      },
     ],
   },
 ];
