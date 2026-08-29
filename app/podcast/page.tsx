@@ -151,7 +151,7 @@ const SERIES: Series[] = [
 function EpisodeCard({ episode }: { episode: Episode }) {
   const links = [
     { href: episode.substack, src: "/logo-substack.png",       label: "Substack" },
-    { href: episode.spotify,  src: "/logo-spotify.png",        label: "Spotify" },
+    { href: episode.spotify,  src: "/logo-spotify.svg",        label: "Spotify" },
     { href: episode.apple,    src: "/logo-apple-podcasts.png", label: "Apple Podcasts" },
     { href: episode.youtube,  src: "/logo-youtube.svg",        label: "YouTube" },
   ].filter((l) => l.href);

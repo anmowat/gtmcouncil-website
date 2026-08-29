@@ -87,7 +87,7 @@ const PILLARS = [
       href: "/podcast",
       gold: true,
       icons: [
-        <Image key="spotify" src="/logo-spotify.png" alt="Spotify" width={24} height={24} className="rounded-full" />,
+        <Image key="spotify" src="/logo-spotify.svg" alt="Spotify" width={24} height={24} className="rounded-full" />,
         <Image key="apple" src="/logo-apple-podcasts.png" alt="Apple Podcasts" width={24} height={24} className="rounded-lg" />,
       ],
     }],
