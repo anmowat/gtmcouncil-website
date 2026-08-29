@@ -82,16 +82,14 @@ const PILLARS = [
     ),
     title: "Podcast",
     description: "Our \"Stacked GTM\" podcast goes deep (~7-10 episodes with top practitioners and vendors on each topic) to explore how AI is changing GTM landscape - new episodes each week!",
-    actions: [],
+    actions: [{ label: "View Podcast", href: "/podcast", gold: true }],
     iconLinks: [
       {
-        href: "https://open.spotify.com/show/6CR6uDvyVyS2x3BK0vNOqd",
-        ariaLabel: "Listen on Spotify",
+        ariaLabel: "Spotify",
         icon: <Image src="/logo-spotify.png" alt="Spotify" width={36} height={36} className="rounded-full" />,
       },
       {
-        href: "https://podcasts.apple.com/us/podcast/stacked-gtm/id1896338897",
-        ariaLabel: "Listen on Apple Podcasts",
+        ariaLabel: "Apple Podcasts",
         icon: <Image src="/logo-apple-podcasts.png" alt="Apple Podcasts" width={36} height={36} className="rounded-xl" />,
       },
     ],
@@ -225,16 +223,20 @@ export default async function HomePage() {
                     )
                   )}
                   {"iconLinks" in pillar && pillar.iconLinks?.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={link.ariaLabel}
-                      className="hover:opacity-80 transition-opacity"
-                    >
-                      {link.icon}
-                    </a>
+                    "href" in link && link.href ? (
+                      <a
+                        key={link.ariaLabel}
+                        href={link.href as string}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={link.ariaLabel}
+                        className="hover:opacity-80 transition-opacity"
+                      >
+                        {link.icon}
+                      </a>
+                    ) : (
+                      <span key={link.ariaLabel} aria-label={link.ariaLabel}>{link.icon}</span>
+                    )
                   ))}
                 </div>
               </div>
