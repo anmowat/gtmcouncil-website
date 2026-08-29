@@ -27,13 +27,6 @@ const SERIES: Series[] = [
       "Learn how to leverage GTM engineers, set them up for success and emerging tools — from the best practitioners.",
     episodes: [
       {
-        coverImage: "/podcast-ep-gtmeng-1.jpg",
-        substack: "https://gtmcouncil.substack.com/p/prabhav-jain-ceo-11x-on-stacked-gtm",
-        spotify: "https://open.spotify.com/episode/7Fq5HXm4HN47vWW9wvNfxx",
-        apple: "https://podcasts.apple.com/us/podcast/agentic-sdr-prabhav-ceo-11x/id1896338897?i=1000766463777",
-        youtube: "https://youtu.be/gjrF4iIUm5A",
-      },
-      {
         coverImage: "/podcast-ep-gtmeng-2.jpg",
         substack: "https://gtmcouncil.substack.com/p/everett-berry-head-of-gtm-eng-clay",
         spotify: "https://open.spotify.com/episode/7LcESEQFy8dUakWjTEzijf?si=C-DBH6kcTbiuIRLFMzdIsg",
@@ -46,6 +39,20 @@ const SERIES: Series[] = [
         spotify: "https://open.spotify.com/episode/0biiXt54AYRywap67sJYfh",
         apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-shantanu-personio/id1896338897?i=1000768588439",
         youtube: "https://youtu.be/AQ_TD8e833w",
+      },
+    ],
+  },
+  {
+    title: "Agentic Sales",
+    subtitle:
+      "Understand how companies are automating their SDR and AE motions with top vendors and practitioners.",
+    episodes: [
+      {
+        coverImage: "/podcast-ep-gtmeng-1.jpg",
+        substack: "https://gtmcouncil.substack.com/p/prabhav-jain-ceo-11x-on-stacked-gtm",
+        spotify: "https://open.spotify.com/episode/7Fq5HXm4HN47vWW9wvNfxx",
+        apple: "https://podcasts.apple.com/us/podcast/agentic-sdr-prabhav-ceo-11x/id1896338897?i=1000766463777",
+        youtube: "https://youtu.be/gjrF4iIUm5A",
       },
     ],
   },
