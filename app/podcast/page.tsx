@@ -139,6 +139,12 @@ const SERIES: Series[] = [
       },
     ],
   },
+  {
+    title: "Marketing Agents",
+    subtitle:
+      "You can build sales agents. You can't build marketing agents. Marketing is behind and most use cases are just Claude Chat. We dive deep with vendors and practitioners actually leveraging AI in marketing.",
+    episodes: [],
+  },
 ];
 
 // ── Episode Card ───────────────────────────────────────────────────
