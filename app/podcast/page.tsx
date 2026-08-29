@@ -273,39 +273,34 @@ export default function PodcastPage() {
               priority
             />
           </div>
-          <div>
+          <div className="flex-1 min-w-0">
             <h2 className="text-xl md:text-2xl font-extrabold mb-2" style={{ color: "#c4921a" }}>
               Series, not episodes.
             </h2>
-            <p className="text-gray-600 text-base leading-relaxed">
+            <p className="text-gray-600 text-base leading-relaxed mb-6">
               We dive deep on a topic (over 7-10 episodes)<br />
               We interview vendors and practitioners to learn how they are innovating
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Podcast Sponsors ──────────────────────────────────────── */}
-      <section className="pt-2 pb-6 px-6">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Sponsored by</p>
-          <div className="overflow-hidden">
-            <div className="animate-marquee flex items-center w-max">
-              {[
-                { name: "TGTC",      logo: "/logo-tgtc.svg",      href: "http://tgtc.io/GTMCouncil",   h: 72 },
-                { name: "Fullcast",  logo: "/logo-fullcast.webp", href: "https://www.fullcast.com/",   h: 104 },
-                { name: "Nooks",     logo: "/logo-nooks.webp",    href: "https://www.nooks.ai/",       h: 48 },
-                { name: "Inflection",logo: "/logo-inflection.svg",href: "https://www.inflection.io/",  h: 44 },
-                { name: "TGTC",      logo: "/logo-tgtc.svg",      href: "http://tgtc.io/GTMCouncil",   h: 72 },
-                { name: "Fullcast",  logo: "/logo-fullcast.webp", href: "https://www.fullcast.com/",   h: 104 },
-                { name: "Nooks",     logo: "/logo-nooks.webp",    href: "https://www.nooks.ai/",       h: 48 },
-                { name: "Inflection",logo: "/logo-inflection.svg",href: "https://www.inflection.io/",  h: 44 },
-              ].map((s, i) => (
-                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity shrink-0 pr-10">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={s.logo} alt={s.name} style={{ height: s.h, width: "auto", display: "block" }} />
-                </a>
-              ))}
+            {/* ── Sponsors inline on desktop ── */}
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Sponsored by</p>
+            <div className="overflow-hidden">
+              <div className="animate-marquee flex items-center w-max">
+                {[
+                  { name: "TGTC",       logo: "/logo-tgtc.svg",       href: "http://tgtc.io/GTMCouncil",  h: 44 },
+                  { name: "Fullcast",   logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",  h: 64 },
+                  { name: "Nooks",      logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",      h: 30 },
+                  { name: "Inflection", logo: "/logo-inflection.svg", href: "https://www.inflection.io/", h: 28 },
+                  { name: "TGTC",       logo: "/logo-tgtc.svg",       href: "http://tgtc.io/GTMCouncil",  h: 44 },
+                  { name: "Fullcast",   logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",  h: 64 },
+                  { name: "Nooks",      logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",      h: 30 },
+                  { name: "Inflection", logo: "/logo-inflection.svg", href: "https://www.inflection.io/", h: 28 },
+                ].map((s, i) => (
+                  <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity shrink-0 pr-8">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={s.logo} alt={s.name} style={{ height: s.h, width: "auto", display: "block" }} />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
