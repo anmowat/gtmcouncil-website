@@ -87,7 +87,7 @@ function SeriesCard({ series }: { series: Series }) {
       <div className="p-6 flex gap-6 items-start">
         <div className="flex-1">
           <h2 className="text-xl font-extrabold mb-1 text-white">{series.title}</h2>
-          <p className="text-sm leading-relaxed" style={{ color: "#94a3b8" }}>{series.subtitle}</p>
+          <p className="text-sm leading-relaxed max-w-sm" style={{ color: "#94a3b8" }}>{series.subtitle}</p>
         </div>
         <div className="shrink-0">
           {series.ebookUrl ? (
@@ -102,8 +102,8 @@ function SeriesCard({ series }: { series: Series }) {
             </a>
           ) : (
             <div
-              className="flex items-center justify-center w-32 h-20 rounded-xl text-xs font-semibold text-center leading-snug"
-              style={{ backgroundColor: "#0d2844", color: "#64748b", border: "1px dashed #1e4070" }}
+              className="flex items-center justify-center w-20 h-20 rounded-xl text-xs font-semibold text-center leading-snug"
+              style={{ backgroundColor: "#0d2844", color: "#64748b" }}
             >
               eBook<br />coming soon
             </div>
@@ -115,10 +115,7 @@ function SeriesCard({ series }: { series: Series }) {
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-center gap-2 py-3 text-sm font-semibold transition-colors"
-        style={{
-          borderTop: "1px solid #1a3a6c",
-          color: "#c4921a",
-        }}
+        style={{ color: "#c4921a" }}
       >
         {open ? "Hide episodes" : `See episodes (${series.episodes.length})`}
         <svg
