@@ -155,17 +155,17 @@ export default function PodcastPage() {
             <Image
               src="/podcast-stacked-gtm.jpg"
               alt="Stacked GTM — a show by GTM Council"
-              width={220}
-              height={220}
+              width={275}
+              height={275}
               className="rounded-2xl shadow-lg"
               priority
             />
           </div>
           <div>
-            <h2 className="text-2xl md:text-3xl font-extrabold mb-3" style={{ color: "#c4921a" }}>
+            <h2 className="text-xl md:text-2xl font-extrabold mb-2" style={{ color: "#c4921a" }}>
               Series, not episodes.
             </h2>
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="text-gray-600 text-base leading-relaxed">
               We spend 7-10 episodes per topic — interviewing vendors and practitioners, real depth, not hot takes.
             </p>
           </div>
