@@ -40,6 +40,13 @@ const SERIES: Series[] = [
         apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-shantanu-personio/id1896338897?i=1000768588439",
         youtube: "https://youtu.be/AQ_TD8e833w",
       },
+      {
+        coverImage: "/podcast-ep-gtmeng-4.jpg",
+        substack: "https://gtmcouncil.substack.com/p/gtm-engineer-gtm-data-at-scale",
+        spotify: "https://open.spotify.com/episode/0E1ISAlGIpZbp7lZH6T15j?si=UHxUey3UQh2HatxvtQitvw",
+        apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-elio-scalestack/id1896338897?i=1000770786188",
+        youtube: "https://youtu.be/j0pSwBbyywg",
+      },
     ],
   },
   {
