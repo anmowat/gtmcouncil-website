@@ -68,6 +68,13 @@ const SERIES: Series[] = [
         apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-joe-primary-ventures/id1896338897?i=1000775787223",
         youtube: "https://youtu.be/K2jD1RSPEaQ",
       },
+      {
+        coverImage: "/podcast-ep-gtmeng-8.jpg",
+        substack: "https://gtmcouncil.substack.com/p/gtm-ai-change-management-gina-dust",
+        spotify: "https://open.spotify.com/episode/0uI67s1RFxR2wSZ0nu0i3x",
+        apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-gina-dust/id1896338897?i=1000776762515",
+        youtube: "https://youtu.be/j8-UCq0wTyA",
+      },
     ],
   },
   {
