@@ -54,6 +54,13 @@ const SERIES: Series[] = [
         apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-ryan-cro-quotapath/id1896338897?i=1000772975761",
         youtube: "https://youtu.be/VvsthkkOabg",
       },
+      {
+        coverImage: "/podcast-ep-gtmeng-6.jpg",
+        substack: "https://gtmcouncil.substack.com/p/james-underhill-gtm-profound-the",
+        spotify: "https://open.spotify.com/episode/56XS4XFChVsXk9GN68uZkl",
+        apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-james-profound/id1896338897?i=1000774831875",
+        youtube: "https://youtu.be/DC-qoED_W04",
+      },
     ],
   },
   {
