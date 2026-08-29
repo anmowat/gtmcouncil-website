@@ -273,15 +273,18 @@ export default function PodcastPage() {
               priority
             />
           </div>
-          <div className="flex-1 min-w-0">
-            <h2 className="text-xl md:text-2xl font-extrabold mb-2" style={{ color: "#c4921a" }}>
-              Series, not episodes.
-            </h2>
-            <p className="text-gray-600 text-base leading-relaxed mb-6">
-              We dive deep on a topic (over 7-10 episodes)<br />
-              We interview vendors and practitioners to learn how they are innovating
-            </p>
-            {/* ── Sponsors inline on desktop ── */}
+          <div className="flex-1 min-w-0 flex flex-col" style={{ minHeight: 275 }}>
+            <div>
+              <h2 className="text-xl md:text-2xl font-extrabold mb-2" style={{ color: "#c4921a" }}>
+                Series, not episodes.
+              </h2>
+              <p className="text-gray-600 text-base leading-relaxed">
+                We dive deep on a topic (over 7-10 episodes)<br />
+                We interview vendors and practitioners to learn how they are innovating
+              </p>
+            </div>
+            {/* ── Sponsors pushed to bottom ── */}
+            <div className="mt-auto pt-4">
             <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Sponsored by</p>
             <div className="overflow-hidden">
               <div className="animate-marquee flex items-center w-max">
@@ -301,6 +304,7 @@ export default function PodcastPage() {
                   </a>
                 ))}
               </div>
+            </div>
             </div>
           </div>
         </div>
