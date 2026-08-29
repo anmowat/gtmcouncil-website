@@ -166,10 +166,10 @@ export default function PodcastPage() {
           </div>
           <div>
             <h2 className="text-2xl md:text-3xl font-extrabold mb-3" style={{ color: "#c4921a" }}>
-              We dive deep on topics in GTM + AI
+              Series, not episodes.
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed">
-              Each series looks at the topic from the perspective of vendors AND practitioners
+              We spend 7-10 episodes per topic — interviewing vendors and practitioners, real depth, not hot takes.
             </p>
           </div>
         </div>
