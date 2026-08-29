@@ -261,8 +261,8 @@ export default function PodcastPage() {
   return (
     <div>
       {/* ── Hero: artwork + tagline side by side ──────────────────── */}
-      <section className="py-16 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center gap-10">
+      <section className="pt-10 pb-6 px-6">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start gap-10">
           <div className="shrink-0">
             <Image
               src="/podcast-stacked-gtm.jpg"
