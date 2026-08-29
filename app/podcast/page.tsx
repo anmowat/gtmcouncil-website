@@ -61,6 +61,13 @@ const SERIES: Series[] = [
         apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-james-profound/id1896338897?i=1000774831875",
         youtube: "https://youtu.be/DC-qoED_W04",
       },
+      {
+        coverImage: "/podcast-ep-gtmeng-7.jpg",
+        substack: "https://gtmcouncil.substack.com/p/joe-lehr-operator-primary-ventures",
+        spotify: "https://open.spotify.com/episode/3agzxgkSC6tSPFMCD3WCGS",
+        apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-joe-primary-ventures/id1896338897?i=1000775787223",
+        youtube: "https://youtu.be/K2jD1RSPEaQ",
+      },
     ],
   },
   {
