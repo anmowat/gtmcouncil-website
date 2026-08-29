@@ -47,7 +47,7 @@ function EpisodeCard({ episode }: { episode: Episode }) {
   ].filter((l) => l.href);
 
   return (
-    <div className="rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+    <div className="rounded-xl overflow-hidden bg-white shadow-lg hover:shadow-xl transition-shadow">
       {/* Square cover art */}
       <div className="aspect-square w-full overflow-hidden">
         <Image
@@ -133,9 +133,9 @@ function SeriesCard({ series }: { series: Series }) {
         </svg>
       </button>
 
-      {/* Episodes — white/light background so cards pop */}
+      {/* Episodes — navy background so white cards stand out */}
       {open && (
-        <div className="p-6" style={{ borderTop: "1px solid #1a3a6c", backgroundColor: "#f8fafc" }}>
+        <div className="p-6" style={{ borderTop: "1px solid #1a3a6c", backgroundColor: "#011224" }}>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {series.episodes.map((ep, i) => (
               <EpisodeCard key={i} episode={ep} />
@@ -166,7 +166,7 @@ export default function PodcastPage() {
           </div>
           <div>
             <h2 className="text-2xl md:text-3xl font-extrabold mb-3" style={{ color: "#c4921a" }}>
-              We dive deep on topics
+              We dive deep on topics in GTM + AI
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed">
               Each series looks at the topic from the perspective of vendors AND practitioners
