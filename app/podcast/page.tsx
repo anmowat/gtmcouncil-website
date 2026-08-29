@@ -285,6 +285,32 @@ export default function PodcastPage() {
         </div>
       </section>
 
+      {/* ── Podcast Sponsors ──────────────────────────────────────── */}
+      <section className="pt-2 pb-6 px-6">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Sponsored by</p>
+          <div className="overflow-hidden">
+            <div className="animate-marquee flex items-center w-max">
+              {[
+                { name: "TGTC",      logo: "/logo-tgtc.svg",      href: "http://tgtc.io/GTMCouncil",   h: 72 },
+                { name: "Fullcast",  logo: "/logo-fullcast.webp", href: "https://www.fullcast.com/",   h: 104 },
+                { name: "Nooks",     logo: "/logo-nooks.webp",    href: "https://www.nooks.ai/",       h: 48 },
+                { name: "Inflection",logo: "/logo-inflection.svg",href: "https://www.inflection.io/",  h: 44 },
+                { name: "TGTC",      logo: "/logo-tgtc.svg",      href: "http://tgtc.io/GTMCouncil",   h: 72 },
+                { name: "Fullcast",  logo: "/logo-fullcast.webp", href: "https://www.fullcast.com/",   h: 104 },
+                { name: "Nooks",     logo: "/logo-nooks.webp",    href: "https://www.nooks.ai/",       h: 48 },
+                { name: "Inflection",logo: "/logo-inflection.svg",href: "https://www.inflection.io/",  h: 44 },
+              ].map((s, i) => (
+                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity shrink-0 pr-10">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={s.logo} alt={s.name} style={{ height: s.h, width: "auto", display: "block" }} />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Series list ───────────────────────────────────────────── */}
       <section className="pb-20 px-6">
         <div className="max-w-5xl mx-auto flex flex-col gap-6">
