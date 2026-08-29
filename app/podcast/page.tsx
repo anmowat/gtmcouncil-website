@@ -147,7 +147,7 @@ function SeriesCard({ series }: { series: Series }) {
       {/* Episodes — white background with subtle inset shadow */}
       {open && (
         <div className="p-6" style={{ borderTop: "1px solid #e2e8f0", backgroundColor: "#ffffff", boxShadow: "inset 0 2px 8px rgba(0,0,0,0.08)" }}>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {series.episodes.map((ep, i) => (
               <EpisodeCard key={i} episode={ep} />
             ))}
