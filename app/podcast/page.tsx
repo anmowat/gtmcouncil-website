@@ -267,13 +267,13 @@ export default function PodcastPage() {
             <Image
               src="/podcast-stacked-gtm.jpg"
               alt="Stacked GTM — a show by GTM Council"
-              width={275}
-              height={275}
+              width={344}
+              height={344}
               className="rounded-2xl shadow-lg"
               priority
             />
           </div>
-          <div className="flex-1 min-w-0 flex flex-col" style={{ minHeight: 275 }}>
+          <div className="flex-1 min-w-0 flex flex-col" style={{ minHeight: 344 }}>
             <div>
               <h2 className="text-xl md:text-2xl font-extrabold mb-2" style={{ color: "#c4921a" }}>
                 Series, not episodes.
