@@ -293,10 +293,12 @@ export default function PodcastPage() {
                   { name: "Fullcast",   logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",  h: 64 },
                   { name: "Nooks",      logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",      h: 30 },
                   { name: "Inflection", logo: "/logo-inflection.svg", href: "https://www.inflection.io/", h: 28 },
+                  { name: "LeanData",  logo: "/logo-leandata.png",   href: "https://www.leandata.com/",  h: 28 },
                   { name: "TGTC",       logo: "/logo-tgtc.svg",       href: "http://tgtc.io/GTMCouncil",  h: 44 },
                   { name: "Fullcast",   logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",  h: 64 },
                   { name: "Nooks",      logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",      h: 30 },
                   { name: "Inflection", logo: "/logo-inflection.svg", href: "https://www.inflection.io/", h: 28 },
+                  { name: "LeanData",  logo: "/logo-leandata.png",   href: "https://www.leandata.com/",  h: 28 },
                 ].map((s, i) => (
                   <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity shrink-0 pr-8">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
