@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "16",
+    company: "1Mind",
+    companyUrl: "https://www.1mind.com/",
+    month: "September 2026",
+    type: "Huddle",
+    speaker: "Amanda Kahlow (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/amandakahlow/",
+    topic: "AI Sales Engineer",
+    embedUrl: "https://player.vimeo.com/video/1226082754?h=6094cb45e0&title=0&byline=0&portrait=0",
+  },
+  {
     id: "15",
     company: "Nooks",
     companyUrl: "https://www.nooks.ai/",
