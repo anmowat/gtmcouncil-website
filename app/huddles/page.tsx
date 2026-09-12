@@ -262,10 +262,12 @@ export default function HuddlesPage() {
           </h2>
           <ul className="space-y-3">
             {[
-              { date: "9/11 @ 10am", company: "1Mind",      href: "https://www.1mind.com/" },
-              { date: "9/28 @ 1pm",  company: "to be announced", href: null },
-              { date: "10/9 @ 10am", company: "Fullcast",   href: "https://www.fullcast.com/" },
-              { date: "10/26 @ 1pm", company: "Actively",   href: "https://www.actively.com/" },
+              { date: "Mon 9/28 @ 1pm",    company: "Salesforce",            href: "https://www.salesforce.com/" },
+              { date: "Fri 10/9 @ 10am",   company: "Fullcast",              href: "https://www.fullcast.com/" },
+              { date: "Mon 10/26 @ 1pm PT", company: "Actively",             href: "https://www.actively.com/" },
+              { date: "Fri 11/13 @ 10am",  company: "LeanData",              href: "https://www.leandata.com/" },
+              { date: "Mon 11/23 @ 1pm",   company: "Letter",                href: null },
+              { date: "Fri 12/11 @ 10am",  company: "Demo Day (details coming)", href: null },
             ].map((item) => (
               <li key={item.date} className="flex items-center gap-2 text-sm">
                 <span className="font-bold" style={{ color: "#011224" }}>{item.date}</span>
