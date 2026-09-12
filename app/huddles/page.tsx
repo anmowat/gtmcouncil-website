@@ -277,7 +277,7 @@ export default function HuddlesPage() {
                     {item.company}
                   </a>
                 ) : (
-                  <span className="text-gray-400 italic">{item.company}</span>
+                  <span className="text-gray-700">{item.company}</span>
                 )}
               </li>
             ))}
