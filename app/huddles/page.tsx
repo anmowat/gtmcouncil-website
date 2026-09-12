@@ -174,7 +174,7 @@ export default function HuddlesPage() {
               View Huddle Recordings
             </Link>
           </div>
-          <div className="overflow-hidden">
+          <div className="overflow-x-hidden py-2">
             <div className="animate-marquee flex items-center gap-16 w-max">
               {[
                 { src: "/logo-huddle-1mind.png",       alt: "1Mind",       h: 44, href: "https://www.1mind.com/" },
