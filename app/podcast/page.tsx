@@ -82,6 +82,13 @@ const SERIES: Series[] = [
         apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-jai-deepline/id1896338897?i=1000778903756",
         youtube: "https://youtu.be/5C6h-3FKR9s",
       },
+      {
+        coverImage: "/podcast-ep-gtmeng-cliff-simon.webp",
+        substack: "https://gtmcouncil.substack.com/p/gtm-ai-foundations-cliff-polaris?r=e028a&utm_campaign=post&utm_medium=web",
+        spotify: "https://open.spotify.com/episode/5Jve42m7B3q3vmCezQ0p5R?si=2aDlqSgjSqm_2yhTtnsPgQ",
+        apple: "https://podcasts.apple.com/us/podcast/gtm-engineer-cliff-polaris/id1896338897?i=1000789794959",
+        youtube: "https://youtu.be/5lPXbDHGjEs",
+      },
     ],
   },
   {
