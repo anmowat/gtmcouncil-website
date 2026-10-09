@@ -190,6 +190,7 @@ export default function HuddlesPage() {
                 { src: "/logo-huddle-dust.svg",        alt: "Dust",        h: 41, href: "https://dust.tt/" },
                 { src: "/logo-nooks.webp",             alt: "Nooks",       h: 41, href: "https://www.nooks.ai/" },
                 { src: "/logo-huddle-salesforce.svg",  alt: "Salesforce",  h: 57, href: "https://www.salesforce.com/" },
+                { src: "/logo-huddle-centralize.png",  alt: "Centralize",  h: 39, href: "https://www.usecentralize.ai/" },
                 { src: "/logo-huddle-1mind.png",       alt: "1Mind",       h: 38, href: "https://www.1mind.com/" },
                 { src: "/logo-huddle-scalestack.jpg",  alt: "Scalestack",  h: 34 },
                 { src: "/logo-huddle-adamx.png",       alt: "AdamX",       h: 43 },
@@ -203,6 +204,7 @@ export default function HuddlesPage() {
                 { src: "/logo-huddle-dust.svg",        alt: "Dust",        h: 41, href: "https://dust.tt/" },
                 { src: "/logo-nooks.webp",             alt: "Nooks",       h: 41, href: "https://www.nooks.ai/" },
                 { src: "/logo-huddle-salesforce.svg",  alt: "Salesforce",  h: 57, href: "https://www.salesforce.com/" },
+                { src: "/logo-huddle-centralize.png",  alt: "Centralize",  h: 39, href: "https://www.usecentralize.ai/" },
               ].map((logo, i) => {
                 const img = (
                   <Image
