@@ -262,8 +262,6 @@ export default function HuddlesPage() {
           </h2>
           <ul className="space-y-3">
             {[
-              { date: "Mon 9/28 @ 1pm",    company: "Salesforce",            href: "https://www.salesforce.com/" },
-              { date: "Fri 10/9 @ 10am",   company: "Fullcast",              href: "https://www.fullcast.com/" },
               { date: "Mon 10/26 @ 1pm PT", company: "Actively",             href: "https://www.actively.com/" },
               { date: "Fri 11/13 @ 10am",  company: "LeanData",              href: "https://www.leandata.com/" },
               { date: "Mon 11/23 @ 1pm",   company: "Letter",                href: null },
