@@ -36,6 +36,17 @@ const INSIGHTS: Insight[] = [
     embedUrl: "https://player.vimeo.com/video/1234837430?h=a99280e8f1&title=0&byline=0&portrait=0",
   },
   {
+    id: "18",
+    company: "Salesforce",
+    companyUrl: "https://www.salesforce.com/",
+    month: "September 2026",
+    type: "Huddle",
+    speaker: "Phil (CCO)",
+    speakerUrl: "https://www.linkedin.com/in/philipcooper/",
+    topic: "Sales Cloud / AgentForce",
+    embedUrl: "https://player.vimeo.com/video/1234838265?h=934c9b4a9b&title=0&byline=0&portrait=0",
+  },
+  {
     id: "16",
     company: "1Mind",
     companyUrl: "https://www.1mind.com/",
