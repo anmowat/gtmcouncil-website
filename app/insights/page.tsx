@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "17",
+    company: "Centralize",
+    companyUrl: "https://www.usecentralize.com/",
+    month: "October 2026",
+    type: "Huddle",
+    speaker: "Rachit (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/rachitkataria/",
+    topic: "AI Relationship Mapping",
+    embedUrl: "https://player.vimeo.com/video/1234837430?h=a99280e8f1&title=0&byline=0&portrait=0",
+  },
+  {
     id: "16",
     company: "1Mind",
     companyUrl: "https://www.1mind.com/",
