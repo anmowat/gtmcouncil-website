@@ -191,6 +191,7 @@ export default function HuddlesPage() {
                 { src: "/logo-nooks.webp",             alt: "Nooks",       h: 41, href: "https://www.nooks.ai/" },
                 { src: "/logo-huddle-salesforce.svg",  alt: "Salesforce",  h: 57, href: "https://www.salesforce.com/" },
                 { src: "/logo-huddle-centralize.png",  alt: "Centralize",  h: 39, href: "https://www.usecentralize.ai/" },
+                { src: "/logo-vasco.svg",              alt: "Vasco",       h: 41, href: "https://vasco.app/" },
                 { src: "/logo-huddle-1mind.png",       alt: "1Mind",       h: 38, href: "https://www.1mind.com/" },
                 { src: "/logo-huddle-scalestack.jpg",  alt: "Scalestack",  h: 34 },
                 { src: "/logo-huddle-adamx.png",       alt: "AdamX",       h: 43 },
@@ -205,6 +206,7 @@ export default function HuddlesPage() {
                 { src: "/logo-nooks.webp",             alt: "Nooks",       h: 41, href: "https://www.nooks.ai/" },
                 { src: "/logo-huddle-salesforce.svg",  alt: "Salesforce",  h: 57, href: "https://www.salesforce.com/" },
                 { src: "/logo-huddle-centralize.png",  alt: "Centralize",  h: 39, href: "https://www.usecentralize.ai/" },
+                { src: "/logo-vasco.svg",              alt: "Vasco",       h: 41, href: "https://vasco.app/" },
               ].map((logo, i) => {
                 const img = (
                   <Image
@@ -266,7 +268,6 @@ export default function HuddlesPage() {
           </h2>
           <ul className="space-y-3">
             {[
-              { date: "Mon 10/26 @ 1pm PT", company: "Actively",             href: "https://www.actively.com/" },
               { date: "Fri 11/13 @ 10am",  company: "LeanData",              href: "https://www.leandata.com/" },
               { date: "Mon 11/23 @ 1pm",   company: "Letter",                href: null },
               { date: "Fri 12/11 @ 10am",  company: "Demo Day (details coming)", href: null },

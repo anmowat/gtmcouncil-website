@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "19",
+    company: "Vasco",
+    companyUrl: "https://vasco.app/",
+    month: "October 2026",
+    type: "Huddle",
+    speaker: "Guillaume (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/jacquet-guillaume/",
+    topic: "Context Layer",
+    embedUrl: "https://player.vimeo.com/video/1239656747?h=d6bdc921bf&title=0&byline=0&portrait=0",
+  },
+  {
     id: "17",
     company: "Centralize",
     companyUrl: "https://www.usecentralize.com/",
