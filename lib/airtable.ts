@@ -116,6 +116,103 @@ export interface FutureTopic {
   description: string;
 }
 
+// ── Demo Day ──────────────────────────────────────────────────────────────────
+
+export interface DemoSubmission {
+  id: string;
+  name: string;
+  target: string[];
+  highlight: string;
+  publicStatus: string;
+  vimeoUrl: string;
+  embedUrl: string;
+}
+
+function vimeoShareToEmbed(url: string): string {
+  // https://vimeo.com/VIDEO_ID/HASH?... → embed URL
+  try {
+    const u = new URL(url);
+    const parts = u.pathname.replace(/^\//, "").split("/");
+    const videoId = parts[0];
+    const hash = parts[1] ?? "";
+    const base = `https://player.vimeo.com/video/${videoId}?title=0&byline=0&portrait=0`;
+    return hash ? `${base}&h=${hash}` : base;
+  } catch {
+    return url;
+  }
+}
+
+export async function getDemoSubmissions(): Promise<DemoSubmission[]> {
+  const tableName = process.env.AIRTABLE_DEMO_TABLE ?? "Demo Day";
+  const records = await fetchAllRecords(tableName, undefined, undefined, false);
+  return records.map((r) => {
+    const vimeoUrl = String(r.fields["Vimeo"] ?? r.fields["Video"] ?? "");
+    return {
+      id: r.id,
+      name: String(r.fields["Name"] ?? ""),
+      target: Array.isArray(r.fields["Target"])
+        ? (r.fields["Target"] as string[])
+        : r.fields["Target"]
+        ? [String(r.fields["Target"])]
+        : [],
+      highlight: String(r.fields["Highlight"] ?? ""),
+      publicStatus: String(r.fields["Public"] ?? ""),
+      vimeoUrl,
+      embedUrl: vimeoUrl ? vimeoShareToEmbed(vimeoUrl) : "",
+    };
+  });
+}
+
+export async function getDemoVoteCounts(): Promise<Record<string, number>> {
+  const tableName = process.env.AIRTABLE_DEMO_VOTES_TABLE ?? "Demo Votes";
+  const records = await fetchAllRecords(tableName, undefined, undefined, false);
+  const counts: Record<string, number> = {};
+  for (const r of records) {
+    const id = String(r.fields["Submission ID"] ?? "");
+    if (id) counts[id] = (counts[id] ?? 0) + 1;
+  }
+  return counts;
+}
+
+export async function getDemoVoteToday(
+  submissionId: string,
+  voterEmail: string
+): Promise<boolean> {
+  const tableName = process.env.AIRTABLE_DEMO_VOTES_TABLE ?? "Demo Votes";
+  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  const formula = `AND({Submission ID}="${submissionId}",TRIM(LOWER({Voter Email}))="${voterEmail.toLowerCase().trim()}",IS_SAME(DATESTR({Voted At}),"${today}","days"))`;
+  const params = new URLSearchParams({ filterByFormula: formula, maxRecords: "1" });
+  const res = await fetch(
+    `${BASE_URL}/${encodeURIComponent(tableName)}?${params}`,
+    { headers, cache: "no-store" }
+  );
+  if (!res.ok) return false;
+  const data = await res.json();
+  return (data.records?.length ?? 0) > 0;
+}
+
+export async function createDemoVote(
+  submissionId: string,
+  voterEmail: string
+): Promise<void> {
+  const tableName = process.env.AIRTABLE_DEMO_VOTES_TABLE ?? "Demo Votes";
+  await fetch(`${BASE_URL}/${encodeURIComponent(tableName)}`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      records: [
+        {
+          fields: {
+            "Submission ID": submissionId,
+            "Voter Email": voterEmail,
+            "Voted At": new Date().toISOString(),
+          },
+        },
+      ],
+    }),
+  });
+}
+
 export async function getFutureTopics(): Promise<FutureTopic[]> {
   const tableName = process.env.AIRTABLE_TOPICS_TABLE ?? "Future Topics";
   const records = await fetchAllRecords(tableName, undefined, undefined, false);

@@ -7,6 +7,8 @@ const SECRET = new TextEncoder().encode(
 
 export const SESSION_COOKIE = "gtmc_session";
 export const PENDING_COOKIE = "gtmc_pending";
+export const DEMO_SESSION_COOKIE = "gtmc_demo_session";
+export const DEMO_PENDING_COOKIE = "gtmc_demo_pending";
 
 // ── Pending (holds the OTP code for 10 minutes) ───────────────────────────
 
@@ -72,4 +74,26 @@ export async function clearSession() {
   const jar = await cookies();
   jar.delete(SESSION_COOKIE);
   jar.delete(PENDING_COOKIE);
+}
+
+// ── Demo Session (7-day, any email) ──────────────────────────────────────────
+
+export async function createDemoSessionToken(email: string): Promise<string> {
+  return new SignJWT({ email })
+    .setProtectedHeader({ alg: "HS256" })
+    .setExpirationTime("7d")
+    .sign(SECRET);
+}
+
+export async function getDemoSession(): Promise<{ email: string } | null> {
+  const jar = await cookies();
+  // Check demo cookie first, fall back to member session
+  const demoToken = jar.get(DEMO_SESSION_COOKIE)?.value;
+  if (demoToken) {
+    const result = await verifySessionToken(demoToken);
+    if (result) return result;
+  }
+  const memberToken = jar.get(SESSION_COOKIE)?.value;
+  if (memberToken) return verifySessionToken(memberToken);
+  return null;
 }
