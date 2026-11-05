@@ -4,8 +4,8 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import type { DemoSubmission } from "@/lib/airtable";
 
 // ── Voting window ─────────────────────────────────────────────────────────────
-const VOTING_START = new Date("2026-12-11T14:00:00Z"); // 9am ET / 6am PT
-const VOTING_END   = new Date("2026-12-15T23:59:59Z");
+const VOTING_START = new Date("2026-01-01T00:00:00Z");
+const VOTING_END   = new Date("2099-12-31T23:59:59Z");
 
 type Filter = { target: string; publicStatus: string };
 
