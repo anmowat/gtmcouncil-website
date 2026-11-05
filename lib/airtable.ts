@@ -143,10 +143,12 @@ function vimeoShareToEmbed(url: string): string {
 }
 
 export async function getDemoSubmissions(): Promise<DemoSubmission[]> {
-  const tableName = process.env.AIRTABLE_DEMO_TABLE ?? "Demo Day";
-  const records = await fetchAllRecords(tableName, undefined, undefined, false);
+  const tableName = process.env.AIRTABLE_DEMO_TABLE ?? "Vendors";
+  // Only fetch vendors that have been marked with a Public status (Demo Day participants)
+  const records = await fetchAllRecords(tableName, "{Public}!=''", undefined, false);
   return records.map((r) => {
-    const vimeoUrl = String(r.fields["Vimeo"] ?? r.fields["Video"] ?? "");
+    // Vimeo field is a plain URL string (e.g. https://vimeo.com/VIDEO_ID/HASH?share=copy)
+    const vimeoUrl = typeof r.fields["Vimeo"] === "string" ? r.fields["Vimeo"] : "";
     return {
       id: r.id,
       name: String(r.fields["Name"] ?? ""),
