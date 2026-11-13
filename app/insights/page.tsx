@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "20",
+    company: "LeanData",
+    companyUrl: "https://www.leandata.com/",
+    month: "November 2026",
+    type: "Huddle",
+    speaker: "Katy (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/katykeim/",
+    topic: "Sneak Peek at New \"Run\" product",
+    embedUrl: "https://player.vimeo.com/video/1246700031?h=eb2b9a45cf&title=0&byline=0&portrait=0",
+  },
+  {
     id: "19",
     company: "Vasco",
     companyUrl: "https://vasco.app/",
