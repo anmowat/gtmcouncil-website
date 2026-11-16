@@ -142,6 +142,7 @@ const SPONSORS = [
   { name: "TGTC",       logo: "/logo-tgtc.svg",        href: "http://tgtc.io/GTMCouncil",       h: 72 },
   { name: "Inflection", logo: "/logo-inflection.svg",  href: "https://www.inflection.io/",      h: 44 },
   { name: "LeanData",  logo: "/logo-leandata.png",    href: "https://www.leandata.com/",       h: 44 },
+  { name: "Cora",      logo: "/logo-cora.svg",        href: "https://cora.ai/",                h: 44 },
 ];
 
 export default async function HomePage() {
