@@ -299,13 +299,13 @@ export default function PodcastPage() {
                   { name: "TGTC",       logo: "/logo-tgtc.svg",       href: "http://tgtc.io/GTMCouncil",  h: 33 },
                   { name: "Fullcast",   logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",  h: 29 },
                   { name: "Nooks",      logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",      h: 29 },
-                  { name: "Inflection", logo: "/logo-inflection.svg", href: "https://www.inflection.io/", h: 24 },
-                  { name: "LeanData",  logo: "/logo-leandata.png",   href: "https://www.leandata.com/",  h: 28 },
+                  { name: "Inflection", logo: "/logo-inflection.svg", href: "https://www.inflection.io/", h: 20 },
+                  { name: "LeanData",  logo: "/logo-leandata.png",   href: "https://www.leandata.com/",  h: 32 },
                   { name: "TGTC",       logo: "/logo-tgtc.svg",       href: "http://tgtc.io/GTMCouncil",  h: 33 },
                   { name: "Fullcast",   logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",  h: 29 },
                   { name: "Nooks",      logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",      h: 29 },
-                  { name: "Inflection", logo: "/logo-inflection.svg", href: "https://www.inflection.io/", h: 24 },
-                  { name: "LeanData",  logo: "/logo-leandata.png",   href: "https://www.leandata.com/",  h: 28 },
+                  { name: "Inflection", logo: "/logo-inflection.svg", href: "https://www.inflection.io/", h: 20 },
+                  { name: "LeanData",  logo: "/logo-leandata.png",   href: "https://www.leandata.com/",  h: 32 },
                 ].map((s, i) => (
                   <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:opacity-75 transition-opacity shrink-0 pr-8">
                     {/* eslint-disable-next-line @next/next/no-img-element */}

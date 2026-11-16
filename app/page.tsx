@@ -140,9 +140,9 @@ const SPONSORS = [
   { name: "Dust",      logo: "/logo-huddle-dust.svg", href: "https://dust.tt/",              h: 45 },
   { name: "Vasco",     logo: "/logo-vasco.svg",       href: "https://vasco.app/",            h: 49 },
   { name: "TGTC",       logo: "/logo-tgtc.svg",        href: "http://tgtc.io/GTMCouncil",       h: 51 },
-  { name: "Inflection", logo: "/logo-inflection.svg",  href: "https://www.inflection.io/",      h: 37 },
-  { name: "LeanData",  logo: "/logo-leandata.png",    href: "https://www.leandata.com/",       h: 43 },
-  { name: "Cora",      logo: "/logo-cora.svg",        href: "https://cora.ai/",                h: 44 },
+  { name: "Inflection", logo: "/logo-inflection.svg",  href: "https://www.inflection.io/",      h: 31 },
+  { name: "LeanData",  logo: "/logo-leandata.png",    href: "https://www.leandata.com/",       h: 50 },
+  { name: "Cora",      logo: "/logo-cora.svg",        href: "https://cora.ai/",                h: 42 },
 ];
 
 export default async function HomePage() {
