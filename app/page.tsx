@@ -132,17 +132,17 @@ const PILLARS = [
 ];
 
 const SPONSORS = [
-  { name: "Fullcast",  logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",      h: 44 },
-  { name: "Nooks",     logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",          h: 45 },
-  { name: "Whispered", logo: "/logo-whispered.png",  href: "https://www.whispered.com/",     h: 45 },
-  { name: "Upside",    logo: "/logo-upside.svg",     href: "https://upside.tech/",           h: 44 },
-  { name: "Ampersand", logo: "/logo-ampersand.svg",  href: "https://www.withampersand.com/", h: 33 },
-  { name: "Dust",      logo: "/logo-huddle-dust.svg", href: "https://dust.tt/",              h: 45 },
-  { name: "Vasco",     logo: "/logo-vasco.svg",       href: "https://vasco.app/",            h: 49 },
-  { name: "TGTC",       logo: "/logo-tgtc.svg",        href: "http://tgtc.io/GTMCouncil",       h: 51 },
-  { name: "Inflection", logo: "/logo-inflection.svg",  href: "https://www.inflection.io/",      h: 31 },
-  { name: "LeanData",  logo: "/logo-leandata.png",    href: "https://www.leandata.com/",       h: 50 },
+  { name: "Fullcast",  logo: "/logo-fullcast.webp",  href: "https://www.fullcast.com/",      h: 40 },
   { name: "Cora",      logo: "/logo-cora.svg",        href: "https://cora.ai/",                h: 42 },
+  { name: "Nooks",     logo: "/logo-nooks.webp",     href: "https://www.nooks.ai/",          h: 37 },
+  { name: "Whispered", logo: "/logo-whispered.png",  href: "https://www.whispered.com/",     h: 44 },
+  { name: "Upside",    logo: "/logo-upside.svg",     href: "https://upside.tech/",           h: 40 },
+  { name: "Ampersand", logo: "/logo-ampersand.svg",  href: "https://www.withampersand.com/", h: 24 },
+  { name: "Dust",      logo: "/logo-huddle-dust.svg", href: "https://dust.tt/",              h: 36 },
+  { name: "Vasco",     logo: "/logo-vasco.svg",       href: "https://vasco.app/",            h: 43 },
+  { name: "TGTC",       logo: "/logo-tgtc.svg",        href: "http://tgtc.io/GTMCouncil",       h: 45 },
+  { name: "Inflection", logo: "/logo-inflection.svg",  href: "https://www.inflection.io/",      h: 28 },
+  { name: "LeanData",  logo: "/logo-leandata.png",    href: "https://www.leandata.com/",       h: 44 },
 ];
 
 export default async function HomePage() {
