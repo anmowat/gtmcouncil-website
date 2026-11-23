@@ -25,6 +25,17 @@ interface Insight {
 
 const INSIGHTS: Insight[] = [
   {
+    id: "21",
+    company: "Letter AI",
+    companyUrl: "https://www.letter.ai/",
+    month: "November 2026",
+    type: "Huddle",
+    speaker: "Ali (CEO)",
+    speakerUrl: "https://www.linkedin.com/in/m-ali-akhtar/",
+    topic: "Unified AI Enablement",
+    embedUrl: "https://player.vimeo.com/video/1249493878?h=4dbb3a625b&title=0&byline=0&portrait=0",
+  },
+  {
     id: "20",
     company: "LeanData",
     companyUrl: "https://www.leandata.com/",
