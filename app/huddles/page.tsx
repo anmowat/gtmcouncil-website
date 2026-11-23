@@ -193,6 +193,7 @@ export default function HuddlesPage() {
                 { src: "/logo-huddle-centralize.png",  alt: "Centralize",  h: 39, href: "https://www.usecentralize.ai/" },
                 { src: "/logo-vasco.svg",              alt: "Vasco",       h: 41, href: "https://vasco.app/" },
                 { src: "/logo-leandata.png",            alt: "LeanData",    h: 38, href: "https://www.leandata.com/" },
+                { src: "/logo-letter-ai.jpg",           alt: "Letter AI",   h: 38, href: "https://www.letter.ai/" },
                 { src: "/logo-huddle-1mind.png",       alt: "1Mind",       h: 38, href: "https://www.1mind.com/" },
                 { src: "/logo-huddle-scalestack.jpg",  alt: "Scalestack",  h: 34 },
                 { src: "/logo-huddle-adamx.png",       alt: "AdamX",       h: 43 },
@@ -209,6 +210,7 @@ export default function HuddlesPage() {
                 { src: "/logo-huddle-centralize.png",  alt: "Centralize",  h: 39, href: "https://www.usecentralize.ai/" },
                 { src: "/logo-vasco.svg",              alt: "Vasco",       h: 41, href: "https://vasco.app/" },
                 { src: "/logo-leandata.png",            alt: "LeanData",    h: 38, href: "https://www.leandata.com/" },
+                { src: "/logo-letter-ai.jpg",           alt: "Letter AI",   h: 38, href: "https://www.letter.ai/" },
               ].map((logo, i) => {
                 const img = (
                   <Image
@@ -270,8 +272,11 @@ export default function HuddlesPage() {
           </h2>
           <ul className="space-y-3">
             {[
-              { date: "Mon 11/23 @ 1pm",   company: "Letter",                href: null },
-              { date: "Fri 12/11 @ 10am",  company: "Internal (no guest)", href: null },
+              { date: "Fri 12/11 @ 10am",  company: "Internal (no guest)",   href: null },
+              { date: "Fri 1/8 @ 10am",    company: "To be announced",      href: null },
+              { date: "Mon 1/25 @ 1pm",    company: "To be announced",      href: null },
+              { date: "Fri 2/12 @ 10am",   company: "To be announced",      href: null },
+              { date: "Mon 2/22 @ 1pm",    company: "To be announced",      href: null },
             ].map((item) => (
               <li key={item.date} className="flex items-center gap-2 text-sm">
                 <span className="font-bold" style={{ color: "#011224" }}>{item.date}</span>
