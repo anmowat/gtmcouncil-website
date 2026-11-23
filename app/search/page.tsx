@@ -10,7 +10,7 @@ export const metadata = {
 
 export default async function SearchPage() {
   const session = await getSession();
-  if (!session) redirect('/');
+  if (!session) redirect('/members/login?from=/search');
 
   return (
     <div className="min-h-screen bg-white">
